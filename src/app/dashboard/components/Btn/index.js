@@ -7,19 +7,20 @@ export default function index(props) {
   return (
     <>
       {props.hasIcon ?
-        <a href={props.link}>
-          <button className={props.type === 'primary' ? Styles.primary : Styles.secondary} >
-            {props.title}
-            <a>{props.children}</a>
-          </button >
-        </a>
 
-        :
-        <a href={props.link}>
         <button className={props.type === 'primary' ? Styles.primary : Styles.secondary} >
           {props.title}
+          <a href={props.link}>{props.children}</a>
         </button >
-        </a>
+
+
+        :
+
+        <button className={props.type === 'primary' ? Styles.primary : Styles.secondary} >
+          <a href={props.link}>
+            {props.title}
+          </a>
+        </button >
       }
     </>
 
