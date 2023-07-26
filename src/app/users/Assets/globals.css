@@ -1,0 +1,25 @@
+@import '../assets/fonts/Inter.css';
+
+
+html,
+body {
+  background-color: #193B670D;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter;
+}
+
+
+
+p {
+  display: contents;
+}

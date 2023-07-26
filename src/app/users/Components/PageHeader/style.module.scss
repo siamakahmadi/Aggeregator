@@ -1,0 +1,124 @@
+@import '../../Assets/variables.module';
+
+
+.lightHeader {
+    .container {
+        @media only screen and (max-width: 600px) {
+            margin: 64px 16px 16px 16px;
+        } 
+
+        .header {
+            height: 208px;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: unset;
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+                height: fit-content;
+                gap: 32px;
+                margin-bottom: 32px;
+            } 
+
+            .headerTitle {
+                width: 308px;
+                font-family: Inter;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px;
+            }
+
+            .headerdiscription {
+                font-family: Inter;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px;
+                width: 308px;
+                color: $text-secondary-light;
+            }
+
+            .display {
+                border: 1px solid var(--styling-storke-primary, #E5E5E5);
+                width: 350px;
+                border-radius: 12px;
+                height: 96px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @media only screen and (max-width: 600px) {
+                    width: 100%;
+                } 
+        
+
+                .title {
+                    font-size: 32px;
+                    color: $text-secondary-light;
+                }
+            }
+        }
+    }
+}
+
+.darkHeader {
+    .container {
+        @media only screen and (max-width: 600px) {
+            margin: 0px 16px;
+        } 
+        .header {
+            height: 208px;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            margin-bottom: unset;
+            @media only screen and (max-width: 600px) {
+                flex-direction: column;
+                height: fit-content;
+                gap: 32px;
+                margin-bottom: 32px;
+            } 
+
+
+            .headerTitle {
+                width: 308px;
+                font-family: Inter;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px;
+            }
+
+            .headerdiscription {
+                font-family: Inter;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px;
+                width: 308px;
+                color: $text-secondary-dark;
+            }
+
+            .display {
+                border: 1px solid var(--styling-storke-primary, #282828);
+                width: 350px;
+                border-radius: 12px;
+                height: 96px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @media only screen and (max-width: 600px) {
+                    width: 100%;
+                } 
+                .title {
+                    font-size: 32px;
+                    color: $text-secondary-dark;
+                }
+            }
+        }
+    }
+}

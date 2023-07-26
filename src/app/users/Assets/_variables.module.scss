@@ -1,0 +1,72 @@
+// Brand colors
+
+$blue: #3399ff;
+$brand-01: #8dd500;
+$brand-02: #c8ff62;
+// Natural
+$natural-06-light: #fff;
+$natural-06-dark: #121212;
+
+$natural-5-light: #f2f2f2;
+$natural-5-dark: #202020;
+
+$natural-4-light: #e5e5e5;
+$natural-4-dark: #282828;
+
+$natural-3-light: #8f8f8f;
+$natural-3-dark: #8f8f8f;
+
+$natural-2-light: #1a1a1a;
+$natural-2-dark: #fcfcfc;
+
+$natural-1-light: #010101;
+$natural-1-dark: #010101;
+
+// Text Colors
+$text-primary-light: $natural-2-light;
+$text-primary-dark: $natural-2-dark;
+
+$text-secondary-light: $natural-3-light;
+$text-secondary-dark: $natural-3-dark;
+
+$text-third-light: $blue;
+$text-third-dark: $blue;
+
+
+// Stroke Style
+
+$stroke-primary-light: $natural-4-light;
+$stroke-primary-dark: $natural-4-dark;
+
+$stroke-secondary-light: $natural-5-light;
+$stroke-secondary-dark: $natural-5-dark;
+
+$stroke-focus : $brand-01;
+
+
+// Style/Back
+
+$back-primary-light: $natural-06-light;
+$back-primary-dark: $natural-06-dark;
+
+$back-secondary-light: $natural-5-light;
+$back-secondary-dark: $natural-5-dark;
+
+// styling/Always
+
+$always-black-light: $natural-1-light;
+$always-black-dark: $natural-2-light;
+
+$always-black-white-light: $natural-2-light;
+$always-black-white-dark: $natural-5-dark;
+
+$always-white-light: $natural-06-light;
+$always-white-dark: $natural-06-light;
+
+$always-black-brand-light: $brand-01;
+$always-white-brand-dark: $natural-2-light;
+
+// Styling/destructive
+
+$destructive-01: #db3329;
+$destructive-02: #ff6666;

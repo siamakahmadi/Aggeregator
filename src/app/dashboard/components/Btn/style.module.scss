@@ -1,0 +1,97 @@
+@import '../../../users/Assets/_variables.module.scss';
+
+
+// primary buttons style
+.primary {
+    border: 0px;
+    height: 40px;
+    min-width: 100%;
+    width: fit-content;
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $natural-06-light;
+    transition: all .3s;
+    cursor: pointer;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    background-color: $always-black-light;
+
+    &:hover {
+        background-color: $stroke-focus;
+    }
+
+    &:focus {
+        box-shadow: 0px 0px 0px 4px rgba(170, 255, 0, 0.16);
+    }
+}
+
+.primaryDestructive {
+    background-color: $destructive-01;
+
+    &:hover {
+        background-color: $destructive-02;
+    }
+
+    &:focus {
+        box-shadow: 0px 0px 0px 4px rgba(170, 255, 0, 0.16);
+    }
+}
+
+.primaryDestructiveDisable {
+    color: $always-white-light;
+    background-color: $destructive-01;
+
+    a {
+        opacity: 54%;
+    }
+}
+
+.primaryDisable {
+    background-color: $always-black-light;
+    color: $text-secondary-light;
+}
+
+//secondary buttons style
+.secondary {
+    border: 0px;
+    height: 40px;
+    min-width: 100%;
+    width: fit-content;
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $text-primary-light;
+    transition: all .3s;
+    cursor: pointer;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+    background-color: $back-secondary-light;
+
+    &:hover {
+        background-color: $text-secondary-light;
+    }
+
+    &:focus {
+        box-shadow: 0px 0px 0px 4px rgba(170, 255, 0, 0.16);
+    }
+}
+
+.secondaryDisable {
+    background-color: $back-secondary-light;
+    color: $text-secondary-light;
+}
