@@ -2,27 +2,18 @@ import React from 'react'
 import styles from './posts.module.scss'
 import Btn from '../components/Btn/index'
 import Input from '../components/Input/index'
+import PageHeader from '../components/PageHeader/index'
+
 export default function page() {
   return (
     <div className={styles.mainPostsContainer}>
-      <div className={styles.header}>
-        <div className={styles.leftSide}>
-          <div className={styles.title}>
-            posts
-          </div>
-          <div className={styles.description}>
-            View your team’s trades and transactions.
-          </div>
-        </div>
-        <div className={styles.rightSide}>
-          <Btn title="add new site" hasIcon={true} type="primary">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.0013 4.16602V15.8327M4.16797 9.99935H15.8346" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </Btn>
-        </div>
-      </div>
-
+      <PageHeader title="Posts" description="View your team’s trades and transactions.">
+        <Btn title="add new site" hasIcon={true} type="primary">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.0013 4.16602V15.8327M4.16797 9.99935H15.8346" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </Btn>
+      </PageHeader>
       <div className={styles.tableContainer}>
         <div className={styles.tableToolbar}>
           <div className={styles.toolbarItems}>
@@ -64,7 +55,7 @@ export default function page() {
 
           </div>
         </div>
-        
+
 
       </div>
     </div>
