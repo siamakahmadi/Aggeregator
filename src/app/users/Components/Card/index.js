@@ -3,14 +3,12 @@ import Styles from './style.module.scss'
 import ThemeContext from '../../Api/context/ThemeContext'
 
 export default function index(props) {
-    // const theme = useContext(ThemeContext)
-    const theme = 'light';
-    console.log(theme)
+    const theme = useContext(ThemeContext)
     return (
         <a href={props.route} className={Styles.container} >
             <div className={Styles.cardImage}>
                 <img src={props.src} />
-                <div className={theme === 'light' ? Styles.imageToolbarDark:Styles.imageToolbarLight}>
+                <div className={theme === 'dark' ? Styles.imageToolbarDark:Styles.imageToolbarLight}>
                     <div className={Styles.add}>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 9.889H15" stroke="#8F8F8F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -27,7 +25,7 @@ export default function index(props) {
             </div>
             <div className={Styles.title}>
                 <p className={Styles.text} >
-                    {props.title}
+                   {theme}
                 </p>
             </div>
         </a>

@@ -4,17 +4,24 @@ import Link from 'next/link'
 import Styles from './style.module.scss'
 
 import ThemeContext from '../../Api/context/ThemeContext'
+
 import CategoryBtn from '../SidebarItem/CategoryBtn'
 import Modal from '../ModalLayout/index'
 import Btn from '../Btn/index'
 import Input from '../Input/index'
 
+import NavMenuLayout from '../NavMenuLayout/index'
+import SadebarItem from '../SidebarItem/index'
+
 export default function index(props) {
   const theme = useContext(ThemeContext)
-  
+
   const [activeMenu, setActiveMenu] = useState(false)
 
   const [isRegister, setIsRegister] = useState(false)
+
+  const [activeFilter, setActiveFilter] = useState(false)
+  const [activeDisplayFilter, setActiveDisplayFilter] = useState(false)
 
 
   return (
@@ -36,8 +43,58 @@ export default function index(props) {
                 </svg>
               </div>
               <div className={Styles.menuBtns}>
-                <CategoryBtn title="All" />
-                <CategoryBtn title="Display" />
+                <div className={Styles.categoryBtn}>
+                  <CategoryBtn title="All" event={() => activeFilter ? setActiveFilter(false) : setActiveFilter(true)} />
+                  <>
+                    {activeFilter ?
+                      <NavMenuLayout>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                      </NavMenuLayout>
+                      :
+                      <></>
+                    }
+                  </>
+                </div>
+                <div className={Styles.categoryBtn}>
+                  <CategoryBtn title="Display" event={() => activeDisplayFilter ? setActiveDisplayFilter(false) : setActiveDisplayFilter(true)} />
+                  <>
+                    {activeDisplayFilter ?
+                      <NavMenuLayout>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                        <SadebarItem title="All">
+                          tt
+                        </SadebarItem>
+                      </NavMenuLayout>
+                      :
+                      <></>
+                    }
+                  </>
+                </div>
               </div>
             </div>
             <div className={Styles.rightSide}>
@@ -105,6 +162,8 @@ export default function index(props) {
             </div>
           </Modal> : <></>}
       </>
+
+
 
     </>
   )

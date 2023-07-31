@@ -1,15 +1,17 @@
+
+
 import CardsLayout from './Components/HomeListLayout/index'
 import PageHeader from './Components/PageHeader/index'
 import Card from './Components/Card/index'
-
-
+// import ThemeContext from './Api/context/ThemeContext'
 export default function Home() {
+
   return (
     <main>
       <div>
         <PageHeader/>
         <CardsLayout>
-          <Card title="hi" route="users/content" src="https://cdn.dribbble.com/userupload/8820022/file/original-305c94abf1c1957efabfb9373be9c0e2.png?resize=1024x768"/>
+          <Card title="hi" route="users/content"  src="https://cdn.dribbble.com/userupload/8820022/file/original-305c94abf1c1957efabfb9373be9c0e2.png?resize=1024x768"/>
           <Card title="hi" src="https://cdn.dribbble.com/userupload/8801204/file/original-a09d105afeb2c1843c5fd97f07b1928d.png?resize=1024x768"/>
           <Card title="hi" src="https://cdn.dribbble.com/userupload/3349115/file/original-3d403a69ba1204ffae35cd6b6b5e39ca.png?resize=1024x768"/>
           <Card title="hi" src="https://cdn.dribbble.com/userupload/8586347/file/original-f0d863b0f08bfbcbc63d433af6d87e55.png?resize=1024x768"/>
