@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import styles from './style.module.scss'
 export default function index() {
     return (
@@ -6,21 +7,27 @@ export default function index() {
             <div className={styles.body}>
                 <div className={styles.leftSide}>
                     <div className={styles.logo}>
-                        Admin
+                        <Link href={'/dashboard'}>
+                            Admin
+                        </Link>
                     </div>
                     <div className={styles.linkList}>
                         <div className={styles.linkItem}>
-                            Links
+                            <Link href={'/dashboard/posts'}>
+                                Posts
+                            </Link>
                         </div>
                         <div className={styles.linkItem}>
-                            Users
+                        <Link href={'/dashboard/users'}>
+                                Users
+                            </Link>
                         </div>
                         <div className={styles.linkItem}>
-                            categories
+                            <Link href={'/dashboard/category'}>
+                                Category
+                            </Link>
                         </div>
-                        <div className={styles.linkItem}>
-                            posts
-                        </div>
+
                     </div>
                 </div>
                 <div className={styles.rightSide}>

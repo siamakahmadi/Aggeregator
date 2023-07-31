@@ -1,10 +1,15 @@
+import { useContext } from 'react'
 import styles from './style.module.scss'
 import Btn from '../Components/Btn/index'
 import CardLayout from '../Components/HomeListLayout/index'
 import Card from '../Components/Card/index'
+import ThemeContext from '../Api/context/ThemeContext'
+
 export default function Home() {
+  const theme = useContext(ThemeContext)
   return (
-    <main >
+    // theme === 'light' ? Styles.navLight : Styles.navDark
+    <main className={ theme === 'light' ?  styles.contentDetail : styles.contentDetailDark}>
       <div className={styles.header}>
         <div className={styles.leftSide}>
           <div className={styles.information}>

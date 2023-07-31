@@ -12,3 +12,9 @@
 .containerPadding{
     padding: 56px 56px;
 }
+@media only screen and (max-width: 600px) {
+    .containerPadding{
+        padding: 32px 16px;
+    }
+  
+  }

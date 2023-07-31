@@ -1,15 +1,17 @@
-import React from 'react'
+"use client"
+import React, {useState } from 'react'
 import Styles from './style.module.scss'
 
-export default function index(props) {
 
+export default function index(props) {
+  const [isFocus, isFocusSet] = useState(true)
   return (
     <div className={Styles.inputContainer}>
       <div className={Styles.inputTitle}>
         {props.title}
       </div>
-      <div className={Styles.input} >
-        <input placeholder={props.placeholder} />
+      <div className={isFocus ? Styles.input : Styles.inputFocus} >
+        <input placeholder={props.placeholder} onSelect={() => isFocus ? isFocusSet(false) : isFocusSet(true)} onSelectCapture={() => isFocus ? isFocusSet(false) : isFocusSet(true)} />
       </div>
     </div>
   )

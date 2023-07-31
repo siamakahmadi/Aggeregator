@@ -9,8 +9,8 @@ export default function index(props) {
       {props.hasIcon ?
 
         <button className={props.type === 'primary' ? Styles.primary : Styles.secondary} >
-          {props.title}
           <a href={props.link}>{props.children}</a>
+          {props.title}
         </button >
 
 

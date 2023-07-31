@@ -3,6 +3,8 @@ import PageHeader from '../../components/PageHeader'
 import Btn from '../../components/Btn/index'
 import Input from '../../components/Input/index'
 import InputContainer from '../../components/InputContainer/index'
+import CheckBox from '../../components/CheckBox'
+import DescriptionInput from '../../components/DescriptionInput'
 
 export default function Home() {
   return (
@@ -23,10 +25,21 @@ export default function Home() {
         </div>
       </PageHeader>
 
-      <InputContainer title="Featured">
-        <Input />
-        <Input />
-      </InputContainer>
+      <div className={styles.Inputs}>
+        <InputContainer title="Featured">
+          <div className={styles.checkBtn}>
+            <CheckBox />
+          </div>
+          <Input placeholder="Enter a number" title="Priority" />
+        </InputContainer>
+
+        <InputContainer title="Main info" description="Update your photo and personal details here.">
+          <Input placeholder="Enter a title" title="Title" />
+          <div className={styles.mt24}>
+            <DescriptionInput Title="Description" PlaceHolder="Enter a short description" Description="275 characters left" />
+          </div>
+        </InputContainer>
+      </div>
 
     </main>
   )

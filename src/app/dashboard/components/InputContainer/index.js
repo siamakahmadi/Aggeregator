@@ -7,6 +7,9 @@ export default function index(props) {
     <div className={Styles.container}>
       <div className={Styles.title}>
         {props.title}
+        <div className={Styles.description}>
+          {props.description}
+        </div>
       </div>
       <div className={Styles.provider}>
         {props.children}

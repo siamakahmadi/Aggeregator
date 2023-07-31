@@ -1,5 +1,5 @@
 import styles from './styles.module.scss'
-import Input from '../components/Input/index'
+import Input from '../components/CheckBox/index'
 import Btn from '../components/Btn/index'
 export default function Home() {
   return (
