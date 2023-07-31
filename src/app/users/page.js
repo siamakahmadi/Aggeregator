@@ -11,8 +11,8 @@ export default function Home() {
       <div>
         <PageHeader/>
         <CardsLayout>
-          <Card title="hi" route="users/content"  src="https://cdn.dribbble.com/userupload/8820022/file/original-305c94abf1c1957efabfb9373be9c0e2.png?resize=1024x768"/>
-          <Card title="hi" src="https://cdn.dribbble.com/userupload/8801204/file/original-a09d105afeb2c1843c5fd97f07b1928d.png?resize=1024x768"/>
+          <Card title="hi" route="users/content"  labelTitle="verifyed" activeLabel={true} src="https://cdn.dribbble.com/userupload/8820022/file/original-305c94abf1c1957efabfb9373be9c0e2.png?resize=1024x768"/>
+          <Card title="hi" labelTitle="verifyed" activeLabel={true} src="https://cdn.dribbble.com/userupload/8801204/file/original-a09d105afeb2c1843c5fd97f07b1928d.png?resize=1024x768"/>
           <Card title="hi" src="https://cdn.dribbble.com/userupload/3349115/file/original-3d403a69ba1204ffae35cd6b6b5e39ca.png?resize=1024x768"/>
           <Card title="hi" src="https://cdn.dribbble.com/userupload/8586347/file/original-f0d863b0f08bfbcbc63d433af6d87e55.png?resize=1024x768"/>
           <Card title="hi" src="https://cdn.dribbble.com/userupload/3864697/file/original-42c4671255d0a8f554fc8e6a701ce0ad.png?resize=1024x768"/>

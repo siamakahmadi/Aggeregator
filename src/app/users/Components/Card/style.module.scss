@@ -2,25 +2,29 @@
 
 .container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     cursor: pointer;
-    &:hover{
-        .cardImage{
-            .imageToolbarLight{
+
+    &:hover {
+        .cardImage {
+            .imageToolbarLight {
                 transition: all 0.3s;
                 bottom: 8px;
                 display: flex;
             }
-            .imageToolbarDark{
+
+            .imageToolbarDark {
                 transition: all 0.3s;
                 bottom: 8px;
                 display: flex;
             }
         }
     }
+
     @media only screen and (max-width: 600px) {
         width: 100%;
-    } 
+    }
+
     .cardImage {
         box-shadow: 0px 24px 48px -4px rgba(0, 0, 0, 0.04), 0px 12px 24px -4px rgba(0, 0, 0, 0.04), 0px 8px 16px -4px rgba(0, 0, 0, 0.04), 0px 4px 8px -2px rgba(0, 0, 0, 0.04), 0px 0px 1px 0px rgba(0, 0, 0, 0.64);
         overflow: hidden;
@@ -28,9 +32,16 @@
         width: 308px;
         height: 202px;
         position: relative;
+
         @media only screen and (max-width: 600px) {
             width: 100%;
-        } 
+        }
+
+        .labels {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
 
         img {
             background-size: cover;
@@ -47,7 +58,7 @@
             gap: 8px;
             z-index: 1;
             transition: all 0.3s;
-            
+
 
             .add {
                 width: 36px;
@@ -81,7 +92,7 @@
             gap: 8px;
             z-index: 1;
             transition: all 0.3s;
-            
+
 
             .add {
                 width: 36px;
