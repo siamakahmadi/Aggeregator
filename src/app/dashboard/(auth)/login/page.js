@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
-import Input from '../components/CheckBox/index'
-import Btn from '../components/Btn/index'
+import Input from '../../components/CheckBox/index'
+import Btn from '../../components/Btn/index'
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

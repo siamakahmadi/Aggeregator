@@ -3,6 +3,7 @@ import styles from './posts.module.scss'
 import Btn from '../components/Btn/index'
 import Input from '../components/Input/index'
 import PageHeader from '../components/PageHeader/index'
+import StatuLabel from '../components/StatusLabel/index'
 
 export default function page() {
   return (
@@ -56,6 +57,35 @@ export default function page() {
             </div>
 
           </div>
+        </div>
+
+        <div className={styles.rowLayout}>
+            <div className={styles.row}>
+              <div className={styles.leftSide}>
+                <div className={styles.checkBox}>
+                    <input type='checkbox' />
+                </div>
+                <div className={styles.title}>
+                    <div className={styles.text}>
+                        BlueBank
+                    </div>
+                    <div className={styles.link}>
+                        blubank.com
+                    </div>
+                </div>
+              </div>
+              <div className={styles.rightSide}>
+                  <div className={styles.publishDate}>
+                      Not published
+                  </div>
+                  <div className={styles.status}>
+                      <StatuLabel/>
+                  </div>
+                  <div className={styles.Functional}>
+                        View
+                  </div>
+              </div>
+            </div>
         </div>
 
 
