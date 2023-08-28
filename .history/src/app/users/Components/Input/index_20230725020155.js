@@ -1,12 +1,13 @@
-"use client"
-import React, {useState } from 'react'
+import React, {useContext, useState } from 'react'
 import Styles from './style.module.scss'
+import ThemeContext from '../../Api/context/ThemeContext'
 
 
-export default function Index(props) {
+export default function index(props) {
   const [isFocus, isFocusSet] = useState(true)
+  const theme = useContext(ThemeContext)
   return (
-    <div className={Styles.inputContainer}>
+    <div className={theme==='light' ? Styles.inputContainer :Styles.inputContainerDark}>
       <div className={Styles.inputTitle}>
         {props.title}
       </div>

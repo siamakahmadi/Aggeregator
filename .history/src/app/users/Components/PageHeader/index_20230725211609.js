@@ -1,6 +1,6 @@
 import React from 'react'
 import Styles from './style.module.scss'
-export default function Index(props) {
+export default function index(props) {
     return (
         <div className={props.isLight === 'light' ? Styles.lightHeader : Styles.darkHeader}>
             <div className={Styles.container}>

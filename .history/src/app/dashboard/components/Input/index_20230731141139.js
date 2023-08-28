@@ -3,7 +3,7 @@ import React, {useState } from 'react'
 import Styles from './style.module.scss'
 
 
-export default function Index(props) {
+export default function index(props) {
   const [isFocus, isFocusSet] = useState(true)
   return (
     <div className={Styles.inputContainer}>

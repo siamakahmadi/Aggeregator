@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import ThemeContext from '../../Api/context/ThemeContext'
 import Styles from './style.module.scss'
 
-export default function Index(props) {
+export default function index(props) {
   const theme = useContext(ThemeContext);
   return (
     <>

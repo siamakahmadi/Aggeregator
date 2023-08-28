@@ -1,7 +1,7 @@
 import React from 'react'
 import Styles from './style.module.scss'
 
-export default function Index(props) {
+export default function index(props) {
 
 
   return (

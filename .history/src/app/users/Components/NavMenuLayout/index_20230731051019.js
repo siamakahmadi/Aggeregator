@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import React from 'react'
 import styles from './style.module.scss'
 import ThemeContext from '../../Api/context/ThemeContext'
-export default function Index(props) {
+export default function index(props) {
   const theme = useContext(ThemeContext)
   return (
     <div className={theme === 'light' ? styles.mainContainer : styles.mainContainerDark}>

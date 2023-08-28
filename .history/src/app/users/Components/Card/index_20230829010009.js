@@ -4,7 +4,6 @@ import Label from '../Label/index'
 import ThemeContext from '../../Api/context/ThemeContext'
 import Arrow from '../../Assets/svg/arrow.js'
 import Plus from '../../Assets/svg/plus'
-
 export default function Index(props) {
     const theme = useContext(ThemeContext)
     return (

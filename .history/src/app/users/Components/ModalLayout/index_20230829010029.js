@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import Styles from './style.module.scss'
 import ThemeContext from '../../Api/context/ThemeContext'
-import CloseIcon from '../../Assets/svg/closeIcon'
+import closeIcon from '../../Assets/svg/closeIcon'
 
 
-export default function Index(props) {
+export default function index(props) {
     const theme = useContext(ThemeContext)
     return (
         <div className={theme === 'light' ? Styles.moadl : Styles.moadlDark}>
@@ -18,7 +18,7 @@ export default function Index(props) {
                     {props.hasIcon
                         ?
                         <div className={Styles.closeIcon} onClick={() => props.isEvent ? props.setIsEvent(false) : props.setIsEvent(true)}>
-                            <CloseIcon/>
+                            <closeIcon/>
                         </div>
                         :
                         <></>}

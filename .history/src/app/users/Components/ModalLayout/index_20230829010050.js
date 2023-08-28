@@ -18,7 +18,7 @@ export default function Index(props) {
                     {props.hasIcon
                         ?
                         <div className={Styles.closeIcon} onClick={() => props.isEvent ? props.setIsEvent(false) : props.setIsEvent(true)}>
-                            <CloseIcon/>
+                            <closeIcon/>
                         </div>
                         :
                         <></>}

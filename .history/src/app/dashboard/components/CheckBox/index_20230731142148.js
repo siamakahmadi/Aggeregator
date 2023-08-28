@@ -1,7 +1,7 @@
 import React from 'react'
 import Style from './style.module.scss'
 
-export default function Indes() {
+export default function indes() {
   return (
     <div className={Style.checkBox}>
         <input className={Style.check} type='checkbox' />

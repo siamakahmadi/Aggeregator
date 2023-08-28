@@ -1,13 +1,12 @@
 import React, { useContext } from 'react'
 import Styles from './style.module.scss'
 import ThemeContext from '../../Api/context/ThemeContext'
-import HomeIcon from '../../Assets/svg/homeIcon'
-export default function Index(props) {
+export default function index(props) {
   const theme = useContext(ThemeContext)
   return (
-    <div className={theme === 'light' ? Styles.sideBarItemLight : Styles.sideBarItemDark} onClick={props.event}>
+    <div className={theme === 'light' ? Styles.itemLight : Styles.itemDark}>
       <div className={Styles.icon}>
-        <HomeIcon/>
+         {props.children}
       </div>
       <div className={Styles.title}><p>{props.title}</p></div>
 
