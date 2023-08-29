@@ -8,7 +8,7 @@ import Plus from '../../Assets/svg/plus'
 export default function Index(props) {
     const theme = useContext(ThemeContext)
     return (
-        <a key={props.key} href={props.route} className={Styles.container} >
+        <a key={p} href={props.route} className={Styles.container} >
             <div className={Styles.cardImage}>
                 <img src={props.src} />
                 <div className={theme === 'dark' ? Styles.imageToolbarDark : Styles.imageToolbarLight}>

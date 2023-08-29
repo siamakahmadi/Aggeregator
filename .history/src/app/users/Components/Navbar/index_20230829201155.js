@@ -32,7 +32,7 @@ export default function Index(props) {
   const CategoryItemsList = categoryItems.message === "Post fetched" ?
     <>
       {posts.data.map(item => (
-         <SadebarItem key={item.id} title="">
+         <SadebarItem key title="">
          tt
         </SadebarItem>
       ))}
@@ -42,7 +42,7 @@ export default function Index(props) {
   const TypeFace = categoryItems.message === "Post fetched" ?
     <>
       {posts.data.map(item => (
-        <div key={item.id}>Hello</div>
+        <div>Hello</div>
       ))}
     </> : <div>wating...</div>
 

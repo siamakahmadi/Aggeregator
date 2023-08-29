@@ -42,7 +42,7 @@ export default function Index(props) {
   const TypeFace = categoryItems.message === "Post fetched" ?
     <>
       {posts.data.map(item => (
-        <div key={item.id}>Hello</div>
+        <div key={item}>Hello</div>
       ))}
     </> : <div>wating...</div>
 

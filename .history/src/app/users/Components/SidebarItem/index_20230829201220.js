@@ -4,7 +4,7 @@ import ThemeContext from '../../Api/context/ThemeContext'
 export default function Index(props) {
   const theme = useContext(ThemeContext)
   return (
-    <div key={props.key} className={theme === 'light' ? Styles.itemLight : Styles.itemDark}>
+    <div key={props} className={theme === 'light' ? Styles.itemLight : Styles.itemDark}>
       <div className={Styles.icon}>
          {props.children}
       </div>

@@ -15,7 +15,7 @@ export default function Page() {
   const postsLists = posts.message === "Post fetched" ?
   <>
     {posts.data.data.map(item => ( 
-       <div key={item.id} className={styles.row}>
+       <div key={} className={styles.row}>
        <div className={styles.leftSide}>
          <div className={styles.checkBox}>
              <input type='checkbox' />
