@@ -18,7 +18,6 @@ export default function Page() {
     type: '' 
   })
 
-  
   const https = new Https();
 
   const categoryList = category.message === "Category deleted" ?
@@ -297,7 +296,7 @@ export default function Page() {
                 </div>
               </div>
               <div className={styles.body}>
-                <Input title="Menu Title" placeholder="Add a title for category" />
+                <Input title="Menu Title" addCategory,setAddCategory setValue={setAddCategory} value={addCategory} placeholder="Add a title for category" />
                 <Input title="Page Title" placeholder="This title will show on page header" />
                 <Input title="Page Description" placeholder="This description will show on page header" />
                 Seo Configration

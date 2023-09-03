@@ -18,7 +18,6 @@ export default function Page() {
     type: '' 
   })
 
-  
   const https = new Https();
 
   const categoryList = category.message === "Category deleted" ?
@@ -70,8 +69,8 @@ export default function Page() {
     })
   }
 
-  function createStack(addCategory){
-
+  function createStack(){
+    
   }
 
   return (

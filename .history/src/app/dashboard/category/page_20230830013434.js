@@ -18,7 +18,6 @@ export default function Page() {
     type: '' 
   })
 
-  
   const https = new Https();
 
   const categoryList = category.message === "Category deleted" ?

@@ -1,19 +1,21 @@
 "use client"
-
-import React ,{useState} from 'react'
+import React from 'react'
 import Styles from './style.module.scss'
 
 
 export default function Index(props) {
-  const [inputValue, setInputValue] = useState('');
-  props.inputValue
+  const onChange = (e) => {
+    \ value = e.target.value;
+  }
+  
+  <input onChange={onChange} />
   return (
     <div className={Styles.inputContainer}>
       <div className={Styles.inputTitle}>
         {props.value}
       </div>
       <div className={Styles.input} >
-        <input placeholder={props.placeholder}  value={inputValue} onChange={(e)=>setInputValue(e.target.value)} />
+        <input placeholder={props.placeholder}  value={props.value} onChange={onChange} />
       </div>
     </div>
   )

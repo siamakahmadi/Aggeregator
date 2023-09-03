@@ -4,7 +4,7 @@ import React ,{useState} from 'react'
 import Styles from './style.module.scss'
 
 
-export default function Index(props) {
+export default function Index(props{inputValue}) {
   const [inputValue, setInputValue] = useState('');
   props.inputValue
   return (

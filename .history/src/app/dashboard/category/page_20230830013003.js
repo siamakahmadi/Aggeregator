@@ -13,10 +13,6 @@ export default function Page() {
   const [typeFace, setTypeFace] = useState(false)
   const [category, setCategory] = useState({})
 
-  const [addCategory,setAddCategory] = useState({
-    name: '',
-    type: '' 
-  })
 
   
   const https = new Https();
@@ -68,10 +64,6 @@ export default function Page() {
     ).catch(error => {
       console.log(error)
     })
-  }
-
-  function createStack(addCategory){
-
   }
 
   return (

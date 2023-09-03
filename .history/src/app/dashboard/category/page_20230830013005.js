@@ -13,12 +13,8 @@ export default function Page() {
   const [typeFace, setTypeFace] = useState(false)
   const [category, setCategory] = useState({})
 
-  const [addCategory,setAddCategory] = useState({
-    name: '',
-    type: '' 
-  })
+  const 
 
-  
   const https = new Https();
 
   const categoryList = category.message === "Category deleted" ?
@@ -68,10 +64,6 @@ export default function Page() {
     ).catch(error => {
       console.log(error)
     })
-  }
-
-  function createStack(addCategory){
-
   }
 
   return (

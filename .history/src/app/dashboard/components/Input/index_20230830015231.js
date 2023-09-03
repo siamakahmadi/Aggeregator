@@ -6,7 +6,7 @@ import Styles from './style.module.scss'
 
 export default function Index(props) {
   const [inputValue, setInputValue] = useState('');
-  props.inputValue
+  props.
   return (
     <div className={Styles.inputContainer}>
       <div className={Styles.inputTitle}>
