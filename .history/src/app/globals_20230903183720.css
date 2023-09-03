@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '../../Assets/Fonts/Inter.css';
+
 
 
 /* @media (prefers-color-scheme: dark) {
@@ -17,7 +17,7 @@
 } */
 
 body {
-  font-family: Inter;
+  font
   /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,
       transparent,
