@@ -2,8 +2,8 @@
 import { useContext, useState, useEffect } from 'react'
 import styles from '../style.module.scss'
 import Btn from '../../Components/Btn/index'
-// import CardLayout from '../../Components/HomeListLayout/index'
-// import Card from '../../Components/Card/index'
+import CardLayout from '../../Components/HomeListLayout/index'
+import Card from '../../Components/Card/index'
 import ThemeContext from '../../Api/context/ThemeContext'
 
 import Https from "../../Api/Https";
@@ -19,13 +19,14 @@ export default function Page({ params }) {
 
   const theme = useContext(ThemeContext)
   const [content, setcontent] = useState([])
-  const [pageLoading, setPageLoading] = useState([])
+  const [pageLoading , setPageLoading] = useState([])
+  console.log(content)
   const https = new Https();
 
   useEffect(() => {
     https.get(`user/post/${params.id}/show`).then(Response => {
       setcontent(Response.data.data),
-        setPageLoading(Response.data.message)
+      setPageLoading(Response.data.message)
     }).catch(error => {
       console.log(error)
     })
@@ -36,7 +37,7 @@ export default function Page({ params }) {
   return (
     <>
       {
-        pageLoading === "Post fetched" ?
+          pageLoading === "Post fetched" ?
 
           <main className={theme === 'light' ? styles.contentDetail : styles.contentDetailDark}>
             <div className={styles.header}>
@@ -110,7 +111,7 @@ export default function Page({ params }) {
                 </Btn>
               </div>
             </div>
-            {/* <div className={styles.suggestPosts}>
+            <div className={styles.suggestPosts}>
               <div className={styles.title}>
                 Related works
               </div>
@@ -133,7 +134,7 @@ export default function Page({ params }) {
                   <Card title="hi" src="https://cdn.dribbble.com/userupload/4269145/file/original-c533e5366daed052e3c3236c085acbc7.png?resize=1024x768" />
                 </CardLayout>
               </div>
-            </div> */}
+            </div>
           </main>
           :
           <div>wating...</div>

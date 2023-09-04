@@ -2,8 +2,8 @@
 import { useContext, useState, useEffect } from 'react'
 import styles from '../style.module.scss'
 import Btn from '../../Components/Btn/index'
-// import CardLayout from '../../Components/HomeListLayout/index'
-// import Card from '../../Components/Card/index'
+import CardLayout from '../../Components/HomeListLayout/index'
+import Card from '../../Components/Card/index'
 import ThemeContext from '../../Api/context/ThemeContext'
 
 import Https from "../../Api/Https";

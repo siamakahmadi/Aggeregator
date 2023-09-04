@@ -4,6 +4,7 @@ import CardsLayout from './Components/HomeListLayout/index'
 import PageHeader from './Components/PageHeader/index'
 import Card from './Components/Card/index'
 import Https from './Api/Https';
+import Link from 'next/link';
 
 export default function Page() {
   const [posts, setPosts] = useState([])
@@ -11,7 +12,7 @@ export default function Page() {
   const postsLists = posts.message === "Post fetched" ?
     <>
       {posts.data.map(item => (
-          <Card key={item.id} title={item.title} src="" route={`users/content/${item.id}`} />
+          <Card key={item.id} title={item.title} src="" />
       ))}
     </> : <div>wating...</div>
 

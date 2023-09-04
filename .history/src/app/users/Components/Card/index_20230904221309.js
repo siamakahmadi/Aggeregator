@@ -13,6 +13,7 @@ export default function Index(props) {
     const [isBookmark, setIsBookmark] = useState(false)
 
     return (
+        <Link href={props.link}>
             <a key={props.key} href={props.route} className={Styles.container} >
                 <div className={Styles.cardImage}>
                     <img src={props.src} />
@@ -34,5 +35,6 @@ export default function Index(props) {
                     </p>
                 </div>
             </a>
+        </Link>
     )
 }

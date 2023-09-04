@@ -11,7 +11,7 @@ export default function Page() {
   const postsLists = posts.message === "Post fetched" ?
     <>
       {posts.data.map(item => (
-          <Card key={item.id} title={item.title} src="" route={`users/content/${item.id}`} />
+          <Card key={item.id} title={item.title} src="" link="`users/content/${item.id}`} />
       ))}
     </> : <div>wating...</div>
 

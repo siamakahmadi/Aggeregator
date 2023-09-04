@@ -34,5 +34,6 @@ export default function Index(props) {
                     </p>
                 </div>
             </a>
+        </Link>
     )
 }
