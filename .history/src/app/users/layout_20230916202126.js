@@ -9,28 +9,21 @@ import styles from './Assets/main.module.scss'
 export default function RootLayout({ children }) {
 
 
-  // useLayoutEffect(() => {
-  //   setIsLight(window.localStorage.getItem('isLight?'))
-  // },[])
-
-  const [isLight, setIsLight] = useState('')
-
   useLayoutEffect(() => {
-    const storedData = window.localStorage.getItem('isLight?');
-    setIsLight(storedData);
-  }, []);
+    const getLightStorage = window.localStorage.getItem('isLight?');
+    setIsLight(getLightStorage)
+  }, [])
 
-  useLayoutEffect(() => {
-    window.localStorage.setItem('isLight?', isLight);
-  }, [isLight]);
 
+
+  const [isLight,setIsLight] = useState()
 
 
   return (
     <ThemeContext.Provider value={isLight} >
       <html lang="en">
         <body className={isLight === 'light' ? styles.lightBackground : styles.darkBackground}>
-          <Nav isLight={isLight} setIsLight={setIsLight} />
+          <Nav isLight={isLight}  />
           <div className={styles.containerPadding}>
             {children}
           </div>

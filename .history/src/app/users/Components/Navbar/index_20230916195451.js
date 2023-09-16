@@ -9,7 +9,7 @@ import Input from '../Input/index'
 import NavMenuLayout from '../NavMenuLayout/index'
 import SadebarItem from '../SidebarItem/index'
 import Logo from '../../Assets/Logo/logo'
-import Https from "../../Api/Https";
+import Cookies from 'universal-cookie'
 
 // Icons
 import DarkIcon from '../../Assets/svg/dark'
@@ -18,6 +18,14 @@ import CloseIcon from "../../Assets/svg/closeIcon";
 import MenuIcon from '../../Assets/svg/menuIcon'
 import ProfileIcon from '../../Assets/svg/profileIcon'
 import BookmarkIocn from '../../Assets/svg/bookmarkIcon'
+import Https from "../../Api/Https";
+
+
+// export async function getServerSideProps() {
+
+//   return { props: { setDark,setLight } }
+// }
+ 
 
 
 export default function Index(props) {
@@ -82,6 +90,12 @@ export default function Index(props) {
   }, [setCategoryItems])
 
 
+  function setLight(){
+    window.localStorage.setItem('isLight?','light');
+  }
+  function setDark(){
+    window.localStorage.setItem('isLight?','dark');
+  }
 
   function bookmarks() {
     https.delete(`admin/category/${id}`).then(
@@ -163,11 +177,11 @@ export default function Index(props) {
             </div>
             <div className={Styles.rightSide}>
               <div className={Styles.switcher}>
-                <div className={props.isLight === 'dark' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('dark')}>
+                <div className={props.isLight === 'dark' ? Styles.itemSelect : Styles.item} onClick={setDark}>
                   <DarkIcon />
                 </div>
 
-                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('light')}>
+                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={setLight}>
                   <LightIcon />
 
                 </div>

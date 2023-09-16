@@ -20,6 +20,13 @@ import ProfileIcon from '../../Assets/svg/profileIcon'
 import BookmarkIocn from '../../Assets/svg/bookmarkIcon'
 
 
+// export async function getServerSideProps() {
+
+//   return { props: { setDark,setLight } }
+// }
+ 
+
+
 export default function Index(props) {
   const theme = useContext(ThemeContext)
 
@@ -81,6 +88,15 @@ export default function Index(props) {
     })
   }, [setCategoryItems])
 
+
+
+  useEffect((setDark) =>{
+    function setDark(){ window.localStorage.setItem('isLight?','dark')};
+  },[])
+
+  useEffect((setDark) =>{
+    function setDark(){ window.localStorage.setItem('isLight?','dark')};
+  },[])
 
 
   function bookmarks() {
@@ -163,11 +179,11 @@ export default function Index(props) {
             </div>
             <div className={Styles.rightSide}>
               <div className={Styles.switcher}>
-                <div className={props.isLight === 'dark' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('dark')}>
+                <div className={props.isLight === 'dark' ? Styles.itemSelect : Styles.item} onClick={setDark}>
                   <DarkIcon />
                 </div>
 
-                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('light')}>
+                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={setLight}>
                   <LightIcon />
 
                 </div>

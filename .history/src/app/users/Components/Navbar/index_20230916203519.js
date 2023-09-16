@@ -167,7 +167,7 @@ export default function Index(props) {
                   <DarkIcon />
                 </div>
 
-                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('light')}>
+                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight(window.localStorage.getItem('isLight?','light'))}>
                   <LightIcon />
 
                 </div>

@@ -26,6 +26,8 @@ export default function RootLayout({ children }) {
 
 
 
+  console.log(isLight)
+
   return (
     <ThemeContext.Provider value={isLight} >
       <html lang="en">

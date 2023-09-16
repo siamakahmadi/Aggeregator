@@ -82,6 +82,10 @@ export default function Index(props) {
   }, [setCategoryItems])
 
 
+  function setLight(){
+
+  }
+
 
   function bookmarks() {
     https.delete(`admin/category/${id}`).then(
@@ -163,11 +167,11 @@ export default function Index(props) {
             </div>
             <div className={Styles.rightSide}>
               <div className={Styles.switcher}>
-                <div className={props.isLight === 'dark' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('dark')}>
+                <div className={props.isLight === 'dark' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight(window.localStorage.getItem('isLight?','dark'))}>
                   <DarkIcon />
                 </div>
 
-                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={()=>props.setIsLight('light')}>
+                <div className={props.isLight === 'light' ? Styles.itemSelect : Styles.item} onClick={()=>setLight}>
                   <LightIcon />
 
                 </div>

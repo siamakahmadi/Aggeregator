@@ -12,25 +12,28 @@ export default function RootLayout({ children }) {
   // useLayoutEffect(() => {
   //   setIsLight(window.localStorage.getItem('isLight?'))
   // },[])
+  const [name, setName] = useState('');
 
-  const [isLight, setIsLight] = useState('')
-
-  useLayoutEffect(() => {
-    const storedData = window.localStorage.getItem('isLight?');
-    setIsLight(storedData);
+  const [isLight,setIsLight] = useState()
+  useEffect(() => {
+    const storedName = window.localStorage.getItem('name');
+    setName(storedName); 
   }, []);
 
-  useLayoutEffect(() => {
-    window.localStorage.setItem('isLight?', isLight);
-  }, [isLight]);
+  useEffect(() => {
+    window.localStorage.setItem('name', name);
+  }, [name]);
 
 
+
+
+  console.log(isLight)  
 
   return (
     <ThemeContext.Provider value={isLight} >
       <html lang="en">
         <body className={isLight === 'light' ? styles.lightBackground : styles.darkBackground}>
-          <Nav isLight={isLight} setIsLight={setIsLight} />
+          <Nav isLight={isLight} setIsLight={setIsLight}  />
           <div className={styles.containerPadding}>
             {children}
           </div>

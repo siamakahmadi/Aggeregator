@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css'
+import Http from '../../../Axios/Https'
 
 
 
@@ -23,6 +24,21 @@ export default function RootLayout({ children }) {
     const cookieData = cookies.get('isloggin')
     setIsLoggin(cookieData)
   }, [])
+
+
+
+  // const [isLight, setIsLight] = useState('')
+
+  // useLayoutEffect(() => {
+  //   const storedData = window.localStorage.getItem('isLight?');
+  //   setIsLight(storedData);
+  // }, []);
+
+  // useLayoutEffect(() => {
+  //   window.localStorage.setItem('isLight?', isLight);
+  // }, [isLight]);
+
+
 
   return (
     <html lang="en">

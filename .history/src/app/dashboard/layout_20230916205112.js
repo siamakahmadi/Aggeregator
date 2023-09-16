@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css'
+import Http from '../../../Axios/Https'
 
 
 
@@ -16,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function RootLayout({ children }) {
 
   const cookies = new Cookies()
+  const https = new Http();
 
   const [isLoggin, setIsLoggin] = useState(true)
 
@@ -23,6 +25,7 @@ export default function RootLayout({ children }) {
     const cookieData = cookies.get('isloggin')
     setIsLoggin(cookieData)
   }, [])
+  
 
   return (
     <html lang="en">
