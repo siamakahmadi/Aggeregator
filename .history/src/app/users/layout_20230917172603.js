@@ -9,17 +9,15 @@ import Cookies from 'universal-cookie';
 
 export default function RootLayout({ children }) {
 
-  const cookie = new Cookies
+  const cookie = new Cookies()
 
   const [isLight, setIsLight] = useState('')
   const [userData, setUserData] = useState('')
 
-  useLayoutEffect(()=>{
-    if(cookie.get('userLogin')){
-      console.log('this is available')
-    }else{
+  useLayoutEffect(() => {
+    if(userData.isLoggin === 'true'){
       cookie.set('userLogin', {
-        isLoggin: false,
+        isLoggin: `false`,
         userToken: null,
         userEmail: null,
         userId: null
@@ -27,8 +25,8 @@ export default function RootLayout({ children }) {
         path: '/',
         expires: new Date(Date.now() + 3600000)
       })
-      console.log('now added')
     }
+
   })
 
   useLayoutEffect(() => {

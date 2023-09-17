@@ -9,29 +9,21 @@ import Cookies from 'universal-cookie';
 
 export default function RootLayout({ children }) {
 
-  const cookie = new Cookies
+  
 
   const [isLight, setIsLight] = useState('')
   const [userData, setUserData] = useState('')
 
-  useLayoutEffect(()=>{
-    if(cookie.get('userLogin')){
-      console.log('this is available')
-    }else{
-      cookie.set('userLogin', {
-        isLoggin: false,
-        userToken: null,
-        userEmail: null,
-        userId: null
-      }, {
-        path: '/',
-        expires: new Date(Date.now() + 3600000)
-      })
-      console.log('now added')
-    }
-  })
-
   useLayoutEffect(() => {
+    cookie.set('userLogin', {
+      isLoggin: `true`,
+      userToken: `${Response.data.data.token}`,
+      userEmail: `${Response.data.data.user_info.email}`,
+      userId: `${Response.data.data.user_info.id}`
+    }, {
+      path: '/',
+      expires: new Date(Date.now() + 3600000)
+    })
     const storedData = window.localStorage.getItem('isLight?');
     setIsLight(storedData);
   }, []);

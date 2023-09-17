@@ -18,16 +18,7 @@ export default function RootLayout({ children }) {
     if(cookie.get('userLogin')){
       console.log('this is available')
     }else{
-      cookie.set('userLogin', {
-        isLoggin: false,
-        userToken: null,
-        userEmail: null,
-        userId: null
-      }, {
-        path: '/',
-        expires: new Date(Date.now() + 3600000)
-      })
-      console.log('now added')
+      console.log('disable')
     }
   })
 

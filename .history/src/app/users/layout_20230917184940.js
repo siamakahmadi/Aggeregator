@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       console.log('this is available')
     }else{
       cookie.set('userLogin', {
-        isLoggin: false,
+        isLoggin: true,
         userToken: null,
         userEmail: null,
         userId: null
@@ -27,7 +27,6 @@ export default function RootLayout({ children }) {
         path: '/',
         expires: new Date(Date.now() + 3600000)
       })
-      console.log('now added')
     }
   })
 

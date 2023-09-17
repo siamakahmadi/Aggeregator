@@ -118,7 +118,7 @@ export default function Index(props) {
       .then(
         Response => {
           cookie.set('userLogin', {
-            isLoggin: true,
+            isLoggin: `true`,
             userToken: `${Response.data.data.token}`,
             userEmail: `${Response.data.data.user_info.email}`,
             userId: `${Response.data.data.user_info.id}`
@@ -150,7 +150,7 @@ export default function Index(props) {
                     {/* categories */}
                     {activeFilter ?
                       <NavMenuLayout>
-                        {userValue.isLoggin === true &&
+                        {userValue.isLoggin === 'true' &&
                           <SadebarItem title="Bookmarks">
                             <div>
                               <BookmarkIocn />
@@ -195,7 +195,7 @@ export default function Index(props) {
 
                 </div>
               </div>
-              <div className={Styles.profile} onClick={userValue.isLoggin === true ? () => router.push('profile') : () => router.push('register')}>
+              <div className={Styles.profile} onClick={userValue.isLoggin  ? () => router.push('profile') : () => router.push('register')}>
                 <ProfileIcon />
               </div>
               <div className={Styles.burgerMenu} onClick={() => activeMenu ? setActiveMenu(false) : setActiveMenu(true)}>
@@ -218,36 +218,32 @@ export default function Index(props) {
 
       </div>
       <>
-        {
-          userValue.isLoggin === true ?
+        if(userValue.isLoggin === 'true'){
+          pathname === '/users/register' &&
+          <Modal title="Sign in" hasIcon={true}>
+            <div className={Styles.registerContainer}>
+              <form onSubmit={handleSubmit}>
+                <div className={Styles.inputs}>
+                  <Input title="Email" placeholder="type your Email" name='email' value={formData.email} onChange={handleChange} />
+                  <Input title="password" placeholder="Valid password" name='password' value={formData.password} onChange={handleChange} />
 
-            pathname === '/users/profile' && <Modal title="Profile" hasIcon={true}></Modal>
-            
-            :
-            
-            pathname === '/users/register' &&
-            <Modal title="Sign in" hasIcon={true}>
-              <div className={Styles.registerContainer}>
-                <form onSubmit={handleSubmit}>
-                  <div className={Styles.inputs}>
-                    <Input title="Email" placeholder="type your Email" name='email' value={formData.email} onChange={handleChange} />
-                    <Input title="password" placeholder="Valid password" name='password' value={formData.password} onChange={handleChange} />
+                </div>
+                <div className={Styles.hasAccount}>
+                  <div className={theme === 'light' ? Styles.text : Styles.textDark}>Already have account ?</div><Link href='#' className={Styles.link}>Sign in</Link>
+                </div>
+                <div className={Styles.resetPass}>
+                  <Link href='#' className={Styles.link}>Forgot password ? </Link>
+                </div>
+                <div className={Styles.signinBtn}>
+                  {/* <Btn submitType="submit"  title="Sign in" type="primary"  /> */}
+                  <button type='submit'>click here</button>
+                </div>
+              </form>
+            </div>
 
-                  </div>
-                  <div className={Styles.hasAccount}>
-                    <div className={theme === 'light' ? Styles.text : Styles.textDark}>Already have account ?</div><Link href='#' className={Styles.link}>Sign in</Link>
-                  </div>
-                  <div className={Styles.resetPass}>
-                    <Link href='#' className={Styles.link}>Forgot password ? </Link>
-                  </div>
-                  <div className={Styles.signinBtn}>
-                    {/* <Btn submitType="submit"  title="Sign in" type="primary"  /> */}
-                    <button type='submit'>click here</button>
-                  </div>
-                </form>
-              </div>
-
-            </Modal>
+          </Modal>
+        }else{
+          pathname === '/users/profile' && <Modal title="Profile" hasIcon={true}></Modal>
         }
       </>
 

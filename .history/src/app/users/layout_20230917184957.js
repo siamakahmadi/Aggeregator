@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       console.log('this is available')
     }else{
       cookie.set('userLogin', {
-        isLoggin: false,
+        isLoggin: true,
         userToken: null,
         userEmail: null,
         userId: null

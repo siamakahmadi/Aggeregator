@@ -150,7 +150,7 @@ export default function Index(props) {
                     {/* categories */}
                     {activeFilter ?
                       <NavMenuLayout>
-                        {userValue.isLoggin === true &&
+                        {userValue.isLoggin === 'true' &&
                           <SadebarItem title="Bookmarks">
                             <div>
                               <BookmarkIocn />

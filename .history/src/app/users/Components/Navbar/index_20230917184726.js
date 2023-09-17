@@ -150,7 +150,7 @@ export default function Index(props) {
                     {/* categories */}
                     {activeFilter ?
                       <NavMenuLayout>
-                        {userValue.isLoggin === true &&
+                        {userValue.isLoggin === 'true' &&
                           <SadebarItem title="Bookmarks">
                             <div>
                               <BookmarkIocn />
@@ -195,7 +195,7 @@ export default function Index(props) {
 
                 </div>
               </div>
-              <div className={Styles.profile} onClick={userValue.isLoggin === true ? () => router.push('profile') : () => router.push('register')}>
+              <div className={Styles.profile} onClick={userValue.isLoggin === 'true' ? () => router.push('profile') : () => router.push('register')}>
                 <ProfileIcon />
               </div>
               <div className={Styles.burgerMenu} onClick={() => activeMenu ? setActiveMenu(false) : setActiveMenu(true)}>
@@ -222,9 +222,8 @@ export default function Index(props) {
           userValue.isLoggin === true ?
 
             pathname === '/users/profile' && <Modal title="Profile" hasIcon={true}></Modal>
-            
             :
-            
+
             pathname === '/users/register' &&
             <Modal title="Sign in" hasIcon={true}>
               <div className={Styles.registerContainer}>

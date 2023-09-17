@@ -9,26 +9,13 @@ import Cookies from 'universal-cookie';
 
 export default function RootLayout({ children }) {
 
-  const cookie = new Cookies
 
   const [isLight, setIsLight] = useState('')
-  const [userData, setUserData] = useState('')
-
-  useLayoutEffect(()=>{
-    if(cookie.get('userLogin')){
-      console.log('this is available')
-    }else{
-      cookie.set('userLogin', {
-        isLoggin: false,
-        userToken: null,
-        userEmail: null,
-        userId: null
-      }, {
-        path: '/',
-        expires: new Date(Date.now() + 3600000)
-      })
-      console.log('now added')
-    }
+  const [userData, setUserData] = useState({
+    isLoggin: 'false',
+    userToken: '',
+    userEmail: '',
+    userId: ''
   })
 
   useLayoutEffect(() => {
@@ -42,7 +29,8 @@ export default function RootLayout({ children }) {
 
 
   return (
-    <ThemeContext.Provider value={isLight} >
+    <ThemeContext.Provider value={{
+      isLoggin: 'false',} >
       <IsLoggin.Provider value={userData}>
         <html lang="en">
           <body className={isLight === 'light' ? styles.lightBackground : styles.darkBackground}>

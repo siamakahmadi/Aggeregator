@@ -14,22 +14,7 @@ export default function RootLayout({ children }) {
   const [isLight, setIsLight] = useState('')
   const [userData, setUserData] = useState('')
 
-  useLayoutEffect(()=>{
-    if(cookie.get('userLogin')){
-      console.log('this is available')
-    }else{
-      cookie.set('userLogin', {
-        isLoggin: false,
-        userToken: null,
-        userEmail: null,
-        userId: null
-      }, {
-        path: '/',
-        expires: new Date(Date.now() + 3600000)
-      })
-      console.log('now added')
-    }
-  })
+  useLayoutEffect()
 
   useLayoutEffect(() => {
     const storedData = window.localStorage.getItem('isLight?');
