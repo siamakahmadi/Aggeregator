@@ -219,9 +219,8 @@ export default function Index(props) {
         {
           userValue.isLoggin === true ?
 
-            pathname === '/users/profile' && 
-            <Modal title="Profile" hasIcon={true}>
-
+            pathname === '/users/profile' && <Modal title="Profile" hasIcon={true}>
+              
             </Modal>
 
             :
