@@ -7,7 +7,7 @@ export default function tableItem(props) {
         <div className={Styles.tableItems}>
             <div className={Styles.profile}>
                 <div className={Styles.profileImage}>
-                    t
+                    
                 </div>
                 <div className={Styles.userName}>{props.name}</div>
             </div>

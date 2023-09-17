@@ -1,13 +1,14 @@
 import React from 'react'
 import Styles from './tableItem.module.scss'
 import StatusLabel from '../../components/StatusLabel/index'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 export default function tableItem(props) {
     return (
         <div className={Styles.tableItems}>
             <div className={Styles.profile}>
                 <div className={Styles.profileImage}>
-                    t
+                    <img />
                 </div>
                 <div className={Styles.userName}>{props.name}</div>
             </div>
