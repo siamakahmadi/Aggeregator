@@ -53,7 +53,7 @@ export default function Index(props) {
         <>
           {item.type === 'Tags' ?
             <Link key={item.id} href={item.name}>
-              <SadebarItem key={item.id} title={item.name}>
+              <SadebarItem title={item.name}>
                 tt
               </SadebarItem>
             </Link>

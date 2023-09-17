@@ -52,8 +52,8 @@ export default function Index(props) {
       {categoryItems.data.map(item => (
         <>
           {item.type === 'Tags' ?
-            <Link key={item.id} href={item.name}>
-              <SadebarItem key={item.id} title={item.name}>
+            <Link  href={item.name}>
+              <SadebarItem title={item.name}>
                 tt
               </SadebarItem>
             </Link>

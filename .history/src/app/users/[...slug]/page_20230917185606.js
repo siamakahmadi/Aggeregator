@@ -60,7 +60,7 @@ export default function Page({ params }) {
             params.slug == 'bookmark' ? bookmarksList : postsLists
           }
 
-          <Card key="2" title="hi" src="https://cdn.dribbble.com/userupload/8586347/file/original-f0d863b0f08bfbcbc63d433af6d87e55.png?resize=1024x768" />
+          <Card key title="hi" src="https://cdn.dribbble.com/userupload/8586347/file/original-f0d863b0f08bfbcbc63d433af6d87e55.png?resize=1024x768" />
         </CardsLayout>
       </div>
     </main>
