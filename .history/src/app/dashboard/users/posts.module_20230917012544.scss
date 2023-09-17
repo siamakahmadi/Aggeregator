@@ -1,0 +1,46 @@
+.table {
+    width: 100%;
+    background-color: #EAECF0;
+    padding: 20px;
+    align-items: flex-start;
+    border-radius: 12px;
+    border: 1px solid #d1d1d1;
+
+    .tableHeader {
+        .tableTitle {
+            display: flex;
+        }
+
+        .rowTitles {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            height: 44px;
+            padding: 12px 24px;
+            align-items: center;
+            margin-top: 12px;
+            border-bottom: 1px solid #d1d1d1;
+            border-top: 1px solid #d1d1d1;
+        }
+
+    }
+    .tableBody {
+        .tableItems {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 72px;
+
+            .profile {
+                .profileImage{
+                    img{width: 100%;
+                    height: 100%;}
+                }
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                background-color: rgb(169, 93, 0);
+            }
+        }
+    }
+}
