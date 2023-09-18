@@ -44,7 +44,6 @@ export default function Home() {
         Response => {
           setLoginDone(Response.data),
           loginUser()
-          location.reload()
         }
       ).catch(error => {
         console.log(error)

@@ -124,7 +124,8 @@ export default function Index(props) {
             path: '/',
             expires: new Date(Date.now() + 3600000)
           })
-          setInterval(()=>location.reload() , 3000)
+          setInterval(1000,location.reload())
+          
         }
       ).catch(error => {
         window.alert(error)
@@ -220,14 +221,7 @@ export default function Index(props) {
 
             pathname === '/users/profile' && 
             <Modal title="Profile" hasIcon={true}>
-              <form className={Styles.profileForm}>
-                <Input title="Name" placeholder="Your Name" name='name' value={formData.name} onChange={handleChange} />
-                <Input title="Email Address" placeholder="Your Email" name='email' value={formData.password} onChange={handleChange} />
-                <Input title="Current Password" placeholder="Your Current Password" name='password' value={formData.password} onChange={handleChange} />
-                <Input title="New Password " placeholder="Your New Password" name='password' value={formData.password} onChange={handleChange} />
-                <Input title="Confirm New Password " placeholder="Confirm Your New Password" name='password' value={formData.password} onChange={handleChange} />
-                
-              </form>
+
             </Modal>
 
             :
@@ -239,6 +233,7 @@ export default function Index(props) {
                   <div className={Styles.inputs}>
                     <Input title="Email" placeholder="type your Email" name='email' value={formData.email} onChange={handleChange} />
                     <Input title="password" placeholder="Valid password" name='password' value={formData.password} onChange={handleChange} />
+
                   </div>
                   <div className={Styles.hasAccount}>
                     <div className={theme === 'light' ? Styles.text : Styles.textDark}>Already have account ?</div><Link href='#' className={Styles.link}>Sign in</Link>

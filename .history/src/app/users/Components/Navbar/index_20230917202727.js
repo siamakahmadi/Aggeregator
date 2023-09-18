@@ -220,7 +220,7 @@ export default function Index(props) {
 
             pathname === '/users/profile' && 
             <Modal title="Profile" hasIcon={true}>
-              <form className={Styles.profileForm}>
+              <form className="">
                 <Input title="Name" placeholder="Your Name" name='name' value={formData.name} onChange={handleChange} />
                 <Input title="Email Address" placeholder="Your Email" name='email' value={formData.password} onChange={handleChange} />
                 <Input title="Current Password" placeholder="Your Current Password" name='password' value={formData.password} onChange={handleChange} />
