@@ -1,0 +1,129 @@
+@import '../../Assets/variables.module';
+
+.moadl {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #202020ca;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .modalContainer {
+        width: 408px;
+        height: fit-content;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding-bottom: 20px;
+        background-color: $back-primary-light;
+        border: solid 1px $stroke-primary-light;
+
+        @media only screen and (max-width: 600px) {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            border-radius: 12px 12px 0px 0px;
+            display: flex;
+        }
+
+        .modalHeader {
+            width: 100%;
+            padding: 24px 16px;
+            border-bottom: solid 1px $stroke-primary-light;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .modalTitle {
+                .text {
+                    font-family: Inter;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 20px;
+                    color: $text-primary-light;
+                }
+            }
+        }
+
+        .modalContent {
+            padding: 0px 16px;
+            width: 100%;
+
+        }
+    }
+}
+
+.moadlDark {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #202020ca;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modalContainer {
+        width: 408px;
+        height: fit-content;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding-bottom: 20px;
+        background-color: $back-primary-dark;
+        border: solid 1px $stroke-primary-dark;
+
+        @media only screen and (max-width: 600px) {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            border-radius: 12px 12px 0px 0px;
+            display: flex;
+        }
+
+        .modalHeader {
+            width: 100%;
+            padding: 24px 16px;
+            border-bottom: solid 1px $stroke-primary-dark;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .modalTitle {
+                .text {
+                    font-family: Inter;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 20px;
+                    color: $text-primary-dark;
+                }
+            }
+
+            .closeIcon {
+                bac
+                svg {
+                    path {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+
+        .modalContent {
+            padding: 0px 16px;
+            width: 100%;
+
+        }
+    }
+}
