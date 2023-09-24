@@ -1,0 +1,210 @@
+@import '../../Assets/variables.module';
+
+.sideBarItemLight {
+    width: 240px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4px 4px;
+    border: solid 1px $stroke-secondary-light;
+    border-radius: 8px;
+    cursor: pointer;
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background-color: $natural-5-light;
+        border: solid 1px $stroke-primary-light;
+        margin-right: 8px;
+
+        svg {
+            path {
+                stroke: $text-primary-light
+            }
+        }
+
+        &:hover {
+            svg {
+                path {
+                    transition: all 0.3s;
+                    stroke: #8DD500;
+                }
+            }
+        }
+    }
+
+    .title {
+        p {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'inter';
+            color: $text-primary-light;
+        }
+    }
+}
+
+
+.sideBarItemDark {
+    width: 240px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4px 4px;
+    border: solid 1px $stroke-secondary-dark;
+    border-radius: 8px;
+    cursor: pointer;
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background-color: $natural-5-dark;
+        border: solid 1px $stroke-primary-dark;
+        margin-right: 8px;
+
+        svg {
+            path {
+                stroke: $text-primary-dark;
+            }
+        }
+
+        &:hover {
+            svg {
+                path {
+                    transition: all 0.3s;
+                    stroke: #8DD500;
+                }
+            }
+        }
+    }
+
+    .title {
+        p {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'inter';
+            color: $text-primary-dark;
+        }
+    }
+}
+
+
+.itemLight {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4px 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: solid 1.5px transparent;
+
+    &:hover {
+        transition: all 0.3s;
+        border: solid 1.5px $stroke-secondary-light;
+    }
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        background-color: $natural-5-light;
+        border: solid 1px $stroke-primary-light;
+        margin-right: 8px;
+
+        svg {
+            path {
+                stroke: $text-primary-light
+            }
+        }
+
+        &:hover {
+            svg {
+                path {
+                    transition: all 0.3s;
+                    stroke: #8DD500;
+                }
+            }
+        }
+    }
+
+    .title {
+        p {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'inter';
+            color: $text-primary-light;
+        }
+    }
+}
+
+a {
+     width: 100%;
+
+    .itemDark {
+        width: 100%;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 4px 4px;
+        border: solid 1.5px transparent;
+        border-radius: 8px;
+        transition: all 0.2s;
+        cursor: pointer;
+
+
+        &:hover {
+            border: solid 1.5px $stroke-secondary-dark;
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background-color: $natural-5-dark;
+            border: solid 1px $stroke-primary-dark;
+            margin-right: 8px;
+
+            svg {
+                path {
+                    stroke: $text-primary-dark;
+                }
+            }
+
+            &:hover {
+                svg {
+                    path {
+                        transition: all 0.3s;
+                        stroke: #8DD500;
+                    }
+                }
+            }
+        }
+
+        .title {
+            p {
+                font-size: 14px;
+                font-weight: 600;
+                font-family: 'inter';
+                color: $text-primary-dark;
+            }
+        }
+    }
+}
