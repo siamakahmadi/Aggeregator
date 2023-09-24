@@ -1,0 +1,15 @@
+@import '../../Assets/variables.module';
+
+.container {
+    display: flex;
+    border-radius: 7px;
+    border: 1px solid #598600;
+    background: #334D00;
+    width: 100%;
+    padding: 12px 14px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    color: #;
+}

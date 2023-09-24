@@ -142,7 +142,7 @@ export default function Index(props) {
             userEmail: `${Response.data.data.user_info.email}`,
             userId: `${Response.data.data.user_info.id}`
           }, {
-            path: '/',
+            path: '/user',
             expires: new Date(Date.now() + 3600000)
           })
           setMessage(true)

@@ -46,7 +46,7 @@ export default function Index(props) {
   const [activeDisplayFilter, setActiveDisplayFilter] = useState(false)
 
   const [categoryItems, setCategoryItems] = useState([])
-  const [message, setMessage] = useState(false)
+  const [message,setMessage] = useState(false)
 
   const https = new Https();
 
@@ -153,9 +153,8 @@ export default function Index(props) {
       })
   }
 
-  function handleLogout() {
-    cookie.remove('userLogin')
-    setInterval(() => location.reload(), 3000)
+  function handleLogout(){
+    console.log('Logout')
   }
 
   return (
@@ -253,10 +252,10 @@ export default function Index(props) {
                 <Input title="Current Password" placeholder="Your Current Password" name='password' value={formData.password} onChange={handleChange} />
                 <Input title="New Password " placeholder="Your New Password" name='password' value={formData.password} onChange={handleChange} />
                 <Input title="Confirm New Password " placeholder="Confirm Your New Password" name='password' value={formData.password} onChange={handleChange} />
-                <SubmitBtn submitType="submit" title="Save" type="primary" />
+                <SubmitBtn submitType="submit"  title="Save" type="primary"  />
               </form>
-              <br />
-              <SubmitBtn oncClick={() => handleLogout} title="Sign Out" type="primary" />
+              <br/>
+              <SubmitBtn oncClick={()=>handleLogout}  title="Sign Out" type="primary"  />
             </Modal>
 
             :
@@ -265,12 +264,9 @@ export default function Index(props) {
             <Modal title="Sign In" hasIcon={true}>
               <div className={Styles.registerContainer}>
                 <form onSubmit={handleSubmit}>
-                  {message ?
-                    <div>
-                      <Notify title="Login Successfully" description="In 3s, you will be redirected to the home page" />
-                    </div>
-                    :
-                    <></>}
+                  {message ? 
+                  <div>
+                    </div><Notify title="Login Successfully" description="In 3s, you will be redirected to the home page"/> : <></>}
                   <div className={Styles.inputs}>
                     <Input title="Email" placeholder="type your Email" name='email' value={formData.email} onChange={handleChange} />
                     <Input title="password" placeholder="Valid password" name='password' value={formData.password} onChange={handleChange} />
@@ -282,7 +278,7 @@ export default function Index(props) {
                     <Link href='#' className={Styles.link}>Forgot password ? </Link>
                   </div>
                   <div className={Styles.signinBtn}>
-                    <SubmitBtn submitType="submit" title="Sign In" type="primary" />
+                    <SubmitBtn submitType="submit"  title="Sign In" type="primary"  />
                   </div>
                 </form>
               </div>
@@ -306,7 +302,7 @@ export default function Index(props) {
                     <Link href='#' className={Styles.link}>Forgot password ? </Link>
                   </div>
                   <div className={Styles.signinBtn}>
-                    <SubmitBtn submitType="submit" title="Register" type="primary" />
+                    <SubmitBtn submitType="submit"  title="Register" type="primary"  />
                     {/* <button type='submit'>click here</button> */}
                   </div>
                 </form>

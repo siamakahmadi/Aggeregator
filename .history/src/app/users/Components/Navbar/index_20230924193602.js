@@ -156,6 +156,7 @@ export default function Index(props) {
   function handleLogout() {
     cookie.remove('userLogin')
     setInterval(() => location.reload(), 3000)
+
   }
 
   return (
