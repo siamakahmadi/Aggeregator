@@ -5,17 +5,18 @@ import PageHeader from '../Components/PageHeader/index'
 import Card from '../Components/Card/index'
 import Https from '../Api/Https';
 import Link from 'next/link';
-import { usePathname } from "next/navigation";
+import {usePathname } from "next/navigation";
 export default function Page() {
-
-
+  
+  
   const [posts, setPosts] = useState([])
-
+  
 
   const [bookmarks, setBookmarks] = useState([])
-
+  console.log(bookmarks)
+  
   const https = new Https();
-
+  
   const pathname = usePathname()
 
   const postsLists = posts.message === "Post fetched" ?
