@@ -23,7 +23,7 @@ export default function Index() {
                             </Link>
                         </div>
                         <div className={styles.linkItem}>
-                            <Link href={'/dashboard/category/all'}>
+                            <Link href={'/dashboard/category'}>
                                 Category
                             </Link>
                         </div>
