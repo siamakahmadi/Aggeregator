@@ -436,9 +436,9 @@ export default function Page() {
       }
       {
         pathname === '/dashboard/category/12' &&
-        <div title='hello'>
+        <RouteModal title='hello'>
           asasa
-        </div>
+        </RouteModal>
       }
 
     </>
