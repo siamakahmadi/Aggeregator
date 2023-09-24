@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { usePathname } from "next/navigation";
 import Modal from '../../components/Modal/index'
 import DescriptionInput from '../../components/DescriptionInput'
-import RouteModal from '../../components/RouteModal/index'
+import RouteModal from '../../components/routeModal/index'
 export default function Page() {
 
 

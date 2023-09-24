@@ -1,4 +1,4 @@
-'use client'
+'use'
 import React from 'react'
 import styles from './style.module.scss'
 import CloseIcon from '../../assets/svg/closeIcon'
