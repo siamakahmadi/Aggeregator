@@ -6,7 +6,7 @@ import Https from '../../../../../Axios/Https'
 import CloseIcon from '../../assets/svg/closeIcon'
 import Input from '../../components/Input/index'
 import { toast } from 'react-toastify';
-import { usePathname } from "next/navigation";
+import {usePathname } from "next/navigation";
 import Modal from '../../components/Modal/index'
 import DescriptionInput from '../../components/DescriptionInput'
 import RouteModal from '../../components/routeModal/index'
@@ -111,9 +111,9 @@ export default function Page() {
     <>
       <div>
         <PageHeader title="Categeries" description="View your team’s trades and transactions.">
-          <div className={styles.addBtnContainer}>
-            <a className={styles.btn} onClick={() => addTag ? setAddTag(false) : setAddTag(true)}>Add New</a>
-          </div>
+            <div className={styles.addBtnContainer}>
+              <a className={styles.btn} onClick={() => addTag ? setAddTag(false) : setAddTag(true)}>Add New</a>
+            </div>
         </PageHeader>
         <div className={styles.itemsContainer}>
           <div className={styles.header}>
@@ -356,7 +356,7 @@ export default function Page() {
                     <DescriptionInput title="Meta Description" name='meta_description' value={formData.meta_description} onChange={handleChange} placeholder="Meta Description" />
                   </div>
                   <div className={styles.mt15}>
-                    <input type='file' />
+                      <input type='file' />
                   </div>
                   <div className={styles.mt15}>
                     <div className={styles.buttons}>
@@ -385,7 +385,7 @@ export default function Page() {
                 </div>
               </div>
               <div className={styles.body}>
-                <Input title="Menu Title" placeholder="Add a title for category" />
+                <Input  title="Menu Title" placeholder="Add a title for category" />
                 <Input title="Page Title" placeholder="This title will show on page header" />
                 <Input title="Page Description" placeholder="This description will show on page header" />
                 Seo Configration
@@ -436,7 +436,7 @@ export default function Page() {
       }
       {
         pathname === '/dashboard/category/12' &&
-        <RouteModal title='hello'>
+        <RouteModal  title='hello'>
           asasa
         </RouteModal>
       }
