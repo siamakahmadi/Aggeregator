@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import Modal from "../../components/Modal/index";
 import DescriptionInput from "../../components/DescriptionInput";
 
-export default function Page({sug}) {
+export default function Page() {
   const pathname = usePathname();
 
   const [addTag, setAddTag] = useState(false);
