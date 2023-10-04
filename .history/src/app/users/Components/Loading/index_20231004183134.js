@@ -1,0 +1,16 @@
+import React from 'react'
+import style from 'style.module.scss'
+export default function index() {
+  return (
+    <div className={style.background}>
+        <div className={style.container}>
+            <div className={style.spinner}>
+                spinner
+            </div>
+            <div className={style.title}>
+
+            </div>
+        </div>
+    </div>
+  )
+}

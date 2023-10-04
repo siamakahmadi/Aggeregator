@@ -1,0 +1,27 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 11111;
+  opacity: 0.78;
+  background: #000;
+  .container {
+    .spinner {
+      width: 70px;
+      height: 70px;
+      border: solid 5px linear-gradient(130deg, #FFF 27.16%, rgba(255, 255, 255, 0.00) 59.26%);;
+      border-radius: 100%;
+    }
+    .title {
+      color: white;
+      color: #fff;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.4px;
+    }
+  }
+}

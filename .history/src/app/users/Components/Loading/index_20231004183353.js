@@ -1,0 +1,16 @@
+import React from 'react'
+import style from 's./tyle.module.scss'
+export default function index(props) {
+  return (
+    <div className={style.background}>
+        <div className={style.container}>
+            <div className={style.spinner}>
+                spinner
+            </div>
+            <div className={style.title}>
+                {props.title}
+            </div>
+        </div>
+    </div>
+  )
+}

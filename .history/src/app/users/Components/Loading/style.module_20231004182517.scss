@@ -1,0 +1,50 @@
+@import '../../Assets/variables.module';
+
+.label {
+    width: auto;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 2px 4px;
+    border-radius: 6px;
+    background-color: $back-secondary-light;
+
+    .text {
+        color: #8F8F8F;
+        font-family: Inter;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+    }
+}
+
+.labelDark {
+    width: auto;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 2px 4px;
+    border-radius: 6px;
+    background-color: $back-secondary-dark;
+
+    .icon {
+        svg {
+            path {
+                stroke: #FCFCFC;
+                fill: #FCFCFC;
+            }
+        }
+    }
+
+    .text {
+        color: #8F8F8F;
+        font-family: Inter;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+    }
+}
