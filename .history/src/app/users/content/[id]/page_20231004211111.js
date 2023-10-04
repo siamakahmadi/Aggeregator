@@ -109,7 +109,7 @@ export default function Page({ params }) {
             <div className={styles.postlist}>
               <CardLayout>
                 {content.related_posts === null ? (
-                  <div> Related works Not Found</div>
+                  <div>  Posts Not Found</div>
                   
                 ) : (
                   <Card
