@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import Modal from "../../components/Modal/index";
 import DescriptionInput from "../../components/DescriptionInput";
 
-export default function Page() {
+export default function Page({slug}) {
   const pathname = usePathname();
 
   const [addTag, setAddTag] = useState(false);
@@ -834,9 +834,6 @@ export default function Page() {
         </>
       ) : (
         <></>
-      )}
-      {pathname === `/dashboard/category/` && (
-      <div></div>
       )}
     </>
   );

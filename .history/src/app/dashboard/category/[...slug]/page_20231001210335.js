@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import Modal from "../../components/Modal/index";
 import DescriptionInput from "../../components/DescriptionInput";
 
-export default function Page() {
+export default function Page({slug}) {
   const pathname = usePathname();
 
   const [addTag, setAddTag] = useState(false);
@@ -173,7 +173,7 @@ export default function Page() {
               className={styles.btn}
               onClick={() => (addTag ? setAddTag(false) : setAddTag(true))}
             >
-              Add New
+              Add New_{slug}
             </a>
           </div>
         </PageHeader>
@@ -835,8 +835,8 @@ export default function Page() {
       ) : (
         <></>
       )}
-      {pathname === `/dashboard/category/` && (
-      <div></div>
+      {pathname === `/dashboard/category/${slug}` && (
+      <div>{slug}</div>
       )}
     </>
   );
