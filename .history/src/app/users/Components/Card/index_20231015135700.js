@@ -14,9 +14,9 @@ export default function Index(props) {
   const https = new Https();
 
   const theme = useContext(ThemeContext);
-  const [isBookmark, setIsBookmark] = useState('');
+  const [isBookmark, setIsBookmark] = useState(false);
 
-  console.log(props.isBookmark)
+
   
   function bookmarkAction() {
     https
@@ -45,10 +45,8 @@ export default function Index(props) {
               : Styles.imageToolbarLight
           }
         >
-          <div className={Styles.add} onClick={bookmarkAction}>
-            <div className={props.isBookmark === 1 ? Styles.isBookmark :''}>
-              {props.isBookmark === 1 ? <TickIcon/> : <Plus />}
-            </div>
+          <div className={Styles.add.isBookmark} onClick={bookmarkAction}>
+            <Plus />
           </div>
           <Link className={Styles.open} href={`content/${props.route}`}>
             <Arrow />

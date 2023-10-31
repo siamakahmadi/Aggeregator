@@ -14,19 +14,20 @@ export default function Index(props) {
   const https = new Https();
 
   const theme = useContext(ThemeContext);
-  const [isBookmark, setIsBookmark] = useState('');
+  const [isBookmark, setIsBookmark] = useState(false);
 
-  console.log(props.isBookmark)
+
   
   function bookmarkAction() {
-    https
-      .post(`bookmark/action/${props.id}`)
-      .then((Response) => {
-        console.log(Response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log(props.id)
+    // https
+    //   .post(`bookmark/action/${props.id}`)
+    //   .then((Response) => {
+    //     console.log(Response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   return (
@@ -38,6 +39,7 @@ export default function Index(props) {
     >
       <div key={props.key} className={Styles.cardImage}>
         <img src={props.src} />
+        {console.log(props.src)}
         <div
           className={
             theme === "dark"
@@ -46,9 +48,7 @@ export default function Index(props) {
           }
         >
           <div className={Styles.add} onClick={bookmarkAction}>
-            <div className={props.isBookmark === 1 ? Styles.isBookmark :''}>
-              {props.isBookmark === 1 ? <TickIcon/> : <Plus />}
-            </div>
+            <Plus />
           </div>
           <Link className={Styles.open} href={`content/${props.route}`}>
             <Arrow />

@@ -52,14 +52,7 @@ export default function Page({ params }) {
   const filterList = filter ? (
     <>
       {filter.map((item) => (
-        <Card 
-        key={item.id}
-        id={item.id}
-        isBookmark={item.liked}
-        title={item.title}
-        src=""
-        route={`/${item.id}`}
-        />
+        <Card key={item.id} title={item.title} route={`/${item.id}`} />
       ))}
     </>
   ) : (

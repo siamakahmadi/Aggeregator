@@ -22,7 +22,7 @@ export default function Page({ params }) {
           <Card
             key={item.id}
             id={item.id}
-            isBookmark={item.liked}
+            isBookmark={}
             title={item.title}
             src=""
             route={`/${item.id}`}
@@ -36,13 +36,7 @@ export default function Page({ params }) {
   const bookmarksList = bookmarks ? (
     <>
       {bookmarks.map((item) => (
-        <Card  
-        key={item.id}
-        id={item.id}
-        isBookmark={item.liked}
-        title={item.title}
-        src=""
-        route={`/${item.id}`} />
+        <Card key={item.id}  id={item.id} title={item.title} route={`/${item.id}`} />
       ))}
     </>
   ) : (
@@ -52,14 +46,7 @@ export default function Page({ params }) {
   const filterList = filter ? (
     <>
       {filter.map((item) => (
-        <Card 
-        key={item.id}
-        id={item.id}
-        isBookmark={item.liked}
-        title={item.title}
-        src=""
-        route={`/${item.id}`}
-        />
+        <Card key={item.id} title={item.title} route={`/${item.id}`} />
       ))}
     </>
   ) : (

@@ -16,7 +16,7 @@ export default function Index(props) {
   const theme = useContext(ThemeContext);
   const [isBookmark, setIsBookmark] = useState('');
 
-  console.log(props.isBookmark)
+
   
   function bookmarkAction() {
     https

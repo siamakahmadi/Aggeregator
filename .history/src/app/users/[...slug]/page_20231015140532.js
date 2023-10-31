@@ -53,13 +53,7 @@ export default function Page({ params }) {
     <>
       {filter.map((item) => (
         <Card 
-        key={item.id}
-        id={item.id}
-        isBookmark={item.liked}
-        title={item.title}
-        src=""
-        route={`/${item.id}`}
-        />
+        key={item.id} title={item.title} route={`/${item.id}`} />
       ))}
     </>
   ) : (

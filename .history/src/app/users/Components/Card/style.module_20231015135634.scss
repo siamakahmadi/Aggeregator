@@ -71,17 +71,16 @@
                 align-items: center;
                 overflow: hidden;
                 transition: all .3s;
-                .isBookmark{
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: $brand-01;
-                    transition: all .3s;
-                }
             }
-            
+            .isBookmark{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $brand-01;
+                transition: all .3s;
+            }
 
             .open {
                 width: 36px;
@@ -115,16 +114,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                overflow: hidden;
-                .isBookmark{
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: $brand-01;
-                    transition: all .3s;
-                }                
             }
 
             .open {
