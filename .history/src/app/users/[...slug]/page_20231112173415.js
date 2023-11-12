@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 export default function Page({ params }) {
   const headerContext = useContext(HeaderContent);
   const [posts, setPosts] = useState([]);
-  console.log(posts)
+  console.log(posts);
 
   const [bookmarks, setBookmarks] = useState([]);
   const [filter, setFilter] = useState([]);

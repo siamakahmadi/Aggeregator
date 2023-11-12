@@ -15,6 +15,7 @@ export default function Index(props) {
   const https = new Https();
   const theme = useContext(ThemeContext);
   const { value, setValue } = useContext(ToastContext);
+  console.log(value);
   const handleButtonClick = () => {
     setValue(true);
     setInterval(() => {
