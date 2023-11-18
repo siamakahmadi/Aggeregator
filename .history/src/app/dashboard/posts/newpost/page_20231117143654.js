@@ -11,12 +11,15 @@ import ImageUploader from "../../components/ImageUploader";
 import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
-  const [formData, setFormData] = useState({});
-  console.log(formData);
+  const [formData, setFormData] = useState({
+    version_picture: [],
+    // other fields...
+  });
+    console.log(formData);
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
   const [typeFace, setTypeFace] = useState({});
-  const [selectedFile, setSelectedFile] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const https = new Https();
 
@@ -60,48 +63,39 @@ export default function NewPost() {
     });
   }
 
-  // function handleFileChange(event) {
-  //   const file = event.target.files[0];
-  //   setSelectedFile(file);
-  //   // Append file to formData
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     version_picture: file,
-  //   }));
-  // }
-
   function handleFileChange(event) {
     const files = event.target.files;
     setSelectedFile(files);
-
-    // Optionally, if you want to display the file names in the UI
-    const fileNames = Array.from(files).map((file) => file.name);
+  
+    // Append files to formData as an array
     setFormData((prevFormData) => ({
       ...prevFormData,
-      version_picture: fileNames, // Adjust the key based on your backend expectations
+      version_picture: Array.from(files),
     }));
   }
+  
+
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    if (selectedFile.length === 0) {
+  
+    if (!selectedFile || selectedFile.length === 0) {
       console.error("No files selected");
       return;
     }
-
+  
     const formDataToSubmit = new FormData();
-
-    // Append each file to formData
-    for (let i = 0; i < selectedFile.length; i++) {
-      formDataToSubmit.append(`version_picture[${i}]`, selectedFile[i]);
-    }
-
+  
+    // Append files to formData as an array
+    selectedFile.forEach((file, index) => {
+      formDataToSubmit.append(`version_picture[${index}]`, file);
+    });
+  
     // Append other form data
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSubmit.append(key, value);
     });
-
+  
     https
       .post("admin/post", formDataToSubmit, {
         headers: {
@@ -116,7 +110,7 @@ export default function NewPost() {
         console.error("Error uploading files:", error);
       });
   }
-
+  
   return (
     <main>
       <form onSubmit={handleSubmit}>
@@ -303,7 +297,7 @@ export default function NewPost() {
           </InputContainer>
 
           <InputContainer title="Alboum" description="Pic Gallery">
-            <ImageUploader name="version_picture" onChange={handleFileChange} />
+            <ImageUploader name="version" onChange={handleFileChange} />
           </InputContainer>
         </div>
       </form>

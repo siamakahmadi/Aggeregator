@@ -12,11 +12,12 @@ import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
   const [formData, setFormData] = useState({});
-  console.log(formData);
+  console.log(formData)
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
   const [typeFace, setTypeFace] = useState({});
   const [selectedFile, setSelectedFile] = useState([]);
+
 
   const https = new Https();
 
@@ -60,16 +61,6 @@ export default function NewPost() {
     });
   }
 
-  // function handleFileChange(event) {
-  //   const file = event.target.files[0];
-  //   setSelectedFile(file);
-  //   // Append file to formData
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     version_picture: file,
-  //   }));
-  // }
-
   function handleFileChange(event) {
     const files = event.target.files;
     setSelectedFile(files);
@@ -78,7 +69,7 @@ export default function NewPost() {
     const fileNames = Array.from(files).map((file) => file.name);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      version_picture: fileNames, // Adjust the key based on your backend expectations
+      version_pictures: fileNames, // Adjust the key based on your backend expectations
     }));
   }
 
@@ -94,7 +85,7 @@ export default function NewPost() {
 
     // Append each file to formData
     for (let i = 0; i < selectedFile.length; i++) {
-      formDataToSubmit.append(`version_picture[${i}]`, selectedFile[i]);
+      formDataToSubmit.append(`version_pictures[${i}]`, selectedFile[i]);
     }
 
     // Append other form data

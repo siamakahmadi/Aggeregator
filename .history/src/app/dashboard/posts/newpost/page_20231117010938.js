@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import PageHeader from "../../components/PageHeader";
@@ -12,12 +12,11 @@ import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
   const [formData, setFormData] = useState({});
-  console.log(formData);
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
   const [typeFace, setTypeFace] = useState({});
-  const [selectedFile, setSelectedFile] = useState([]);
-
+  const [selectedFile, setSelectedFile] = useState(null);
+console.log(formData)
   const https = new Https();
 
   useEffect(() => {
@@ -60,62 +59,42 @@ export default function NewPost() {
     });
   }
 
-  // function handleFileChange(event) {
-  //   const file = event.target.files[0];
-  //   setSelectedFile(file);
-  //   // Append file to formData
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     version_picture: file,
-  //   }));
-  // }
-
   function handleFileChange(event) {
-    const files = event.target.files;
-    setSelectedFile(files);
-
-    // Optionally, if you want to display the file names in the UI
-    const fileNames = Array.from(files).map((file) => file.name);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      version_picture: fileNames, // Adjust the key based on your backend expectations
-    }));
+    const file = event.target.files[0];
+    setSelectedFile(file);
   }
+
+
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    if (selectedFile.length === 0) {
-      console.error("No files selected");
+  
+    if (!selectedFile) {
+      console.error("No file selected");
       return;
     }
-
-    const formDataToSubmit = new FormData();
-
-    // Append each file to formData
-    for (let i = 0; i < selectedFile.length; i++) {
-      formDataToSubmit.append(`version_picture[${i}]`, selectedFile[i]);
-    }
-
-    // Append other form data
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSubmit.append(key, value);
-    });
-
+  
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+  
     https
-      .post("admin/post", formDataToSubmit, {
+      .post("admin/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("Server Response:", response);
+        return response.json();  // Ensure this line is present if the server response is expected to be JSON.
+      })
       .then((data) => {
-        console.log("Files uploaded successfully:", data);
+        console.log("File uploaded successfully:", data);
       })
       .catch((error) => {
-        console.error("Error uploading files:", error);
+        console.error("Error uploading file:", error);
       });
   }
+  
 
   return (
     <main>
@@ -247,7 +226,7 @@ export default function NewPost() {
                 {typeFace.message === "Category fetched" ? (
                   <>
                     {typeFace.data.map((item) => (
-                      <option>{item.name}</option>
+                      <option key={item.id} value={item.id}>{item.name}</option>
                     ))}
                   </>
                 ) : (

@@ -16,7 +16,7 @@ export default function NewPost() {
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
   const [typeFace, setTypeFace] = useState({});
-  const [selectedFile, setSelectedFile] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const https = new Https();
 
@@ -60,48 +60,33 @@ export default function NewPost() {
     });
   }
 
-  // function handleFileChange(event) {
-  //   const file = event.target.files[0];
-  //   setSelectedFile(file);
-  //   // Append file to formData
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     version_picture: file,
-  //   }));
-  // }
-
   function handleFileChange(event) {
-    const files = event.target.files;
-    setSelectedFile(files);
-
-    // Optionally, if you want to display the file names in the UI
-    const fileNames = Array.from(files).map((file) => file.name);
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  
+    // Append file to formData
     setFormData((prevFormData) => ({
       ...prevFormData,
-      version_picture: fileNames, // Adjust the key based on your backend expectations
+      version_picture: file,
     }));
   }
-
+  
   function handleSubmit(event) {
     event.preventDefault();
-
-    if (selectedFile.length === 0) {
-      console.error("No files selected");
+  
+    if (!selectedFile) {
+      console.error("No file selected");
       return;
     }
-
+  
     const formDataToSubmit = new FormData();
-
-    // Append each file to formData
-    for (let i = 0; i < selectedFile.length; i++) {
-      formDataToSubmit.append(`version_picture[${i}]`, selectedFile[i]);
-    }
-
+    formDataToSubmit.append("version_picture", selectedFile);
+  
     // Append other form data
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSubmit.append(key, value);
     });
-
+  
     https
       .post("admin/post", formDataToSubmit, {
         headers: {
@@ -110,12 +95,13 @@ export default function NewPost() {
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Files uploaded successfully:", data);
+        console.log("File uploaded successfully:", data);
       })
       .catch((error) => {
-        console.error("Error uploading files:", error);
+        console.error("Error uploading file:", error);
       });
   }
+  
 
   return (
     <main>
