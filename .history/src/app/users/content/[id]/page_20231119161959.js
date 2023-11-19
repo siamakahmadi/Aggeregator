@@ -34,13 +34,9 @@ export default function Page({ params }) {
       });
   }, []);
 
-  const relatedPostsList = relatedPosts ? (
-    <div>Related posts Not founds</div>
-  ) : (
-    relatedPosts.map((item) => {
-      <Card key={item.index} title={item.title} />;
-    })
-  );
+  const relatedPostsList = relatedPosts.map((post) => {
+    <Card key={post.index} title={post.title} />;
+  });
 
   return (
     <>
@@ -116,7 +112,7 @@ export default function Page({ params }) {
           <div className={styles.suggestPosts}>
             <div className={styles.title}>Related works</div>
             <div className={styles.postlist}>
-              <CardLayout>{relatedPostsList}</CardLayout>
+              <CardLayout>{}</CardLayout>
             </div>
           </div>
         </main>

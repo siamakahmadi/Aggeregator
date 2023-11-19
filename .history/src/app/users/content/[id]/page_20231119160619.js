@@ -17,30 +17,25 @@ export default function Page({ params }) {
   const https = new Https();
   const theme = useContext(ThemeContext);
   const [content, setcontent] = useState();
-  const [relatedPosts, setRelatedPosts] = useState();
-  console.log(relatedPosts);
   const [pageLoading, setPageLoading] = useState([]);
+
+  const relatedPosts = content.related_posts.map((post) => {
+    <Card
+      title={post.title}
+      src="https://cdn.dribbble.com/userupload/4269145/file/original-c533e5366daed052e3c3236c085acbc7.png?resize=1024x768"
+    />;
+  });
 
   useLayoutEffect(() => {
     https
       .get(`user/post/${params.id}/show`)
       .then((Response) => {
-        setcontent(Response.data.data.post_info),
-          setPageLoading(Response.data.message),
-          setRelatedPosts(Response.data.data.related_posts);
+        setcontent(Response.data.data), setPageLoading(Response.data.message);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
-  const relatedPostsList = relatedPosts ? (
-    <div>Related posts Not founds</div>
-  ) : (
-    relatedPosts.map((item) => {
-      <Card key={item.index} title={item.title} />;
-    })
-  );
 
   return (
     <>
@@ -53,22 +48,28 @@ export default function Page({ params }) {
           <div className={styles.header}>
             <div className={styles.leftSide}>
               <div className={styles.information}>
-                <div className={styles.title}>{content.title}</div>
-                <div className={styles.describe}>{content.description}</div>
+                <div className={styles.title}>{content.post_info.title}</div>
+                <div className={styles.describe}>
+                  {content.post_info.description}
+                </div>
               </div>
               <div className={styles.toolBar}>
                 <div className={styles.exploreBtn}>
                   <Btn
                     type="primary"
                     hasIcon={true}
-                    link={content.website}
+                    link={content.post_info.website}
                     title="Explore Site"
                   >
                     <RightFlash />
                   </Btn>
                 </div>
                 <div className={styles.saveBtn}>
-                  <Btn type="primary" link={content.website} title="Save">
+                  <Btn
+                    type="primary"
+                    link={content.post_info.website}
+                    title="Save"
+                  >
                     <RightFlash />
                   </Btn>
                 </div>
@@ -106,7 +107,9 @@ export default function Page({ params }) {
             <img src="https://cdn.dribbble.com/userupload/8801204/file/original-a09d105afeb2c1843c5fd97f07b1928d.png?resize=1024x768" />
           </div>
           <div className={styles.details}>
-            <div className={styles.avilable}>{content.anchor_website}</div>
+            <div className={styles.avilable}>
+              {content.post_info.anchor_website}
+            </div>
             <div className={styles.explore}>
               <Btn type="primary" hasIcon={true} title="Explore">
                 <RightFlash />
@@ -116,7 +119,14 @@ export default function Page({ params }) {
           <div className={styles.suggestPosts}>
             <div className={styles.title}>Related works</div>
             <div className={styles.postlist}>
-              <CardLayout>{relatedPostsList}</CardLayout>
+              <CardLayout>
+                {content.related_posts === null ? (
+                  <div> Related works Not Found</div>
+                ) : (
+                  // { relatedPosts }
+                  
+                )}
+              </CardLayout>
             </div>
           </div>
         </main>

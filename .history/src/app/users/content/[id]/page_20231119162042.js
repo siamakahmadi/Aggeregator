@@ -34,13 +34,9 @@ export default function Page({ params }) {
       });
   }, []);
 
-  const relatedPostsList = relatedPosts ? (
-    <div>Related posts Not founds</div>
-  ) : (
-    relatedPosts.map((item) => {
-      <Card key={item.index} title={item.title} />;
-    })
-  );
+  const relatedPostsList = relatedPosts.map ? <div></div> : relatedPosts.map((post) => {
+    <Card key={post.index} title={post.title} />;
+  });
 
   return (
     <>
