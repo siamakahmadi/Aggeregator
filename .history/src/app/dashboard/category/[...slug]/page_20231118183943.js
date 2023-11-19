@@ -50,7 +50,7 @@ export default function Page() {
   useLayoutEffect(() => {
     https
       .get("admin/category?type=Type Face")
-      .then((Response) => { 
+      .then((Response) => {
         setFont(Response.data);
       })
       .catch((error) => {

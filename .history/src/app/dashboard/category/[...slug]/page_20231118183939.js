@@ -36,7 +36,7 @@ export default function Page() {
       });
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     https
       .get("admin/category?type=Stack")
       .then((Response) => {
@@ -47,10 +47,10 @@ export default function Page() {
       });
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     https
       .get("admin/category?type=Type Face")
-      .then((Response) => { 
+      .then((Response) => {
         setFont(Response.data);
       })
       .catch((error) => {

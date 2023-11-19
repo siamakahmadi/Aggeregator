@@ -251,7 +251,7 @@ export default function NewPost() {
                 className={styles.dropDown}
                 value={formData.type_face[0]}
                 onChange={handleChange}
-                name="type_face[0]"
+                name="tags[0]"
               >
                 <option value="" defaultChecked>
                   Choose font

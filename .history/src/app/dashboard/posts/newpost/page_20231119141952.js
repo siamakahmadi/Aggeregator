@@ -12,8 +12,8 @@ import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
   const [formData, setFormData] = useState({
-    tags: [],
-    type_face: [],
+    //   tags: [],
+//   type_face: [],
   });
   console.log(formData);
   const [category, setCategory] = useState({});
@@ -56,29 +56,42 @@ export default function NewPost() {
       });
   }, []);
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  // Initialize state
+// const [formData, setFormData] = useState({
+//   tags: [],
+//   type_face: [],
+//   // other state properties...
+// });
 
-    // Check if the field is tags or type_face
-    if (name === "tags" || name === "type_face") {
-      // Extract the index from the field name, e.g., tags[0] -> 0
-      const index = name.match(/\d+/);
+// Update handleChange function
+function handleChange(event) {
+  const { name, value } = event.target;
 
+  // Check if the field is "tags" or "type_face"
+  if (name === "tags" || name === "type_face") {
+    // Parse the value as an integer
+    const numericValue = parseInt(value, 10);
+
+    // Check if the parsed value is a valid number
+    if (!isNaN(numericValue)) {
+      // Update the state with an array containing the number
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: {
-          ...prevFormData[name],
-          [index]: value,
-        },
+        [name]: [numericValue],
       }));
     } else {
-      // For other fields, handle as usual
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
+      console.error(`Invalid number for ${name}`);
     }
+  } else {
+    // For other fields, update the state as usual
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   }
+}
+
+  
 
   function handleFileChange(event) {
     const files = event.target.files;
@@ -89,6 +102,34 @@ export default function NewPost() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       version_picture: fileNames, // Adjust the key based on your backend expectations
+    }));
+  }
+
+  function handleTagsChange(event) {
+    // Convert selected options to an array
+    const selectedTags = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+
+    // Update formData with the array of tags
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      tags: selectedTags,
+    }));
+  }
+
+  function handleTypeFaceChange(event) {
+    // Convert selected options to an array
+    const selectedTypeFace = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+
+    // Update formData with the array of type-face
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      type_face: selectedTypeFace,
     }));
   }
 
@@ -225,9 +266,9 @@ export default function NewPost() {
           >
             <select
               className={styles.dropDown}
-              value={formData.tags[0]} // Adjust the index as needed
-              onChange={handleChange}
-              name="tags[0]"
+              value={formData.tags}
+              onChange={handleTagsChange}
+              name="tags"
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,9 +290,9 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
-                onChange={handleChange}
-                name="type_face[0]"
+                value={formData.type_face}
+                onChange={handleTypeFaceChange}
+                name="type_face"
               >
                 <option value="" defaultChecked>
                   Choose font

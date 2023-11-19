@@ -12,8 +12,7 @@ import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
   const [formData, setFormData] = useState({
-    tags: [],
-    type_face: [],
+    tags:[]
   });
   console.log(formData);
   const [category, setCategory] = useState({});
@@ -57,27 +56,10 @@ export default function NewPost() {
   }, []);
 
   function handleChange(event) {
-    const { name, value } = event.target;
-
-    // Check if the field is tags or type_face
-    if (name === "tags" || name === "type_face") {
-      // Extract the index from the field name, e.g., tags[0] -> 0
-      const index = name.match(/\d+/);
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: {
-          ...prevFormData[name],
-          [index]: value,
-        },
-      }));
-    } else {
-      // For other fields, handle as usual
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   }
 
   function handleFileChange(event) {
@@ -225,9 +207,9 @@ export default function NewPost() {
           >
             <select
               className={styles.dropDown}
-              value={formData.tags[0]} // Adjust the index as needed
+              value={formData.tags}
               onChange={handleChange}
-              name="tags[0]"
+              name="tags"
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,19 +231,15 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
+                value={formData.type_face}
                 onChange={handleChange}
-                name="type_face[0]"
+                name="type_face"
               >
-                <option value="" defaultChecked>
-                  Choose font
-                </option>
+                <option defaultChecked value="">Choose font</option>
                 {typeFace.message === "Category fetched" ? (
                   <>
                     {typeFace.data.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
+                      <option key={item.id} value={item.id}>{item.name}</option>
                     ))}
                   </>
                 ) : (

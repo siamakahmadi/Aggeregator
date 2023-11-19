@@ -56,29 +56,23 @@ export default function NewPost() {
       });
   }, []);
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+function handleChange(event) {
+  const { name, value } = event.target;
 
-    // Check if the field is tags or type_face
-    if (name === "tags" || name === "type_face") {
-      // Extract the index from the field name, e.g., tags[0] -> 0
-      const index = name.match(/\d+/);
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: {
-          ...prevFormData[name],
-          [index]: value,
-        },
-      }));
-    } else {
-      // For other fields, handle as usual
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
+  // Check if the field is tags, type_face, or any other field you want to handle as an array
+  if (name === 'tags' || name === 'type_face') {
+    const selectedValues = value.split(',').map((item) => item.trim());
+    setFormData({
+      ...formData,
+      [name]: selectedValues,
+    });
+  } else {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   }
+}
 
   function handleFileChange(event) {
     const files = event.target.files;
@@ -90,6 +84,27 @@ export default function NewPost() {
       ...prevFormData,
       version_picture: fileNames, // Adjust the key based on your backend expectations
     }));
+  }
+  function handleTagsChange(event) {
+    const selectedTags = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setFormData({
+      ...formData,
+      tags: selectedTags.map(Number), // Convert to an array of numbers
+    });
+  }
+
+  function handleTypeFaceChange(event) {
+    const selectedTypeFace = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setFormData({
+      ...formData,
+      type_face: selectedTypeFace.map(Number), // Convert to an array of numbers
+    });
   }
 
   function handleSubmit(event) {
@@ -225,9 +240,10 @@ export default function NewPost() {
           >
             <select
               className={styles.dropDown}
-              value={formData.tags[0]} // Adjust the index as needed
-              onChange={handleChange}
-              name="tags[0]"
+              value={formData.tags}
+              onChange={handleTagsChange}
+              name="tags"
+              multiple
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,9 +265,10 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
-                onChange={handleChange}
-                name="type_face[0]"
+                value={formData.type_face}
+                onChange={handleTypeFaceChange}
+                name="type_face"
+                multiple
               >
                 <option value="" defaultChecked>
                   Choose font

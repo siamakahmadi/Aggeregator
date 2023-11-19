@@ -11,10 +11,7 @@ import ImageUploader from "../../components/ImageUploader";
 import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
-  const [formData, setFormData] = useState({
-    tags: [],
-    type_face: [],
-  });
+  const [formData, setFormData] = useState({});
   console.log(formData);
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
@@ -90,6 +87,28 @@ export default function NewPost() {
       ...prevFormData,
       version_picture: fileNames, // Adjust the key based on your backend expectations
     }));
+  }
+
+  function handleTagsChange(event) {
+    const selectedTags = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setFormData({
+      ...formData,
+      tags: selectedTags.map(Number), // Convert to an array of numbers
+    });
+  }
+
+  function handleTypeFaceChange(event) {
+    const selectedTypeFace = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setFormData({
+      ...formData,
+      type_face: selectedTypeFace.map(Number), // Convert to an array of numbers
+    });
   }
 
   function handleSubmit(event) {
@@ -228,6 +247,7 @@ export default function NewPost() {
               value={formData.tags[0]} // Adjust the index as needed
               onChange={handleChange}
               name="tags[0]"
+              multiple
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,9 +269,10 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
-                onChange={handleChange}
-                name="type_face[0]"
+                value={formData.type_face}
+                onChange={handleTypeFaceChange}
+                name="type_face"
+                multiple
               >
                 <option value="" defaultChecked>
                   Choose font

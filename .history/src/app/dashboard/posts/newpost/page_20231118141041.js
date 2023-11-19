@@ -11,11 +11,8 @@ import ImageUploader from "../../components/ImageUploader";
 import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
-  const [formData, setFormData] = useState({
-    tags: [],
-    type_face: [],
-  });
-  console.log(formData);
+  const [formData, setFormData] = useState({});
+  console.log(formData.version_picture);
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
   const [typeFace, setTypeFace] = useState({});
@@ -57,27 +54,10 @@ export default function NewPost() {
   }, []);
 
   function handleChange(event) {
-    const { name, value } = event.target;
-
-    // Check if the field is tags or type_face
-    if (name === "tags" || name === "type_face") {
-      // Extract the index from the field name, e.g., tags[0] -> 0
-      const index = name.match(/\d+/);
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: {
-          ...prevFormData[name],
-          [index]: value,
-        },
-      }));
-    } else {
-      // For other fields, handle as usual
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   }
 
   function handleFileChange(event) {
@@ -89,6 +69,34 @@ export default function NewPost() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       version_picture: fileNames, // Adjust the key based on your backend expectations
+    }));
+  }
+
+  function handleTagsChange(event) {
+    // Convert selected options to an array
+    const selectedTags = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+
+    // Update formData with the array of tags
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      tags: selectedTags,
+    }));
+  }
+
+  function handleTypeFaceChange(event) {
+    // Convert selected options to an array
+    const selectedTypeFace = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+
+    // Update formData with the array of type-face
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      type_face: selectedTypeFace,
     }));
   }
 
@@ -225,9 +233,9 @@ export default function NewPost() {
           >
             <select
               className={styles.dropDown}
-              value={formData.tags[0]} // Adjust the index as needed
-              onChange={handleChange}
-              name="tags[0]"
+              value={formData.tags}
+              onChange={handleTagsChange}
+              name="tags"
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,9 +257,9 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
-                onChange={handleChange}
-                name="type_face[0]"
+                value={formData.type_face}
+                onChange={handleTypeFaceChange}
+                name="type_face"
               >
                 <option value="" defaultChecked>
                   Choose font
@@ -318,6 +326,9 @@ export default function NewPost() {
 
           <InputContainer title="Alboum" description="Pic Gallery">
             <ImageUploader name="version_picture" onChange={handleFileChange} />
+            <div >
+                  <img width={'200px'} hi href={formData.version_picture}/>
+            </div>
           </InputContainer>
         </div>
       </form>

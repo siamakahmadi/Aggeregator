@@ -11,10 +11,7 @@ import ImageUploader from "../../components/ImageUploader";
 import Https from "../../../../../Axios/Https";
 
 export default function NewPost() {
-  const [formData, setFormData] = useState({
-    tags: [],
-    type_face: [],
-  });
+  const [formData, setFormData] = useState({});
   console.log(formData);
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
@@ -57,61 +54,68 @@ export default function NewPost() {
   }, []);
 
   function handleChange(event) {
-    const { name, value } = event.target;
-
-    // Check if the field is tags or type_face
-    if (name === "tags" || name === "type_face") {
-      // Extract the index from the field name, e.g., tags[0] -> 0
-      const index = name.match(/\d+/);
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: {
-          ...prevFormData[name],
-          [index]: value,
-        },
-      }));
-    } else {
-      // For other fields, handle as usual
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   }
-
+  
   function handleFileChange(event) {
-    const files = event.target.files;
-    setSelectedFile(files);
-
-    // Optionally, if you want to display the file names in the UI
-    const fileNames = Array.from(files).map((file) => file.name);
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  
+    // Append file to formData
     setFormData((prevFormData) => ({
       ...prevFormData,
-      version_picture: fileNames, // Adjust the key based on your backend expectations
+      version_picture: file,
     }));
   }
-
+  
+  function handleTagsChange(event) {
+    // Convert selected options to an array
+    const selectedTags = Array.from(event.target.selectedOptions, (option) => option.value);
+  
+    // Update formData with the array of tags
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      tags: selectedTags,
+    }));
+  }
+  
+  function handleTypeFaceChange(event) {
+    // Convert selected options to an array
+    const selectedTypeFace = Array.from(event.target.selectedOptions, (option) => option.value);
+  
+    // Update formData with the array of type-face
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      type_face: selectedTypeFace,
+    }));
+  }
+  
   function handleSubmit(event) {
     event.preventDefault();
-
-    if (selectedFile.length === 0) {
-      console.error("No files selected");
+  
+    if (!selectedFile) {
+      console.error("No file selected");
       return;
     }
-
+  
     const formDataToSubmit = new FormData();
-
-    // Append each file to formData
-    for (let i = 0; i < selectedFile.length; i++) {
-      formDataToSubmit.append(`version_picture[${i}]`, selectedFile[i]);
-    }
-
+    formDataToSubmit.append("version_picture", selectedFile);
+  
     // Append other form data
     Object.entries(formData).forEach(([key, value]) => {
-      formDataToSubmit.append(key, value);
+      // Check if the value is an array, and append each item separately
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          formDataToSubmit.append(key, item);
+        });
+      } else {
+        formDataToSubmit.append(key, value);
+      }
     });
-
+  
     https
       .post("admin/post", formDataToSubmit, {
         headers: {
@@ -120,13 +124,13 @@ export default function NewPost() {
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Files uploaded successfully:", data);
+        console.log("File uploaded successfully:", data);
       })
       .catch((error) => {
-        console.error("Error uploading files:", error);
+        console.error("Error uploading file:", error);
       });
   }
-
+  
   return (
     <main>
       <form onSubmit={handleSubmit}>
@@ -225,9 +229,9 @@ export default function NewPost() {
           >
             <select
               className={styles.dropDown}
-              value={formData.tags[0]} // Adjust the index as needed
+              value={formData.tags}
               onChange={handleChange}
-              name="tags[0]"
+              name="tags"
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,11 +253,11 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
+                value={formData.type_face}
                 onChange={handleChange}
-                name="type_face[0]"
+                name="type_face"
               >
-                <option value="" defaultChecked>
+                <option defaultChecked value="">
                   Choose font
                 </option>
                 {typeFace.message === "Category fetched" ? (

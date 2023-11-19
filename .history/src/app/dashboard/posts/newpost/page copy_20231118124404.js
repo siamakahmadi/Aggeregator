@@ -9,19 +9,53 @@ import CheckBox from "../../components/CheckBox";
 import DescriptionInput from "../../components/DescriptionInput";
 import ImageUploader from "../../components/ImageUploader";
 import Https from "../../../../../Axios/Https";
-
+import DropDown from "../../components/DropDown/index";
 export default function NewPost() {
-  const [formData, setFormData] = useState({
-    tags: [],
-    type_face: [],
-  });
-  console.log(formData);
+  const [formData, setFormData] = useState({});
   const [category, setCategory] = useState({});
   const [stack, setStack] = useState({});
   const [typeFace, setTypeFace] = useState({});
-  const [selectedFile, setSelectedFile] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const https = new Https();
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  // const handleUpload = () => {
+  //   if (!selectedFile) {
+  //     console.error("No file selected");
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+  //   formData.append("file", selectedFile);
+
+  //   // Add additional form data if needed
+
+  //   // Make an AJAX request (you can use Axios, Fetch, or any other library)
+  //   fetch("/api/upload", {
+  //     method: "POST",
+  //     body: formData,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("File uploaded successfully:", data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error uploading file:", error);
+  //     });
+  // };
+
+  //   return (
+  //     <div>
+  //       <input type="file" onChange={handleFileChange} />
+  //       <button onClick={handleUpload}>Upload</button>
+  //     </div>
+  //   );
+  // };
 
   useEffect(() => {
     https
@@ -30,7 +64,7 @@ export default function NewPost() {
         setCategory(Response.data);
       })
       .catch((error) => {
-        toast(`we cant fetched categories`);
+        toast(`we cant featched categories`);
       });
   }, []);
 
@@ -41,7 +75,7 @@ export default function NewPost() {
         setStack(Response.data);
       })
       .catch((error) => {
-        toast(`we cant fetched categories`);
+        toast(`we cant featched categories`);
       });
   }, []);
 
@@ -52,78 +86,42 @@ export default function NewPost() {
         setTypeFace(Response.data);
       })
       .catch((error) => {
-        toast(`we cant fetched categories`);
+        toast(`we cant featched categories`);
       });
   }, []);
 
   function handleChange(event) {
-    const { name, value } = event.target;
-
-    // Check if the field is tags or type_face
-    if (name === "tags" || name === "type_face") {
-      // Extract the index from the field name, e.g., tags[0] -> 0
-      const index = name.match(/\d+/);
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: {
-          ...prevFormData[name],
-          [index]: value,
-        },
-      }));
-    } else {
-      // For other fields, handle as usual
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
-  }
-
-  function handleFileChange(event) {
-    const files = event.target.files;
-    setSelectedFile(files);
-
-    // Optionally, if you want to display the file names in the UI
-    const fileNames = Array.from(files).map((file) => file.name);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      version_picture: fileNames, // Adjust the key based on your backend expectations
-    }));
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (selectedFile.length === 0) {
-      console.error("No files selected");
+    if (!selectedFile) {
+      console.error("No file selected");
       return;
     }
 
-    const formDataToSubmit = new FormData();
-
-    // Append each file to formData
-    for (let i = 0; i < selectedFile.length; i++) {
-      formDataToSubmit.append(`version_picture[${i}]`, selectedFile[i]);
-    }
-
-    // Append other form data
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSubmit.append(key, value);
-    });
+    const formData = new FormData();
+    formData.append("file", selectedFile);
 
     https
-      .post("admin/post", formDataToSubmit, {
+      .post("admin/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Files uploaded successfully:", data);
+        console.log("File uploaded successfully:", data);
       })
       .catch((error) => {
-        console.error("Error uploading files:", error);
+        console.error("Error uploading file:", error);
       });
   }
 
@@ -225,47 +223,41 @@ export default function NewPost() {
           >
             <select
               className={styles.dropDown}
-              value={formData.tags[0]} // Adjust the index as needed
+              value={formData.tags}
               onChange={handleChange}
-              name="tags[0]"
+              name="category"
             >
-              <option defaultChecked value="">
-                Choose category
-              </option>
+              <option defaultChecked>Choose category</option>
               {category.message === "Category fetched" ? (
                 <>
                   {category.data.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
+                    <option>{item.name}</option>
                   ))}
                 </>
               ) : (
-                <option>waiting ...</option>
+                <option defaultChecked>waiting...</option>
               )}
             </select>
 
-            <div className={styles.mb24}></div>
+            <div className={styles.mb24}>
+              <DropDown items={stack.data} />
+            </div>
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
+                value={formData.tags}
                 onChange={handleChange}
-                name="type_face[0]"
+                name="category"
               >
-                <option value="" defaultChecked>
-                  Choose font
-                </option>
+                <option defaultChecked>Choose font</option>
                 {typeFace.message === "Category fetched" ? (
                   <>
                     {typeFace.data.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
+                      <option>{item.name}</option>
                     ))}
                   </>
                 ) : (
-                  <option>waiting ...</option>
+                  <option>wating...</option>
                 )}
               </select>
             </div>
@@ -317,10 +309,99 @@ export default function NewPost() {
           </InputContainer>
 
           <InputContainer title="Alboum" description="Pic Gallery">
-            <ImageUploader name="version_picture" onChange={handleFileChange} />
+            <ImageUploader
+              onChange={handleFileChange}
+              name="version_picture"
+              value={formData.version_picture}
+            />
           </InputContainer>
         </div>
       </form>
     </main>
   );
 }
+
+
+
+
+// ... (previous code)
+
+function handleChange(event) {
+  setFormData({
+    ...formData,
+    [event.target.name]: event.target.value,
+  });
+}
+
+function handleFileChange(event) {
+  const file = event.target.files[0];
+  setSelectedFile(file);
+
+  // Append file to formData
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    version_picture: file,
+  }));
+}
+
+function handleTagsChange(event) {
+  // Convert selected options to an array
+  const selectedTags = Array.from(event.target.selectedOptions, (option) => option.value);
+
+  // Update formData with the array of tags
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    tags: selectedTags,
+  }));
+}
+
+function handleTypeFaceChange(event) {
+  // Convert selected options to an array
+  const selectedTypeFace = Array.from(event.target.selectedOptions, (option) => option.value);
+
+  // Update formData with the array of type-face
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    type_face: selectedTypeFace,
+  }));
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  if (!selectedFile) {
+    console.error("No file selected");
+    return;
+  }
+
+  const formDataToSubmit = new FormData();
+  formDataToSubmit.append("version_picture", selectedFile);
+
+  // Append other form data
+  Object.entries(formData).forEach(([key, value]) => {
+    // Check if the value is an array, and append each item separately
+    if (Array.isArray(value)) {
+      value.forEach((item) => {
+        formDataToSubmit.append(key, item);
+      });
+    } else {
+      formDataToSubmit.append(key, value);
+    }
+  });
+
+  https
+    .post("admin/post", formDataToSubmit, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("File uploaded successfully:", data);
+    })
+    .catch((error) => {
+      console.error("Error uploading file:", error);
+    });
+}
+
+// ... (rest of the code)

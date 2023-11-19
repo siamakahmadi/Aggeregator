@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect,useLayoutEffect } from "react";
+import { useState, useEffect,use } from "react";
 import styles from "./styles.module.scss";
 import PageHeader from "../../components/PageHeader/index";
 import Https from "../../../../../Axios/Https";
@@ -24,7 +24,7 @@ export default function Page() {
 
   const https = new Https();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     https
       .get("admin/category?type=Tags")
       .then((Response) => {
@@ -36,7 +36,7 @@ export default function Page() {
       });
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     https
       .get("admin/category?type=Stack")
       .then((Response) => {
@@ -47,10 +47,10 @@ export default function Page() {
       });
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     https
       .get("admin/category?type=Type Face")
-      .then((Response) => { 
+      .then((Response) => {
         setFont(Response.data);
       })
       .catch((error) => {

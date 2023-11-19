@@ -92,6 +92,28 @@ export default function NewPost() {
     }));
   }
 
+  function handleTagsChange(event) {
+    const selectedTags = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setFormData({
+      ...formData,
+      tags: selectedTags.map(Number), // Convert to an array of numbers
+    });
+  }
+
+  function handleTypeFaceChange(event) {
+    const selectedTypeFace = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setFormData({
+      ...formData,
+      type_face: selectedTypeFace.map(Number), // Convert to an array of numbers
+    });
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -228,6 +250,7 @@ export default function NewPost() {
               value={formData.tags[0]} // Adjust the index as needed
               onChange={handleChange}
               name="tags[0]"
+              multiple
             >
               <option defaultChecked value="">
                 Choose category
@@ -249,9 +272,9 @@ export default function NewPost() {
             <div className={styles.mb24}>
               <select
                 className={styles.dropDown}
-                value={formData.type_face[0]}
+                value={formData.tags[0]} 
                 onChange={handleChange}
-                name="type_face[0]"
+                name="tags[0]"
               >
                 <option value="" defaultChecked>
                   Choose font
