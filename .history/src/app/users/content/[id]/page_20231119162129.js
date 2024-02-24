@@ -38,7 +38,7 @@ export default function Page({ params }) {
     <div>Related posts Not founds</div>
   ) : (
     relatedPosts.map((item) => {
-      <Card key={item.index} title={post.title} />;
+      <Card key={item.index} title={item.title} />;
     })
   );
 
