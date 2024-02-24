@@ -3,7 +3,7 @@
 import styles from './assets/main.module.scss'
 import Nav from './components/nav/index'
 import Login from './login/page'
-import { useState, useLayoutEffect } from "react"
+import { useState, useEffect, useLayoutEffect } from "react"
 import Cookies from 'universal-cookie'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,5 +1,4 @@
-'use client'
-import { useState } from "react";
+'use client'import { useState } from "react";
 import Style from "./style.module.scss";
 import React from "react";
 import Arrow from "../../assets/svg/arrow";

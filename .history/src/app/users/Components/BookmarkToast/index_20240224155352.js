@@ -1,8 +1,7 @@
-'use client'
 import React from "react";
 import { useContext } from "react";
-import ThemeContext from "../../Api/context/ThemeContext";
 import Styles from "./style.module.scss";
+import ThemeContext from "../../Api/context/ThemeContext";
 import BookmarkDone from "../../Assets/svg/BoomarkDone";
 
 export default function index() {
