@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect,useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import styles from "./styles.module.scss";
 import PageHeader from "../../components/PageHeader/index";
 import Https from "../../../../../Axios/Https";
@@ -22,7 +22,7 @@ export default function Page() {
 
   const [formData, setFormData] = useState({});
 
-  console.log(formData)
+  console.log(formData);
   const https = new Https();
 
   useLayoutEffect(() => {
@@ -51,7 +51,7 @@ export default function Page() {
   useLayoutEffect(() => {
     https
       .get("admin/category?type=Type Face")
-      .then((Response) => { 
+      .then((Response) => {
         setFont(Response.data);
       })
       .catch((error) => {

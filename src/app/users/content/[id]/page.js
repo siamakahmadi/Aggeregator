@@ -49,7 +49,7 @@ export default function Page({ params }) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [https, params.id]);
 
   const relatedPostsList = relatedPosts ? (
     relatedPosts.map((item) => <Card key={item.index} title={item.title} />)
@@ -92,7 +92,7 @@ export default function Page({ params }) {
             <div className={styles.rightSide}>
               <div className={styles.itemsList}>
                 {content.categories.map((category) => (
-                  <div className={styles.item}>
+                  <div key={category.id} className={styles.item}>
                     <div className={styles.icon}>
                       {category.type === "Tags" ? <Tag /> : <Typefaces />}
                     </div>

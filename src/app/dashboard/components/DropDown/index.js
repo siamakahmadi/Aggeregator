@@ -4,10 +4,10 @@ import Style from "./style.module.scss";
 import React from "react";
 import Arrow from "../../assets/svg/arrow";
 
-export default function index(props) {
+export default function Index(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState([]);
-  
+  setSelectedItem()
   return (
     <div className={Style.dropDown}>
       <div className={Style.inputContainer}>

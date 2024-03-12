@@ -32,7 +32,7 @@ export default function NewPost() {
       .catch((error) => {
         toast(`we cant fetched categories`);
       });
-  }, []);
+  }, [https]);
 
   useEffect(() => {
     https
@@ -43,7 +43,7 @@ export default function NewPost() {
       .catch((error) => {
         toast(`we cant fetched categories`);
       });
-  }, []);
+  }, [https]);
 
   useEffect(() => {
     https
@@ -54,7 +54,7 @@ export default function NewPost() {
       .catch((error) => {
         toast(`we cant fetched categories`);
       });
-  }, []);
+  }, [https]);
 
   function handleChange(event) {
     const { name, value } = event.target;

@@ -25,7 +25,7 @@ export default function NewPost({ params }) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [https,params.id]);
 
   function handleChange(event) {
     setFormData({

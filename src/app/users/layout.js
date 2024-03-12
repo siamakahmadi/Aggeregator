@@ -1,6 +1,6 @@
 "use client";
 import "../globals.css";
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ToastContext from "./Api/context/ToastContext";
@@ -14,15 +14,10 @@ import Cookies from "universal-cookie";
 
 export default function RootLayout({ children }) {
   const cookie = new Cookies();
-  const [toast, setToast] = useState();
+  const userCookieValue = cookie.get("userLogin");
 
-  const [isLight, setIsLight] = useState("");
-  const [userData, setUserData] = useState("");
-  const [headerContext, setHeaderContext] = useState("");
-  useLayoutEffect(() => {
-    if (cookie.get("userLogin")) {
-      console.log("this is available");
-    } else {
+  useEffect(() => {
+    if (!userCookieValue) {
       cookie.set(
         "userLogin",
         {
@@ -33,12 +28,18 @@ export default function RootLayout({ children }) {
         },
         {
           path: "/",
-          expires: new Date(Date.now() + 3600000),
+          expires: new Date(Date.now() + 8000000),
         }
       );
-      console.log("now added");
     }
-  });
+    setUserData(userCookieValue);
+  }, [cookie, userCookieValue]);
+
+  const [toast, setToast] = useState();
+
+  const [isLight, setIsLight] = useState("");
+  const [userData, setUserData] = useState("");
+  const [headerContext, setHeaderContext] = useState("");
 
   useLayoutEffect(() => {
     const storedData = window.localStorage.getItem("isLight?");

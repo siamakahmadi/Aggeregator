@@ -5,7 +5,7 @@ import ThemeContext from "../../Api/context/ThemeContext";
 import Styles from "./style.module.scss";
 import BookmarkDone from "../../Assets/svg/BoomarkDone";
 
-export default function index() {
+export default function Index() {
   const theme = useContext(ThemeContext);
   return (
     <div className={Styles.container}>

@@ -41,7 +41,7 @@ export default function Page({ params }) {
           }, 3000);
         });
     }
-  }, []);
+  }, [https,params.id,router]);
 
   function handleSusspend(id) {
     https
