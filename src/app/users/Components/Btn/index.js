@@ -10,7 +10,7 @@ export default function Index(props) {
       {
         props.type === 'primary' ?
           <button type={props.submitType}>
-            <Link target="_blank" href={props.link < 0 ? '' : `${props.link}`} replace className={Styles.primary} >
+            <Link target={props.link ? '_blank' :''} href={props.link < 0 ? '' : `${props.link}`} replace className={Styles.primary} >
               {props.title}
               {
                 props.hasIcon
@@ -23,7 +23,7 @@ export default function Index(props) {
           </button>
           :
           <button type={props.submitType}>
-            <Link target="_blank" href={props.link < 0 ? '#' : `${props.link}`} replace className={theme === 'dark' ? Styles.secondaryDark :  Styles.secondary } >
+            <Link target={props.link ? '_blank' :''} href={props.link < 0 ? '#' : `${props.link}`} replace className={theme === 'dark' ? Styles.secondaryDark :  Styles.secondary } >
               {props.title}
               {
                 props.hasIcon

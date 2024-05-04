@@ -1,6 +1,7 @@
 "use client";
-import { useContext, useState, useLayoutEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import Slider from "react-slick";
+import SyncLoader from "react-spinners/SyncLoader";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "../style.module.scss";
@@ -17,15 +18,18 @@ import Typefaces from "../../Assets/svg/Typefaces";
 import Version from "../../Assets/svg/version";
 import Figma from "../../Assets/svg/figma";
 
+import ToastContext from "../../Api/context/ToastContext";
+
 export default function Page({ params }) {
   const https = new Https();
   const theme = useContext(ThemeContext);
   const [content, setcontent] = useState();
   const [relatedPosts, setRelatedPosts] = useState();
   const [pageLoading, setPageLoading] = useState([]);
+  const [saveBtnTheme, setSaveBtnTheme] = useState();
+  const { value, setValue } = useContext(ToastContext);
 
-  console.log(content);
-
+  const [loading, setLoading] = useState(false);
   const versions = content && content.versions;
 
   const sliderSettings = {
@@ -38,18 +42,52 @@ export default function Page({ params }) {
     slidesToScroll: 1,
   };
 
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     https
       .get(`user/post/${params.id}/show`)
       .then((Response) => {
         setcontent(Response.data.data.post_info),
           setPageLoading(Response.data.message),
           setRelatedPosts(Response.data.data.related_posts);
+        setSaveBtnTheme(Response.data.data.post_info.liked);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [https, params.id]);
+  }, [params.id]);
+
+  const handleButtonClick = () => {
+    setValue(true);
+    setInterval(() => {
+      setValue(false);
+    }, 3000);
+  };
+
+  function savePostHandleRequest() {
+    // Set isLoading to true when the request is initiated
+    setLoading(true);
+
+    https
+      .post(`bookmark/action/${params.id}`)
+      .then((response) => {
+        // After the save request is successful, fetch the initial data again
+        return https.get(`user/post/${params.id}/show`);
+      })
+      .then((response) => {
+        // Update the state with the latest data
+        setSaveBtnTheme(response.data.data.post_info.liked);
+        // Optionally, perform any other actions after updating the state
+        handleButtonClick();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        // Set isLoading to false when the request is completed (success or failure)
+        setLoading(false);
+      });
+  }
 
   const relatedPostsList = relatedPosts ? (
     relatedPosts.map((item) => <Card key={item.index} title={item.title} />)
@@ -82,10 +120,33 @@ export default function Page({ params }) {
                     <RightFlash />
                   </Btn>
                 </div>
-                <div className={styles.saveBtn}>
-                  <Btn type="secondary" link={content.website} title="Save">
-                    <RightFlash />
-                  </Btn>
+                <div
+                  className={styles.saveBtn}
+                  onClick={() => savePostHandleRequest()}
+                >
+                  {saveBtnTheme === 1 ? (
+                    <a className={styles.secondarySelected}>
+                      {loading ? (
+                        <SyncLoader color="#ffffff" size={6} />
+                      ) : (
+                        <div>Unsave</div>
+                      )}
+                    </a>
+                  ) : (
+                    <a
+                      className={
+                        theme === "dark"
+                          ? styles.secondaryDark
+                          : styles.secondary
+                      }
+                    >
+                      {loading ? (
+                        <SyncLoader color="#111111" size={6} />
+                      ) : (
+                        <div>Save</div>
+                      )}
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -107,7 +168,9 @@ export default function Page({ params }) {
               <div className={styles.icon}>
                 <Version />
               </div>
-              <div className={styles.title}>{content.versions[0].title}</div>
+              <div className={styles.title}>
+                Version {content.versions[0].title}
+              </div>
             </div>
             <div className={styles.figmaFile}>
               <Figma />

@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   useLayoutEffect(() => {
     const cookieData = cookies.get("isloggin");
     setIsLoggin(cookieData);
-  }, [cookies]);
+  }, []);
 
   return (
     <html lang="en">

@@ -79,7 +79,7 @@ export default function Page({ params }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [https]);
+  }, []);
 
   useEffect(() => {
     https
@@ -90,7 +90,7 @@ export default function Page({ params }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [https]);
+  }, []);
 
   useEffect(() => {
     https
@@ -101,7 +101,7 @@ export default function Page({ params }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [https]);
+  }, []);
 
   return (
     <main>

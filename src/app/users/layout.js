@@ -13,27 +13,25 @@ import styles from "./Assets/main.module.scss";
 import Cookies from "universal-cookie";
 
 export default function RootLayout({ children }) {
-  const cookie = new Cookies();
-  const userCookieValue = cookie.get("userLogin");
+  const cookies = new Cookies();
 
   useEffect(() => {
+    const userCookieValue = cookies.get("userLogin");
+
+    // Check if userCookieValue is undefined or null
     if (!userCookieValue) {
-      cookie.set(
-        "userLogin",
-        {
-          isLoggin: false,
-          userToken: null,
-          userEmail: null,
-          userId: null,
-        },
-        {
-          path: "/",
-          expires: new Date(Date.now() + 8000000),
-        }
-      );
+      // Set the cookie only if userCookieValue is not defined
+      cookies.set("userLogin", {
+        isLoggin: false,
+        userToken: null,
+        userEmail: null,
+        userId: null,
+      }, {
+        path: "/",
+        expires: new Date(Date.now() + 8000000),
+      });
     }
-    setUserData(userCookieValue);
-  }, [cookie, userCookieValue]);
+  }, [cookies]);
 
   const [toast, setToast] = useState();
 

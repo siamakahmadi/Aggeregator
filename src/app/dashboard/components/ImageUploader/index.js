@@ -10,6 +10,7 @@ export default function Index(props) {
         value={props.value}
         onChange={props.onChange}
         type="file"
+        id="fileInput"
         multiple
         accept="image/*"
       />

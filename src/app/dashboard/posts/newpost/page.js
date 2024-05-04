@@ -9,6 +9,7 @@ import CheckBox from "../../components/CheckBox";
 import DescriptionInput from "../../components/DescriptionInput";
 import ImageUploader from "../../components/ImageUploader";
 import Https from "../../../../../Axios/Https";
+import { toast } from "react-toastify";
 
 export default function NewPost() {
   const [formData, setFormData] = useState({
@@ -32,18 +33,18 @@ export default function NewPost() {
       .catch((error) => {
         toast(`we cant fetched categories`);
       });
-  }, [https]);
+  }, []);
 
   useEffect(() => {
     https
       .get("admin/category?type=Stack")
       .then((Response) => {
         setStack(Response.data);
-      })
+      }) 
       .catch((error) => {
         toast(`we cant fetched categories`);
       });
-  }, [https]);
+  }, []);
 
   useEffect(() => {
     https
@@ -54,7 +55,7 @@ export default function NewPost() {
       .catch((error) => {
         toast(`we cant fetched categories`);
       });
-  }, [https]);
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;

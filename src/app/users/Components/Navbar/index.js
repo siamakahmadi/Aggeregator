@@ -123,7 +123,7 @@ export default function Index(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, [https]);
+  }, []);
 
   function handleRegister(event) {
     setRegisterData({

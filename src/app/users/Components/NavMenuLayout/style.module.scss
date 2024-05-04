@@ -19,6 +19,9 @@
         width: 100%;
         flex-direction: column;
         gap: 4px;
+        a{
+            width: 100%;
+        }
     }
 
     .submitDesign {
@@ -75,10 +78,13 @@
     .body {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         width: 100%;
         flex-direction: column;
         gap: 4px;
+        a{
+            width: 100%;
+        }
     }
 
     .submitDesign {
