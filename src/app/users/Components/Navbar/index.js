@@ -35,8 +35,11 @@ export default function Index(props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [userInfo, setUserInfo] = useState({});
+  const containsContent = pathname.includes("content");
 
+  const [userInfo, setUserInfo] = useState({});
+  console.log(userInfo.userToken)
+  
   useLayoutEffect(() => {
     const userData = cookie.get("userLogin");
     props.setUserData(userData);
@@ -55,7 +58,7 @@ export default function Index(props) {
   const [message, setMessage] = useState(false);
 
   const https = new Https(
-    "204|Ozwl7gMSErf5CZMu9zt8q4kue4AjRmxvFwIcct7n33d7ce33"
+    `${userInfo.userToken}`
   );
 
   const CategoryItemsList =
@@ -228,94 +231,122 @@ export default function Index(props) {
       <div className={theme === "light" ? Styles.navLight : Styles.navDark}>
         <div className={Styles.body}>
           <div className={Styles.container}>
-            <motion.div className={Styles.leftSide}>
-              <motion.div
+            <div className={Styles.leftSide}>
+              <div
                 transition={{ duration: 0.1 }}
                 initial={{ marginTop: -60 }}
                 animate={{ marginTop: 0 }}
                 className={Styles.Logo}
               >
                 <Logo />
-              </motion.div>
-              <div className={Styles.menuBtns}>
-                <motion.div
-                  transition={{ duration: 0.3 }}
-                  initial={{ marginTop: -60 }}
-                  animate={{ marginTop: 0 }}
-                  className={Styles.categoryBtn}
-                >
-                  <CategoryBtn
-                    Cname={
-                      currentDropdownItem ? currentDropdownItem.charAt() : ""
-                    }
-                    currentDropdownItem={currentDropdownItem}
-                    title={
-                      pathname === "/users/all"
-                        ? "All"
-                        : pathname === "/users/bookmark"
-                        ? "Bookmark"
-                        : !currentDropdownItem
-                        ? "Category"
-                        : currentDropdownItem
-                    }
-                    event={() =>
-                      activeFilter
-                        ? setActiveFilter(false)
-                        : setActiveFilter(true)
-                    }
-                  />
-                  <>
-                    {/* categories */}
-                    {activeFilter ? (
-                      <NavMenuLayout>
-                        {userValue.isLoggin === true && (
-                          <Link href={"bookmark"}>
-                            <SadebarItem title="Bookmarks">
-                              <div>
-                                <BookmarkIocn />
-                              </div>
-                            </SadebarItem>
-                          </Link>
-                        )}
-                        <Link href={"all"}>
-                          <SadebarItem title="All">
-                            <div>
-                              <BookmarkIocn />
-                            </div>
-                          </SadebarItem>
-                          {CategoryItemsList}
-                        </Link>
-                      </NavMenuLayout>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                </motion.div>
-                <motion.div
-                  transition={{ duration: 0.4 }}
-                  initial={{ marginTop: -60 }}
-                  animate={{ marginTop: 0 }}
-                  className={Styles.categoryBtn}
-                >
-                  <CategoryBtn
-                    title={!currentDisplayBtn ? "display" : currentDisplayBtn}
-                    type="display"
-                    event={() =>
-                      activeDisplayFilter
-                        ? setActiveDisplayFilter(false)
-                        : setActiveDisplayFilter(true)
-                    }
-                  />
-                  <>
-                    {activeDisplayFilter ? (
-                      <NavMenuLayout>{TypeFace}</NavMenuLayout>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                </motion.div>
               </div>
-            </motion.div>
+              <div className={Styles.menuBtns}>
+                {containsContent ? (
+                  <Link className={Styles.backBtn} href={"/users/all"}>
+                    <span className={Styles.backIcon}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M2.91797 7H11.0846M2.91797 7L6.41797 10.5M2.91797 7L6.41797 3.5"
+                          stroke="black"
+                          stroke-width="1.25"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span className={Styles.backBtnTitle}>Back</span>
+                  </Link>
+                ) : (
+                  <>
+                    <div
+                      transition={{ duration: 0.3 }}
+                      initial={{ marginTop: -60 }}
+                      animate={{ marginTop: 0 }}
+                      className={Styles.categoryBtn}
+                    >
+                      <CategoryBtn
+                        Cname={
+                          currentDropdownItem
+                            ? currentDropdownItem.charAt()
+                            : ""
+                        }
+                        currentDropdownItem={currentDropdownItem}
+                        title={
+                          pathname === "/users/all"
+                            ? "All"
+                            : pathname === "/users/bookmark"
+                            ? "Bookmark"
+                            : !currentDropdownItem
+                            ? "Category"
+                            : currentDropdownItem
+                        }
+                        event={() =>
+                          activeFilter
+                            ? setActiveFilter(false)
+                            : setActiveFilter(true)
+                        }
+                      />
+                      <>
+                        {activeFilter ? (
+                          <NavMenuLayout>
+                            {userValue.isLoggin === true && (
+                              <Link href={"bookmark"}>
+                                <SadebarItem title="Bookmarks">
+                                  <div>
+                                    <BookmarkIocn />
+                                  </div>
+                                </SadebarItem>
+                              </Link>
+                            )}
+                            <Link href={"all"}>
+                              <SadebarItem title="All">
+                                <div>
+                                  <BookmarkIocn />
+                                </div>
+                              </SadebarItem>
+                              {CategoryItemsList}
+                            </Link>
+                          </NavMenuLayout>
+                        ) : (
+                          <></>
+                        )}
+                      </>
+                    </div>
+                    <div
+                      transition={{ duration: 0.4 }}
+                      initial={{ marginTop: -60 }}
+                      animate={{ marginTop: 0 }}
+                      className={Styles.categoryBtn}
+                    >
+                      <CategoryBtn
+                        title={
+                          !currentDisplayBtn ? "display" : currentDisplayBtn
+                        }
+                        type="display"
+                        event={() =>
+                          activeDisplayFilter
+                            ? setActiveDisplayFilter(false)
+                            : setActiveDisplayFilter(true)
+                        }
+                      />
+                      <>
+                        {activeDisplayFilter ? (
+                          <NavMenuLayout>{TypeFace}</NavMenuLayout>
+                        ) : (
+                          <></>
+                        )}
+                      </>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
             <div className={Styles.rightSide}>
               <motion.div
                 transition={{ duration: 0.5 }}

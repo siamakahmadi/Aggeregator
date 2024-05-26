@@ -11,8 +11,7 @@ export default class Http {
     constructor(authToken: string) {
         this.instance = axios.create()
         this.baseUrl = 'https://radintechco.ir/echolab/public/api/'
-        console.log(authToken)
-        this.authToken = '204|Ozwl7gMSErf5CZMu9zt8q4kue4AjRmxvFwIcct7n33d7ce33';
+        this.authToken = '273|TVU7ikWMYLtWQ4ib35HF8QwqrW6xIXsW2m576RGPd407daf6 ';
         this.instance.defaults.headers.common['Authorization'] = `Bearer ${this.authToken}`;
     }
 
