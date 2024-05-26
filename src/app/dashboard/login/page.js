@@ -7,13 +7,9 @@ import Btn from '../components/Btn/index'
 import Http from '../../../../Axios/Https';
 import Cookies from 'universal-cookie'
 
-
-
 export default function Home() {
   const https = new Http()
   const cookies = new Cookies()
-
-
   const [formData, setFormData] = useState({});
   const [loginDone, setLoginDone] = useState({})
 

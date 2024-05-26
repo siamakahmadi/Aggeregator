@@ -61,3 +61,28 @@
   background-color: #fff;
   border: 1px solid #ebebeb;
 }
+
+.previewContainer {
+  display: flex;
+  gap: 24px;
+  .previewImage {
+    overflow: hidden;
+    position: relative;
+    img {
+      width: 300px;
+      border-radius: 12px;
+    }
+    .removeButton {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      background-color: #EE4E4E;
+      border-radius: 6px;
+    }
+  }
+}

@@ -42,7 +42,6 @@ export default function Page({ params }) {
     slidesToScroll: 1,
   };
 
-
   useEffect(() => {
     https
       .get(`user/post/${params.id}/show`)
@@ -90,7 +89,9 @@ export default function Page({ params }) {
   }
 
   const relatedPostsList = relatedPosts ? (
-    relatedPosts.map((item) => <Card key={item.index} title={item.title} />)
+    relatedPosts.map((item) => (
+      <Card key={item.index} versions={item.versions} title={item.title} />
+    ))
   ) : (
     <div>Related posts Not founds</div>
   );

@@ -13,8 +13,6 @@ import { motion } from "framer-motion";
 export default function Index(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isBookmark, setIsBookmark] = useState(props.isBookmark);
-  console.log('clicked card',isBookmark)
-
   const https = new Https();
   const theme = useContext(ThemeContext);
   const { value, setValue } = useContext(ToastContext);

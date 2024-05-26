@@ -61,7 +61,7 @@ export default function Page({ params }) {
           id={item.id}
           isBookmark={item.liked}
           title={item.title}
-          src=""
+          versions={item.versions}
           route={`/${item.id}`}
         />
       ))}
