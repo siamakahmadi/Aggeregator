@@ -86,3 +86,22 @@
     }
   }
 }
+.loaderContainer{
+  display: flex;
+  background-color: #cdcdcd;
+  border-radius: 14px;
+  padding: 24px;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.errorContainer{
+  margin-bottom: 38px;
+  .errorMessage{
+    padding: 12px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    background-color: #EE4E4E;
+    color: #fff;
+  }
+}

@@ -23,7 +23,9 @@ export default function NewPost() {
   const [typeFace, setTypeFace] = useState({});
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Loader state
+  const [isLoading, setIsLoading] = useState(false);
+  const [isErrors, setIsErrors] = useState([]);
+  console.log(isErrors);
 
   const https = new Https();
 
@@ -34,7 +36,7 @@ export default function NewPost() {
         setCategory(Response.data);
       })
       .catch((error) => {
-        toast(`we cant fetched categories`);
+        toast.error("We can't fetch categories.");
       });
   }, []);
 
@@ -45,7 +47,7 @@ export default function NewPost() {
         setStack(Response.data);
       })
       .catch((error) => {
-        toast(`we cant fetched categories`);
+        toast.error("We can't fetch categories.");
       });
   }, []);
 
@@ -56,7 +58,7 @@ export default function NewPost() {
         setTypeFace(Response.data);
       })
       .catch((error) => {
-        toast(`we cant fetched categories`);
+        toast.error("We can't fetch categories.");
       });
   }, []);
 
@@ -129,11 +131,11 @@ export default function NewPost() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setIsLoading(true); // Show loader
+    setIsLoading(true);
 
     if (selectedFiles.length === 0) {
-      console.error("No files selected");
-      setIsLoading(false); // Hide loader if no files selected
+      toast.error("No files selected");
+      setIsLoading(false);
       return;
     }
 
@@ -159,15 +161,13 @@ export default function NewPost() {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.data)
       .then((data) => {
-        console.log("Files uploaded successfully:", data);
+        toast.success("Files uploaded successfully");
         setIsLoading(false); // Hide loader on success
       })
       .catch((error) => {
-        console.error("Error uploading files:", error);
+        setIsErrors(error.response.data.data);
         setIsLoading(false); // Hide loader on error
       });
   }
@@ -176,9 +176,27 @@ export default function NewPost() {
     <main>
       {isLoading && (
         <div className={styles.loaderContainer}>
+          Post Uploading
           <SyncLoader color={"#36D7B7"} loading={isLoading} />
         </div>
       )}
+
+      {Object.keys(isErrors).length === 0 ? (
+        <div></div>
+      ) : (
+        <div className={styles.errorContainer}>
+          {Object.entries(isErrors).map(([key, errors]) => (
+            <div key={key}>
+              {errors.map((error, index) => (
+                <div  key={index}>
+                  <div className={styles.errorMessage}>{error}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <PageHeader
           title="New Post"
