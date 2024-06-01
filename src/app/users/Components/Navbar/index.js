@@ -27,7 +27,6 @@ import { useRouter, usePathname } from "next/navigation";
 import IsLoggin from "../../Api/context/UserContext";
 
 export default function Index(props) {
-  const userValue = useContext(IsLoggin);
 
   const cookie = new Cookies();
   const theme = useContext(ThemeContext);
@@ -37,12 +36,11 @@ export default function Index(props) {
 
   const containsContent = pathname.includes("content");
 
-  const [userInfo, setUserInfo] = useState({});
-  console.log(userInfo.userToken)
-  
-  useLayoutEffect(() => {
+  const [userInfo, setUserInfo] = useState();
+  console.log("User Info", userInfo);
+
+  useEffect(() => {
     const userData = cookie.get("userLogin");
-    props.setUserData(userData);
     setUserInfo(userData);
   }, []);
 
@@ -57,9 +55,7 @@ export default function Index(props) {
   const [categoryItems, setCategoryItems] = useState([]);
   const [message, setMessage] = useState(false);
 
-  const https = new Https(
-    `${userInfo.userToken}`
-  );
+  const https = new Https();
 
   const CategoryItemsList =
     categoryItems.message === "Category fetched" ? (
@@ -295,7 +291,7 @@ export default function Index(props) {
                       <>
                         {activeFilter ? (
                           <NavMenuLayout>
-                            {userValue.isLoggin === true && (
+                            {userInfo && userInfo.isLoggin && (
                               <Link href={"bookmark"}>
                                 <SadebarItem title="Bookmarks">
                                   <div>
@@ -304,6 +300,7 @@ export default function Index(props) {
                                 </SadebarItem>
                               </Link>
                             )}
+
                             <Link href={"all"}>
                               <SadebarItem title="All">
                                 <div>
@@ -378,7 +375,7 @@ export default function Index(props) {
                 initial={{ marginTop: -80 }}
                 animate={{ marginTop: 0 }}
                 onClick={
-                  userValue.isLoggin === true
+                  userInfo && userInfo.isLoggin
                     ? () => router.push("profile")
                     : () => router.push("register")
                 }
@@ -408,7 +405,7 @@ export default function Index(props) {
         </div>
       </div>
       <>
-        {userValue.isLoggin === true
+        {userInfo && userInfo.isLoggin === true
           ? pathname === "/users/profile" && (
               <Modal title="Profile" hasIcon={true}>
                 <form

@@ -64,26 +64,22 @@ export default function Page({ params }) {
   };
 
   function savePostHandleRequest() {
-    // Set isLoading to true when the request is initiated
     setLoading(true);
 
     https
       .post(`bookmark/action/${params.id}`)
       .then((response) => {
-        // After the save request is successful, fetch the initial data again
         return https.get(`user/post/${params.id}/show`);
       })
       .then((response) => {
-        // Update the state with the latest data
         setSaveBtnTheme(response.data.data.post_info.liked);
-        // Optionally, perform any other actions after updating the state
+
         handleButtonClick();
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        // Set isLoading to false when the request is completed (success or failure)
         setLoading(false);
       });
   }
