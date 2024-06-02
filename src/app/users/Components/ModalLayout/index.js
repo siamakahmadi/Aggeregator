@@ -22,7 +22,7 @@ export default function Index(props) {
             <div className={Styles.text}>{props.title}</div>
           </div>
           {props.hasIcon ? (
-            <div className={Styles.closeIcon} onClick={() => router.push('/users/all')}>
+            <div className={Styles.closeIcon} onClick={props.btnEvent}>
               <CloseIcon />
             </div>
           ) : (

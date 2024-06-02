@@ -19,7 +19,7 @@ export default function Index(props) {
           Take projects from idea to launch in one AI-powered workspace.
         </div>
         <div className={styles.link}>
-          <Link href={"submit"}>Submit now</Link>
+          <Link href='' onClick={props.submitBtnEvent}>Submit now</Link>
         </div>
       </div>
     </div>
