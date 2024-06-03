@@ -31,7 +31,7 @@ export default function Index() {
                     </div>
                 </div>
                 <div className={styles.rightSide}>
-                    <div className={styles.settings}>
+                    <Link className={styles.settings} href='settings'>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_605_4959)">
                                 <path d="M10.0013 12.4993C11.382 12.4993 12.5013 11.3801 12.5013 9.99935C12.5013 8.61864 11.382 7.49935 10.0013 7.49935C8.62059 7.49935 7.5013 8.61864 7.5013 9.99935C7.5013 11.3801 8.62059 12.4993 10.0013 12.4993Z" stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
@@ -43,7 +43,7 @@ export default function Index() {
                                 </clipPath>
                             </defs>
                         </svg>
-                    </div>
+                    </Link>
                     <div className={styles.profile}>
                         SA
                     </div>
