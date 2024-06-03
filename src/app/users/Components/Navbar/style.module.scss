@@ -475,3 +475,29 @@
     color: $text-primary-light;
   }
 }
+
+.errorContainer {
+  padding: 10px;
+  border: 1.5px solid #ffc2c2;
+  background-color: #ffe6e6;
+  border-radius: 5px;
+  margin-bottom: 18px;
+}
+
+.errorField {
+  margin-bottom: 10px;
+}
+
+.errorField strong {
+  color: red;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 8px;
+  font-size: 12px;
+  list-style-type: disc;
+  margin-left: 20px;
+}

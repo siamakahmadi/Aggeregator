@@ -15,6 +15,8 @@ export default function Page() {
   const router = useRouter();
 
   const [posts, setPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   const https = new Https();
 
@@ -93,8 +95,21 @@ export default function Page() {
   useEffect(() => {
     https.get("admin/browse/post").then((Response) => {
       setPosts(Response.data), toast("Post Successfully Fetched");
+      setFilteredData(Response.data); // Initially show all data
     });
   }, []);
+
+  // useEffect(() => {
+  //   const results = data.filter((item) =>
+  //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   setFilteredData(results);
+  // }, [searchTerm, data]);
+
+  // Handle search input change
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   function deletePost(id, title) {
     https
@@ -134,16 +149,7 @@ export default function Page() {
         <div className={styles.tableToolbar}>
           <div className={styles.toolbarItems}>
             <div className={styles.item}>
-              <Input title="Search for order" />
-            </div>
-            <div className={styles.item}>
-              <Input title="Search for order" />
-            </div>
-            <div className={styles.item}>
-              <Input title="Search for order" />
-            </div>
-            <div className={styles.item}>
-              <Input title="Search for order" />
+              <Input title="Search for order" value={searchTerm} onChange={handleSearchChange} />
             </div>
           </div>
         </div>
@@ -183,7 +189,20 @@ export default function Page() {
           </div>
         </div>
 
-        <div className={styles.rowLayout}>{postsLists}</div>
+        {/* <div className={styles.rowLayout}>{postsLists}</div> */}
+
+        <div>
+        {filteredData.length > 0 ? (
+          filteredData.map(item => (
+            <div key={item.id}>
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))
+        ) : (
+          <p>No results found</p>
+        )}
+      </div>
       </div>
     </div>
   );

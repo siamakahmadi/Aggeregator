@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useLayoutEffect, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import Styles from "./style.module.scss";
 import ThemeContext from "../../Api/context/ThemeContext";
@@ -13,6 +13,7 @@ import Https from "../../Api/Https";
 import Cookies from "universal-cookie";
 import SubmitBtn from "../Btn/submitBtn";
 import Notify from "../Notify/index";
+import BounceLoader from "react-spinners/BounceLoader";
 import { motion } from "framer-motion";
 // Icons
 import SubmitionDark from "../../Assets/svg/submitionDark";
@@ -52,7 +53,6 @@ export default function Index(props) {
   const [isRegisterModal, setIsRegisterModal] = useState();
   const [isSubmitModal, setIsSubmitModal] = useState();
   const [isModalSuccessSubmit, setModalSuccessSubmit] = useState();
-  console.log(isModalSuccessSubmit);
 
   const [formData, setFormData] = useState({});
   const [registerData, setRegisterData] = useState({});
@@ -64,6 +64,12 @@ export default function Index(props) {
   const [currentDisplayBtn, setCurrentDisplayBtn] = useState();
   const [categoryItems, setCategoryItems] = useState([]);
   const [message, setMessage] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [websiteSubmitError, setWebsiteSubmitError] = useState(false);
+  const [loginErrMesage, setLoginErrMessage] = useState(false);
 
   const https = new Https();
 
@@ -150,6 +156,7 @@ export default function Index(props) {
 
   function handleRegisterSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     https
       .post(
         `user/register?name=${registerData.name}&email=${registerData.email}&password=${registerData.password}&password_confirmation=${registerData.confirmPassword}`
@@ -158,12 +165,16 @@ export default function Index(props) {
         setInterval(() => router.forward("/users/login"), 3000);
       })
       .catch((error) => {
-        console.log(error);
+        setErrorMessage(error.response.data.data);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
   function handleSubmitWeb(event) {
     event.preventDefault();
+    setLoading(true);
     https
       .post(`post/submit`, submitWeb, {
         headers: {
@@ -171,12 +182,14 @@ export default function Index(props) {
         },
       })
       .then((Response) => {
-        console.log("successfully");
         setIsSubmitModal(false);
         setModalSuccessSubmit(true);
       })
       .catch((error) => {
-        console.log(error);
+        setWebsiteSubmitError(error.response.data.data);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -189,6 +202,7 @@ export default function Index(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     https
       .post(`user/login?email=${formData.email}&password=${formData.password}`)
       .then((Response) => {
@@ -206,10 +220,13 @@ export default function Index(props) {
           }
         );
         setMessage(true);
-        setInterval(() => router.push("/users/all"), 3000);
+        setInterval(() => router.push("/users/all"), 2000);
       })
       .catch((error) => {
-        window.alert(error);
+        setLoginErrMessage(error.response.data.data);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -511,33 +528,56 @@ export default function Index(props) {
                     >
                       <div className={Styles.registerContainer}>
                         <form onSubmit={handleSubmit}>
-                          {message ? (
+                          {loginErrMesage && (
+                            <div className={Styles.errorContainer}>
+                              {Object.keys(loginErrMesage).map((field) => (
+                                <div key={field} className={Styles.errorField}>
+                                  <strong>{field}:</strong>
+                                  <ul>
+                                    {loginErrMesage[field].map(
+                                      (error, index) => (
+                                        <li
+                                          key={index}
+                                          className={Styles.errorMessage}
+                                        >
+                                          {error}
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          {message && (
                             <div>
                               <Notify
                                 title="Login Successfully"
                                 description="In 3s, you will be redirected to the home page"
                               />
                             </div>
-                          ) : (
-                            <></>
                           )}
-                          <div className={Styles.inputs}>
-                            <Input
-                              title="Email"
-                              placeholder="type your Email"
-                              name="email"
-                              value={formData.email}
-                              onChange={handleChange}
-                            />
-                            <Input
-                              type="password"
-                              title="password"
-                              placeholder="Valid password"
-                              name="password"
-                              value={formData.password}
-                              onChange={handleChange}
-                            />
-                          </div>
+                          {loading ? (
+                            <BounceLoader color="#36d7b7" />
+                          ) : (
+                            <div className={Styles.inputs}>
+                              <Input
+                                title="Email"
+                                placeholder="type your Email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                              />
+                              <Input
+                                type="password"
+                                title="password"
+                                placeholder="Valid password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          )}
                           <div className={Styles.hasAccount}>
                             <div
                               className={
@@ -559,9 +599,9 @@ export default function Index(props) {
                             </Link>
                           </div>
                           <div className={Styles.resetPass}>
-                            <Link href="#" className={Styles.link}>
+                            {/* <Link href="#" className={Styles.link}>
                               Forgot password ?{" "}
-                            </Link>
+                            </Link> */}
                           </div>
                           <div className={Styles.signinBtn}>
                             <SubmitBtn
@@ -583,36 +623,66 @@ export default function Index(props) {
                       <div className={Styles.registerContainer}>
                         <form onSubmit={handleRegisterSubmit}>
                           <div className={Styles.inputs}>
-                            <Input
-                              title="Name"
-                              placeholder="Type Your Name"
-                              name="name"
-                              value={registerData.name}
-                              onChange={handleRegister}
-                            />
-                            <Input
-                              title="Email Address"
-                              placeholder="Type Your Email Address"
-                              name="email"
-                              value={registerData.email}
-                              onChange={handleRegister}
-                            />
-                            <Input
-                              title="Password"
-                              type="password"
-                              placeholder="Password"
-                              name="password"
-                              value={registerData.password}
-                              onChange={handleRegister}
-                            />
-                            <Input
-                              title="Confirm Password"
-                              type="password"
-                              placeholder="Confirm Password"
-                              name="confirmPassword"
-                              value={registerData.confirmPassword}
-                              onChange={handleRegister}
-                            />
+                            {errorMessage && (
+                              <div className={Styles.errorContainer}>
+                                {Object.keys(errorMessage).map((field) => (
+                                  <div
+                                    key={field}
+                                    className={Styles.errorField}
+                                  >
+                                    <strong>{field}:</strong>
+                                    <ul>
+                                      {errorMessage[field].map(
+                                        (error, index) => (
+                                          <li
+                                            key={index}
+                                            className={Styles.errorMessage}
+                                          >
+                                            {error}
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            {loading ? (
+                              <BounceLoader color="#36d7b7" />
+                            ) : (
+                              <>
+                                <Input
+                                  title="Name"
+                                  placeholder="Type Your Name"
+                                  name="name"
+                                  value={registerData.name}
+                                  onChange={handleRegister}
+                                />
+                                <Input
+                                  title="Email Address"
+                                  placeholder="Type Your Email Address"
+                                  name="email"
+                                  value={registerData.email}
+                                  onChange={handleRegister}
+                                />
+                                <Input
+                                  title="Password"
+                                  type="password"
+                                  placeholder="Password"
+                                  name="password"
+                                  value={registerData.password}
+                                  onChange={handleRegister}
+                                />
+                                <Input
+                                  title="Confirm Password"
+                                  type="password"
+                                  placeholder="Confirm Password"
+                                  name="confirmPassword"
+                                  value={registerData.confirmPassword}
+                                  onChange={handleRegister}
+                                />
+                              </>
+                            )}
                           </div>
                           <div className={Styles.hasAccount}>
                             <div
@@ -635,9 +705,9 @@ export default function Index(props) {
                             </Link>
                           </div>
                           <div className={Styles.resetPass}>
-                            <Link href="#" className={Styles.link}>
+                            {/* <Link href="#" className={Styles.link}>
                               Forgot password ?{" "}
-                            </Link>
+                            </Link> */}
                           </div>
                           <div className={Styles.signinBtn}>
                             <SubmitBtn
@@ -658,29 +728,55 @@ export default function Index(props) {
                     >
                       <div className={Styles.registerContainer}>
                         <form onSubmit={handleSubmitWeb}>
-                          <div className={Styles.inputs}>
-                            <Input
-                              title="Suggest Title"
-                              placeholder="Type title for website"
-                              name="title"
-                              value={submitWeb.title}
-                              onChange={handleSubmWeb}
-                            />
-                            <Input
-                              title="Website Link"
-                              placeholder="Type your wensite link"
-                              name="website"
-                              value={submitWeb.website}
-                              onChange={handleSubmWeb}
-                            />
-                            <Input
-                              title="Description"
-                              placeholder="Tell us something about this website"
-                              name="description"
-                              value={submitWeb.description}
-                              onChange={handleSubmWeb}
-                            />
-                          </div>
+                          {websiteSubmitError && (
+                            <div className={Styles.errorContainer}>
+                              {Object.keys(websiteSubmitError).map((field) => (
+                                <div key={field} className={Styles.errorField}>
+                                  <strong>{field}:</strong>
+                                  <ul>
+                                    {websiteSubmitError[field].map(
+                                      (error, index) => (
+                                        <li
+                                          key={index}
+                                          className={Styles.errorMessage}
+                                        >
+                                          {error}
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          {loading ? (
+                            <BounceLoader color="#36d7b7" />
+                          ) : (
+                            <div className={Styles.inputs}>
+                              <Input
+                                title="Suggest Title"
+                                placeholder="Type title for website"
+                                name="title"
+                                value={submitWeb.title}
+                                onChange={handleSubmWeb}
+                              />
+                              <Input
+                                title="Website Link"
+                                placeholder="Type your wensite link"
+                                name="website"
+                                value={submitWeb.website}
+                                onChange={handleSubmWeb}
+                              />
+                              <Input
+                                title="Description"
+                                placeholder="Tell us something about this website"
+                                name="description"
+                                value={submitWeb.description}
+                                onChange={handleSubmWeb}
+                              />
+                            </div>
+                          )}
+
                           <div className={Styles.marginTop24}>
                             <div className={Styles.signinBtn}>
                               <SubmitBtn
