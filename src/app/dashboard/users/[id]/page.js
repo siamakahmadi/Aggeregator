@@ -24,7 +24,7 @@ export default function Page() {
   useEffect(() => {
     setLoading(true);
     https
-      .get("admin/user/index?paginate=20")
+      .get("admin/user/index?paginate=200")
       .then((Response) => {
         setUsers(Response.data.data.data),
           setUserTotal(Response.data.data.total);

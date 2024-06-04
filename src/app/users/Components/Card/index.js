@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+"use client";
+import React, { useContext, useState, useEffect } from "react";
 import Styles from "./style.module.scss";
 import Label from "../Label/index";
 import ThemeContext from "../../Api/context/ThemeContext";
@@ -9,13 +10,26 @@ import Link from "next/link";
 import Https from "../../Api/Https";
 import ToastContext from "../../Api/context/ToastContext";
 import { motion } from "framer-motion";
+import Cookies from "universal-cookie";
+
+import IsLogginContext from "../../Api/context/IsLogginModal";
 
 export default function Index(props) {
+  const cookie = new Cookies();
+
+  const [isLogginModal, setIsLogginModal] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isBookmark, setIsBookmark] = useState(props.isBookmark);
   const https = new Https();
   const theme = useContext(ThemeContext);
   const { value, setValue } = useContext(ToastContext);
+  const [userInfo, setUserInfo] = useState();
+  // userInfo.isLoggin
+
+  useEffect(() => {
+    const userData = cookie.get("userLogin");
+    setUserInfo(userData);
+  }, []);
 
   const version = props.versions && props.versions[0];
   const file = version && version.files && version.files[0];
@@ -47,47 +61,51 @@ export default function Index(props) {
   }
 
   return (
-    <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ duration: 0.2 }}
-      className={Styles.container}
+    <IsLogginContext.Provider
+      value={{ value: isLogginModal, setValue: setIsLogginModal }}
     >
-      <div key={props.key} className={Styles.cardImage}>
-        {address ? (
-          <img src={address} alt="Image Alt Text" />
-        ) : (
-          <span>No image available</span>
-        )}
-        <div
-          className={
-            theme === "dark"
-              ? Styles.imageToolbarDark
-              : Styles.imageToolbarLight
-          }
-        >
-          <div className={Styles.add} onClick={bookmarkAction}>
-            <div className={props.isBookmark === 1 ? Styles.isBookmark : ""}>
-              {isLoading ? ( // Show loader if isLoading is true
-                "Loading..."
-              ) : props.isBookmark === 1 ? (
-                <TickIcon />
-              ) : (
-                <Plus />
-              )}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.2 }}
+        className={Styles.container}
+      >
+        <div key={props.key} className={Styles.cardImage}>
+          {address ? (
+            <img src={address} alt="Image Alt Text" />
+          ) : (
+            <span>No image available</span>
+          )}
+          <div
+            className={
+              theme === "dark"
+                ? Styles.imageToolbarDark
+                : Styles.imageToolbarLight
+            }
+          >
+            <div className={Styles.add} onClick={bookmarkAction}>
+              <div className={props.isBookmark === 1 ? Styles.isBookmark : ""}>
+                {isLoading ? ( // Show loader if isLoading is true
+                  "Loading..."
+                ) : props.isBookmark === 1 ? (
+                  <TickIcon />
+                ) : (
+                  <Plus />
+                )}
+              </div>
             </div>
+            <Link className={Styles.open} href={`${props.route}`}>
+              <Arrow />
+            </Link>
           </div>
-          <Link className={Styles.open} href={`content/${props.route}`}>
-            <Arrow />
-          </Link>
+          <div className={Styles.labels}>
+            {props.activeLabel === true && <Label title={props.labelTitle} />}
+          </div>
         </div>
-        <div className={Styles.labels}>
-          {props.activeLabel === true && <Label title={props.labelTitle} />}
+        <div className={Styles.title}>
+          <p className={Styles.text}>{props.title}</p>
         </div>
-      </div>
-      <div className={Styles.title}>
-        <p className={Styles.text}>{props.title}</p>
-      </div>
-    </motion.div>
+      </motion.div>
+    </IsLogginContext.Provider>
   );
 }

@@ -86,7 +86,13 @@ export default function Page({ params }) {
 
   const relatedPostsList = relatedPosts ? (
     relatedPosts.map((item) => (
-      <Card key={item.index} versions={item.versions} title={item.title} />
+      <Card
+        key={item.index}
+        id={item.id}
+        route={`/users/content/${item.id}`}
+        versions={item.versions}
+        title={item.title}
+      />
     ))
   ) : (
     <div>Related posts Not founds</div>

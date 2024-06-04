@@ -28,7 +28,7 @@ export default function Page({ params }) {
             isBookmark={item.liked}
             title={item.title}
             versions={item.versions}
-            route={`/${item.id}`}
+            route={`content/${item.id}`}
           />
         ))}
       </>
@@ -45,7 +45,7 @@ export default function Page({ params }) {
           isBookmark={item.liked}
           title={item.title}
           versions={item.versions}
-          route={`/${item.id}`}
+          route={`content/${item.id}`}
         />
       ))}
     </>
@@ -62,7 +62,7 @@ export default function Page({ params }) {
           isBookmark={item.liked}
           title={item.title}
           versions={item.versions}
-          route={`/${item.id}`}
+          route={`content/${item.id}`}
         />
       ))}
     </>

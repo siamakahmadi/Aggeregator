@@ -31,6 +31,7 @@ import IsLogginContext from "../../Api/context/IsLogginModal";
 import IsRegisterContext from "../../Api/context/IsRegisterModal";
 import IsSubmitModal from "../../Api/context/IsSubmitModal";
 import IsModalSuccessSubmit from "../../Api/context/IsSubmitModalSuccess";
+import isProfileModalContext from "../../Api/context/IsProfileModal";
 
 export default function Index(props) {
   const cookie = new Cookies();
@@ -53,6 +54,7 @@ export default function Index(props) {
   const [isRegisterModal, setIsRegisterModal] = useState();
   const [isSubmitModal, setIsSubmitModal] = useState();
   const [isModalSuccessSubmit, setModalSuccessSubmit] = useState();
+  const [isProfileModal, setIsProfileModal] = useState();
 
   const [formData, setFormData] = useState({});
   const [registerData, setRegisterData] = useState({});
@@ -220,7 +222,7 @@ export default function Index(props) {
           }
         );
         setMessage(true);
-        setInterval(() => router.push("/users/all"), 2000);
+        setInterval(() => window.location.reload(), 2000);
       })
       .catch((error) => {
         setLoginErrMessage(error.response.data.data);
@@ -232,7 +234,7 @@ export default function Index(props) {
 
   function handleLogout() {
     cookie.remove("userLogin");
-    setInterval(() => location.reload(), 3000);
+    setInterval(() => window.location.reload(), 2000);
   }
 
   function handleUserUpdate(event) {
@@ -267,372 +269,290 @@ export default function Index(props) {
               setValue: setModalSuccessSubmit,
             }}
           >
-            <div
-              className={theme === "light" ? Styles.navLight : Styles.navDark}
+            <isProfileModalContext.Provider
+              value={{ value: isProfileModal, setValue: setIsProfileModal }}
             >
-              <div className={Styles.body}>
-                <div className={Styles.container}>
-                  <div className={Styles.leftSide}>
-                    <div
-                      transition={{ duration: 0.1 }}
-                      initial={{ marginTop: -60 }}
-                      animate={{ marginTop: 0 }}
-                      className={Styles.Logo}
-                    >
-                      <Logo />
-                    </div>
-                    <div className={Styles.menuBtns}>
-                      {containsContent ? (
-                        <Link className={Styles.backBtn} href={"/users/all"}>
-                          <span className={Styles.backIcon}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
+              <div
+                className={theme === "light" ? Styles.navLight : Styles.navDark}
+              >
+                <div className={Styles.body}>
+                  <div className={Styles.container}>
+                    <div className={Styles.leftSide}>
+                      <div
+                        transition={{ duration: 0.1 }}
+                        initial={{ marginTop: -60 }}
+                        animate={{ marginTop: 0 }}
+                        className={Styles.Logo}
+                      >
+                        <Logo />
+                      </div>
+                      <div className={Styles.menuBtns}>
+                        {containsContent ? (
+                          <Link className={Styles.backBtn} href={"/users/all"}>
+                            <span className={Styles.backIcon}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.91797 7H11.0846M2.91797 7L6.41797 10.5M2.91797 7L6.41797 3.5"
+                                  stroke="black"
+                                  stroke-width="1.25"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </span>
+                            <span className={Styles.backBtnTitle}>Back</span>
+                          </Link>
+                        ) : (
+                          <>
+                            <div
+                              transition={{ duration: 0.3 }}
+                              initial={{ marginTop: -60 }}
+                              animate={{ marginTop: 0 }}
+                              className={Styles.categoryBtn}
                             >
-                              <path
-                                d="M2.91797 7H11.0846M2.91797 7L6.41797 10.5M2.91797 7L6.41797 3.5"
-                                stroke="black"
-                                stroke-width="1.25"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <CategoryBtn
+                                Cname={
+                                  currentDropdownItem
+                                    ? currentDropdownItem.charAt()
+                                    : ""
+                                }
+                                currentDropdownItem={currentDropdownItem}
+                                title={
+                                  pathname === "/users/all"
+                                    ? "All"
+                                    : pathname === "/users/bookmark"
+                                    ? "Bookmark"
+                                    : !currentDropdownItem
+                                    ? "Category"
+                                    : currentDropdownItem
+                                }
+                                event={() =>
+                                  activeFilter
+                                    ? setActiveFilter(false)
+                                    : setActiveFilter(true)
+                                }
                               />
-                            </svg>
-                          </span>
-                          <span className={Styles.backBtnTitle}>Back</span>
-                        </Link>
-                      ) : (
-                        <>
-                          <div
-                            transition={{ duration: 0.3 }}
-                            initial={{ marginTop: -60 }}
-                            animate={{ marginTop: 0 }}
-                            className={Styles.categoryBtn}
-                          >
-                            <CategoryBtn
-                              Cname={
-                                currentDropdownItem
-                                  ? currentDropdownItem.charAt()
-                                  : ""
-                              }
-                              currentDropdownItem={currentDropdownItem}
-                              title={
-                                pathname === "/users/all"
-                                  ? "All"
-                                  : pathname === "/users/bookmark"
-                                  ? "Bookmark"
-                                  : !currentDropdownItem
-                                  ? "Category"
-                                  : currentDropdownItem
-                              }
-                              event={() =>
-                                activeFilter
-                                  ? setActiveFilter(false)
-                                  : setActiveFilter(true)
-                              }
-                            />
-                            <>
-                              {activeFilter ? (
-                                <NavMenuLayout
-                                  submitBtnEvent={() => setIsSubmitModal(true)}
-                                >
-                                  {userInfo && userInfo.isLoggin && (
-                                    <Link href={"bookmark"}>
-                                      <SadebarItem title="Bookmarks">
+                              <>
+                                {activeFilter ? (
+                                  <NavMenuLayout
+                                    submitBtnEvent={() =>
+                                      setIsSubmitModal(true)
+                                    }
+                                  >
+                                    {userInfo && userInfo.isLoggin && (
+                                      <Link href={"bookmark"}>
+                                        <SadebarItem title="Bookmarks">
+                                          <div>
+                                            <BookmarkIocn />
+                                          </div>
+                                        </SadebarItem>
+                                      </Link>
+                                    )}
+
+                                    <Link href={"all"}>
+                                      <SadebarItem title="All">
                                         <div>
                                           <BookmarkIocn />
                                         </div>
                                       </SadebarItem>
+                                      {CategoryItemsList}
                                     </Link>
-                                  )}
+                                  </NavMenuLayout>
+                                ) : (
+                                  <></>
+                                )}
+                              </>
+                            </div>
+                            <div
+                              transition={{ duration: 0.4 }}
+                              initial={{ marginTop: -60 }}
+                              animate={{ marginTop: 0 }}
+                              className={Styles.categoryBtn}
+                            >
+                              <CategoryBtn
+                                title={
+                                  !currentDisplayBtn
+                                    ? "display"
+                                    : currentDisplayBtn
+                                }
+                                type="display"
+                                event={() =>
+                                  activeDisplayFilter
+                                    ? setActiveDisplayFilter(false)
+                                    : setActiveDisplayFilter(true)
+                                }
+                              />
+                              <>
+                                {activeDisplayFilter ? (
+                                  <NavMenuLayout
+                                    submitBtnEvent={() =>
+                                      setIsSubmitModal(true)
+                                    }
+                                  >
+                                    {TypeFace}
+                                  </NavMenuLayout>
+                                ) : (
+                                  <></>
+                                )}
+                              </>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className={Styles.rightSide}>
+                      <motion.div
+                        transition={{ duration: 0.5 }}
+                        initial={{ marginTop: -180 }}
+                        animate={{ marginTop: 0 }}
+                        className={Styles.switcher}
+                      >
+                        <div
+                          className={
+                            props.isLight === "dark"
+                              ? Styles.itemSelect
+                              : Styles.item
+                          }
+                          onClick={() => props.setIsLight("dark")}
+                        >
+                          <DarkIcon />
+                        </div>
 
-                                  <Link href={"all"}>
-                                    <SadebarItem title="All">
-                                      <div>
-                                        <BookmarkIocn />
-                                      </div>
-                                    </SadebarItem>
-                                    {CategoryItemsList}
-                                  </Link>
-                                </NavMenuLayout>
-                              ) : (
-                                <></>
-                              )}
-                            </>
-                          </div>
-                          <div
-                            transition={{ duration: 0.4 }}
-                            initial={{ marginTop: -60 }}
-                            animate={{ marginTop: 0 }}
-                            className={Styles.categoryBtn}
-                          >
-                            <CategoryBtn
-                              title={
-                                !currentDisplayBtn
-                                  ? "display"
-                                  : currentDisplayBtn
-                              }
-                              type="display"
-                              event={() =>
-                                activeDisplayFilter
-                                  ? setActiveDisplayFilter(false)
-                                  : setActiveDisplayFilter(true)
-                              }
-                            />
-                            <>
-                              {activeDisplayFilter ? (
-                                <NavMenuLayout
-                                  submitBtnEvent={() => setIsSubmitModal(true)}
-                                >
-                                  {TypeFace}
-                                </NavMenuLayout>
-                              ) : (
-                                <></>
-                              )}
-                            </>
-                          </div>
-                        </>
-                      )}
+                        <div
+                          className={
+                            props.isLight === "light"
+                              ? Styles.itemSelect
+                              : Styles.item
+                          }
+                          onClick={() => props.setIsLight("light")}
+                        >
+                          <LightIcon />
+                        </div>
+                      </motion.div>
+                      <motion.div
+                        className={Styles.profile}
+                        transition={{ duration: 0.4 }}
+                        initial={{ marginTop: -80 }}
+                        animate={{ marginTop: 0 }}
+                        onClick={
+                          userInfo && userInfo.isLoggin
+                            ? () => setIsProfileModal(true)
+                            : () => setIsRegisterModal(true)
+                        }
+                      >
+                        <ProfileIcon />
+                      </motion.div>
+                      <div
+                        className={Styles.burgerMenu}
+                        onClick={() =>
+                          activeMenu
+                            ? setActiveMenu(false)
+                            : setActiveMenu(true)
+                        }
+                      >
+                        {activeMenu ? <CloseIcon /> : <MenuIcon />}
+                      </div>
                     </div>
                   </div>
-                  <div className={Styles.rightSide}>
-                    <motion.div
-                      transition={{ duration: 0.5 }}
-                      initial={{ marginTop: -180 }}
-                      animate={{ marginTop: 0 }}
-                      className={Styles.switcher}
-                    >
-                      <div
-                        className={
-                          props.isLight === "dark"
-                            ? Styles.itemSelect
-                            : Styles.item
-                        }
-                        onClick={() => props.setIsLight("dark")}
-                      >
-                        <DarkIcon />
-                      </div>
-
-                      <div
-                        className={
-                          props.isLight === "light"
-                            ? Styles.itemSelect
-                            : Styles.item
-                        }
-                        onClick={() => props.setIsLight("light")}
-                      >
-                        <LightIcon />
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      className={Styles.profile}
-                      transition={{ duration: 0.4 }}
-                      initial={{ marginTop: -80 }}
-                      animate={{ marginTop: 0 }}
-                      onClick={
-                        userInfo && userInfo.isLoggin
-                          ? () => router.push("profile")
-                          : () => setIsRegisterModal(true)
-                      }
-                    >
-                      <ProfileIcon />
-                    </motion.div>
-                    <div
-                      className={Styles.burgerMenu}
-                      onClick={() =>
-                        activeMenu ? setActiveMenu(false) : setActiveMenu(true)
-                      }
-                    >
-                      {activeMenu ? <CloseIcon /> : <MenuIcon />}
+                  <div
+                    className={
+                      activeMenu ? Styles.sideNavMenuActive : Styles.sideNavMenu
+                    }
+                  >
+                    <div className={Styles.items}>
+                      <CategoryBtn title="All" />
+                      <CategoryBtn title="Display" />
                     </div>
-                  </div>
-                </div>
-                <div
-                  className={
-                    activeMenu ? Styles.sideNavMenuActive : Styles.sideNavMenu
-                  }
-                >
-                  <div className={Styles.items}>
-                    <CategoryBtn title="All" />
-                    <CategoryBtn title="Display" />
                   </div>
                 </div>
               </div>
-            </div>
-            <>
-              {userInfo && userInfo.isLoggin === true
-                ? isLogginModal && (
-                    <Modal title="Profile" hasIcon={true}>
-                      <form
-                        onSubmit={handleUserUpdate}
-                        className={Styles.profileForm}
+              <>
+                {userInfo && userInfo.isLoggin === true
+                  ? isProfileModal && (
+                      <Modal
+                        title="Profile"
+                        hasIcon={true}
+                        btnEvent={() => setIsProfileModal(false)}
                       >
-                        <Input
-                          title="Name"
-                          placeholder={userInfo.name}
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                        />
-                        <Input
-                          title="Email Address"
-                          placeholder={userInfo.userEmail}
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                        />
-                        <Input
-                          title="Current Password"
-                          placeholder="Your Current Password"
-                          name="currentPassword"
-                          value={formData.currentPassword}
-                          onChange={handleChange}
-                        />
-                        <Input
-                          title="New Password "
-                          placeholder="Your New Password"
-                          name="newPassword"
-                          value={formData.newPassword}
-                          onChange={handleChange}
-                        />
-                        <Input
-                          title="Confirm New Password "
-                          placeholder="Confirm Your New Password"
-                          name="confirmPassword"
-                          value={formData.confirmPassword}
-                          onChange={handleChange}
-                        />
+                        <form
+                          onSubmit={handleUserUpdate}
+                          className={Styles.profileForm}
+                        >
+                          <Input
+                            title="Name"
+                            placeholder={userInfo.name}
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                          />
+                          <Input
+                            title="Email Address"
+                            placeholder={userInfo.userEmail}
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                          />
+                          <Input
+                            title="Current Password"
+                            placeholder="Your Current Password"
+                            name="currentPassword"
+                            value={formData.currentPassword}
+                            onChange={handleChange}
+                          />
+                          <Input
+                            title="New Password "
+                            placeholder="Your New Password"
+                            name="newPassword"
+                            value={formData.newPassword}
+                            onChange={handleChange}
+                          />
+                          <Input
+                            title="Confirm New Password "
+                            placeholder="Confirm Your New Password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                          />
+                          <SubmitBtn
+                            submitType="submit"
+                            title="Save"
+                            type="primary"
+                          />
+                        </form>
+                        <br />
                         <SubmitBtn
-                          submitType="submit"
-                          title="Save"
+                          oncClick={() => handleLogout}
+                          title="Sign Out"
                           type="primary"
                         />
-                      </form>
-                      <br />
-                      <SubmitBtn
-                        oncClick={() => handleLogout}
-                        title="Sign Out"
-                        type="primary"
-                      />
-                    </Modal>
-                  )
-                : (isLogginModal && (
-                    <Modal
-                      title="Sign In"
-                      hasIcon={true}
-                      btnEvent={() => {
-                        setIsLogginModal(false);
-                      }}
-                    >
-                      <div className={Styles.registerContainer}>
-                        <form onSubmit={handleSubmit}>
-                          {loginErrMesage && (
-                            <div className={Styles.errorContainer}>
-                              {Object.keys(loginErrMesage).map((field) => (
-                                <div key={field} className={Styles.errorField}>
-                                  <strong>{field}:</strong>
-                                  <ul>
-                                    {loginErrMesage[field].map(
-                                      (error, index) => (
-                                        <li
-                                          key={index}
-                                          className={Styles.errorMessage}
-                                        >
-                                          {error}
-                                        </li>
-                                      )
-                                    )}
-                                  </ul>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                          {message && (
-                            <div>
-                              <Notify
-                                title="Login Successfully"
-                                description="In 3s, you will be redirected to the home page"
-                              />
-                            </div>
-                          )}
-                          {loading ? (
-                            <BounceLoader color="#36d7b7" />
-                          ) : (
-                            <div className={Styles.inputs}>
-                              <Input
-                                title="Email"
-                                placeholder="type your Email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                              />
-                              <Input
-                                type="password"
-                                title="password"
-                                placeholder="Valid password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                              />
-                            </div>
-                          )}
-                          <div className={Styles.hasAccount}>
-                            <div
-                              className={
-                                theme === "light"
-                                  ? Styles.text
-                                  : Styles.textDark
-                              }
-                            >
-                              Are you want to create account?
-                            </div>
-                            <Link
-                              href=""
-                              onClick={() => {
-                                setIsLogginModal(false);
-                              }}
-                              className={Styles.link}
-                            >
-                              Register
-                            </Link>
-                          </div>
-                          <div className={Styles.resetPass}>
-                            {/* <Link href="#" className={Styles.link}>
-                              Forgot password ?{" "}
-                            </Link> */}
-                          </div>
-                          <div className={Styles.signinBtn}>
-                            <SubmitBtn
-                              submitType="submit"
-                              title="Sign In"
-                              type="primary"
-                            />
-                          </div>
-                        </form>
-                      </div>
-                    </Modal>
-                  )) ||
-                  (isRegisterModal && (
-                    <Modal
-                      title="Register"
-                      hasIcon={true}
-                      btnEvent={() => setIsRegisterModal(false)}
-                    >
-                      <div className={Styles.registerContainer}>
-                        <form onSubmit={handleRegisterSubmit}>
-                          <div className={Styles.inputs}>
-                            {errorMessage && (
+                      </Modal>
+                    )
+                  : (isLogginModal && (
+                      <Modal
+                        title="Sign In"
+                        hasIcon={true}
+                        btnEvent={() => {
+                          setIsLogginModal(false);
+                        }}
+                      >
+                        <div className={Styles.registerContainer}>
+                          <form onSubmit={handleSubmit}>
+                            {loginErrMesage && (
                               <div className={Styles.errorContainer}>
-                                {Object.keys(errorMessage).map((field) => (
+                                {Object.keys(loginErrMesage).map((field) => (
                                   <div
                                     key={field}
                                     className={Styles.errorField}
                                   >
                                     <strong>{field}:</strong>
                                     <ul>
-                                      {errorMessage[field].map(
+                                      {loginErrMesage[field].map(
                                         (error, index) => (
                                           <li
                                             key={index}
@@ -647,182 +567,286 @@ export default function Index(props) {
                                 ))}
                               </div>
                             )}
+                            {message && (
+                              <div>
+                                <Notify
+                                  title="Login Successfully"
+                                  description="In 3s, you will be redirected to the home page"
+                                />
+                              </div>
+                            )}
                             {loading ? (
                               <BounceLoader color="#36d7b7" />
                             ) : (
-                              <>
+                              <div className={Styles.inputs}>
                                 <Input
-                                  title="Name"
-                                  placeholder="Type Your Name"
-                                  name="name"
-                                  value={registerData.name}
-                                  onChange={handleRegister}
-                                />
-                                <Input
-                                  title="Email Address"
-                                  placeholder="Type Your Email Address"
+                                  title="Email"
+                                  placeholder="type your Email"
                                   name="email"
-                                  value={registerData.email}
-                                  onChange={handleRegister}
+                                  value={formData.email}
+                                  onChange={handleChange}
                                 />
                                 <Input
-                                  title="Password"
                                   type="password"
-                                  placeholder="Password"
+                                  title="password"
+                                  placeholder="Valid password"
                                   name="password"
-                                  value={registerData.password}
-                                  onChange={handleRegister}
+                                  value={formData.password}
+                                  onChange={handleChange}
                                 />
-                                <Input
-                                  title="Confirm Password"
-                                  type="password"
-                                  placeholder="Confirm Password"
-                                  name="confirmPassword"
-                                  value={registerData.confirmPassword}
-                                  onChange={handleRegister}
-                                />
-                              </>
+                              </div>
                             )}
-                          </div>
-                          <div className={Styles.hasAccount}>
-                            <div
-                              className={
-                                theme === "light"
-                                  ? Styles.text
-                                  : Styles.textDark
-                              }
-                            >
-                              Already have account ?
+                            <div className={Styles.hasAccount}>
+                              <div
+                                className={
+                                  theme === "light"
+                                    ? Styles.text
+                                    : Styles.textDark
+                                }
+                              >
+                                Are you want to create account?
+                              </div>
+                              <Link
+                                href=""
+                                onClick={() => {
+                                  setIsLogginModal(false);
+                                }}
+                                className={Styles.link}
+                              >
+                                Register
+                              </Link>
                             </div>
-                            <Link
-                              onClick={() => {
-                                setIsLogginModal(true);
-                              }}
-                              href=""
-                              className={Styles.link}
-                            >
-                              Sign in
-                            </Link>
-                          </div>
-                          <div className={Styles.resetPass}>
-                            {/* <Link href="#" className={Styles.link}>
+                            <div className={Styles.resetPass}>
+                              {/* <Link href="#" className={Styles.link}>
                               Forgot password ?{" "}
                             </Link> */}
-                          </div>
-                          <div className={Styles.signinBtn}>
-                            <SubmitBtn
-                              submitType="submit"
-                              title="Register"
-                              type="primary"
-                            />
-                          </div>
-                        </form>
-                      </div>
-                    </Modal>
-                  )) ||
-                  (isSubmitModal && (
-                    <Modal
-                      title="Sumbit Website"
-                      hasIcon={true}
-                      btnEvent={() => setIsSubmitModal(false)}
-                    >
-                      <div className={Styles.registerContainer}>
-                        <form onSubmit={handleSubmitWeb}>
-                          {websiteSubmitError && (
-                            <div className={Styles.errorContainer}>
-                              {Object.keys(websiteSubmitError).map((field) => (
-                                <div key={field} className={Styles.errorField}>
-                                  <strong>{field}:</strong>
-                                  <ul>
-                                    {websiteSubmitError[field].map(
-                                      (error, index) => (
-                                        <li
-                                          key={index}
-                                          className={Styles.errorMessage}
-                                        >
-                                          {error}
-                                        </li>
-                                      )
-                                    )}
-                                  </ul>
-                                </div>
-                              ))}
                             </div>
-                          )}
-                          {loading ? (
-                            <BounceLoader color="#36d7b7" />
-                          ) : (
-                            <div className={Styles.inputs}>
-                              <Input
-                                title="Suggest Title"
-                                placeholder="Type title for website"
-                                name="title"
-                                value={submitWeb.title}
-                                onChange={handleSubmWeb}
-                              />
-                              <Input
-                                title="Website Link"
-                                placeholder="Type your wensite link"
-                                name="website"
-                                value={submitWeb.website}
-                                onChange={handleSubmWeb}
-                              />
-                              <Input
-                                title="Description"
-                                placeholder="Tell us something about this website"
-                                name="description"
-                                value={submitWeb.description}
-                                onChange={handleSubmWeb}
-                              />
-                            </div>
-                          )}
-
-                          <div className={Styles.marginTop24}>
                             <div className={Styles.signinBtn}>
                               <SubmitBtn
                                 submitType="submit"
-                                title="Submit"
+                                title="Sign In"
                                 type="primary"
                               />
                             </div>
-                          </div>
-                        </form>
-                      </div>
-                    </Modal>
-                  )) ||
-                  (isModalSuccessSubmit && (
-                    <Modal
-                      title="Sumbit Website"
-                      hasIcon={true}
-                      btnEvent={() => setModalSuccessSubmit(false)}
-                    >
-                      <div className={Styles.registerContainer}>
-                        <div className={Styles.submition}>
-                          <div
-                            className={
-                              theme === "light" ? Styles.light : Styles.dark
-                            }
-                          >
-                            <div className={Styles.image}>
-                              {theme === "light" ? (
-                                <SubmitionLight />
+                          </form>
+                        </div>
+                      </Modal>
+                    )) ||
+                    (isRegisterModal && (
+                      <Modal
+                        title="Register"
+                        hasIcon={true}
+                        btnEvent={() => setIsRegisterModal(false)}
+                      >
+                        <div className={Styles.registerContainer}>
+                          <form onSubmit={handleRegisterSubmit}>
+                            <div className={Styles.inputs}>
+                              {errorMessage && (
+                                <div className={Styles.errorContainer}>
+                                  {Object.keys(errorMessage).map((field) => (
+                                    <div
+                                      key={field}
+                                      className={Styles.errorField}
+                                    >
+                                      <strong>{field}:</strong>
+                                      <ul>
+                                        {errorMessage[field].map(
+                                          (error, index) => (
+                                            <li
+                                              key={index}
+                                              className={Styles.errorMessage}
+                                            >
+                                              {error}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {loading ? (
+                                <BounceLoader color="#36d7b7" />
                               ) : (
-                                <SubmitionDark />
+                                <>
+                                  <Input
+                                    title="Name"
+                                    placeholder="Type Your Name"
+                                    name="name"
+                                    value={registerData.name}
+                                    onChange={handleRegister}
+                                  />
+                                  <Input
+                                    title="Email Address"
+                                    placeholder="Type Your Email Address"
+                                    name="email"
+                                    value={registerData.email}
+                                    onChange={handleRegister}
+                                  />
+                                  <Input
+                                    title="Password"
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    value={registerData.password}
+                                    onChange={handleRegister}
+                                  />
+                                  <Input
+                                    title="Confirm Password"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    name="confirmPassword"
+                                    value={registerData.confirmPassword}
+                                    onChange={handleRegister}
+                                  />
+                                </>
                               )}
                             </div>
-                            <div className={Styles.textbody}>
-                              <span>
-                                We optimize Html.to.design power to convert live
-                                website to figma files. hence there might be
-                                some error in files.
-                              </span>
+                            <div className={Styles.hasAccount}>
+                              <div
+                                className={
+                                  theme === "light"
+                                    ? Styles.text
+                                    : Styles.textDark
+                                }
+                              >
+                                Already have account ?
+                              </div>
+                              <Link
+                                onClick={() => {
+                                  setIsLogginModal(true);
+                                }}
+                                href=""
+                                className={Styles.link}
+                              >
+                                Sign in
+                              </Link>
+                            </div>
+                            <div className={Styles.resetPass}>
+                              {/* <Link href="#" className={Styles.link}>
+                              Forgot password ?{" "}
+                            </Link> */}
+                            </div>
+                            <div className={Styles.signinBtn}>
+                              <SubmitBtn
+                                submitType="submit"
+                                title="Register"
+                                type="primary"
+                              />
+                            </div>
+                          </form>
+                        </div>
+                      </Modal>
+                    )) ||
+                    (isSubmitModal && (
+                      <Modal
+                        title="Sumbit Website"
+                        hasIcon={true}
+                        btnEvent={() => setIsSubmitModal(false)}
+                      >
+                        <div className={Styles.registerContainer}>
+                          <form onSubmit={handleSubmitWeb}>
+                            {websiteSubmitError && (
+                              <div className={Styles.errorContainer}>
+                                {Object.keys(websiteSubmitError).map(
+                                  (field) => (
+                                    <div
+                                      key={field}
+                                      className={Styles.errorField}
+                                    >
+                                      <strong>{field}:</strong>
+                                      <ul>
+                                        {websiteSubmitError[field].map(
+                                          (error, index) => (
+                                            <li
+                                              key={index}
+                                              className={Styles.errorMessage}
+                                            >
+                                              {error}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            )}
+                            {loading ? (
+                              <BounceLoader color="#36d7b7" />
+                            ) : (
+                              <div className={Styles.inputs}>
+                                <Input
+                                  title="Suggest Title"
+                                  placeholder="Type title for website"
+                                  name="title"
+                                  value={submitWeb.title}
+                                  onChange={handleSubmWeb}
+                                />
+                                <Input
+                                  title="Website Link"
+                                  placeholder="Type your wensite link"
+                                  name="website"
+                                  value={submitWeb.website}
+                                  onChange={handleSubmWeb}
+                                />
+                                <Input
+                                  title="Description"
+                                  placeholder="Tell us something about this website"
+                                  name="description"
+                                  value={submitWeb.description}
+                                  onChange={handleSubmWeb}
+                                />
+                              </div>
+                            )}
+
+                            <div className={Styles.marginTop24}>
+                              <div className={Styles.signinBtn}>
+                                <SubmitBtn
+                                  submitType="submit"
+                                  title="Submit"
+                                  type="primary"
+                                />
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </Modal>
+                    )) ||
+                    (isModalSuccessSubmit && (
+                      <Modal
+                        title="Sumbit Website"
+                        hasIcon={true}
+                        btnEvent={() => setModalSuccessSubmit(false)}
+                      >
+                        <div className={Styles.registerContainer}>
+                          <div className={Styles.submition}>
+                            <div
+                              className={
+                                theme === "light" ? Styles.light : Styles.dark
+                              }
+                            >
+                              <div className={Styles.image}>
+                                {theme === "light" ? (
+                                  <SubmitionLight />
+                                ) : (
+                                  <SubmitionDark />
+                                )}
+                              </div>
+                              <div className={Styles.textbody}>
+                                <span>
+                                  We optimize Html.to.design power to convert
+                                  live website to figma files. hence there might
+                                  be some error in files.
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </Modal>
-                  ))}
-            </>
+                      </Modal>
+                    ))}
+              </>
+            </isProfileModalContext.Provider>
           </IsModalSuccessSubmit.Provider>
         </IsSubmitModal.Provider>
       </IsRegisterContext.Provider>

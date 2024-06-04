@@ -18,9 +18,9 @@ export default function tableItem(props) {
       </div>
       <div className={Styles.pointer} onClick={props.onClick}>
         {props.isSuspend ? (
-          "susspend"
-        ) : (
           <div className={Styles.susspendBtn}>Unsuspend</div>
+        ) : (
+          <div>Suspend</div>
         )}
       </div>
       <Link className={Styles.pointer} href="" onClick={props.getDetail}>
