@@ -32,10 +32,13 @@ import IsRegisterContext from "../../Api/context/IsRegisterModal";
 import IsSubmitModal from "../../Api/context/IsSubmitModal";
 import IsModalSuccessSubmit from "../../Api/context/IsSubmitModalSuccess";
 import isProfileModalContext from "../../Api/context/IsProfileModal";
+import IsBookmarkModalLogin from "../../Api/context/IsBookmarkModalLogin";
 
 export default function Index(props) {
   const cookie = new Cookies();
   const theme = useContext(ThemeContext);
+  const { isBookmarkLoginModal, setIsBookmarkLoginModal } =
+    useContext(IsBookmarkModalLogin);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -288,7 +291,14 @@ export default function Index(props) {
                       </div>
                       <div className={Styles.menuBtns}>
                         {containsContent ? (
-                          <Link className={Styles.backBtn} href={"/users/all"}>
+                          <Link
+                            className={
+                              theme === "light"
+                                ? Styles.backBtn
+                                : Styles.backBtnDark
+                            }
+                            href={"/users/all"}
+                          >
                             <span className={Styles.backIcon}>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -844,6 +854,113 @@ export default function Index(props) {
                           </div>
                         </div>
                       </Modal>
+                    )) ||
+                    (isBookmarkLoginModal && (
+                      <>
+                        <Modal
+                          title="Sign In"
+                          hasIcon={true}
+                          btnEvent={() => {
+                            setIsBookmarkLoginModal(false);
+                          }}
+                        >
+                          <div className={Styles.alertContainer}>
+                            <div className={Styles.alertContent}>
+                                For save Bookmark Should be loggined in !
+                            </div>
+                          </div>
+
+                          <div className={Styles.registerContainer}>
+                            <form onSubmit={handleSubmit}>
+                              {loginErrMesage && (
+                                <div className={Styles.errorContainer}>
+                                  {Object.keys(loginErrMesage).map((field) => (
+                                    <div
+                                      key={field}
+                                      className={Styles.errorField}
+                                    >
+                                      <strong>{field}:</strong>
+                                      <ul>
+                                        {loginErrMesage[field].map(
+                                          (error, index) => (
+                                            <li
+                                              key={index}
+                                              className={Styles.errorMessage}
+                                            >
+                                              {error}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {message && (
+                                <div>
+                                  <Notify
+                                    title="Login Successfully"
+                                    description="In 3s, you will be redirected to the home page"
+                                  />
+                                </div>
+                              )}
+                              {loading ? (
+                                <BounceLoader color="#36d7b7" />
+                              ) : (
+                                <div className={Styles.inputs}>
+                                  <Input
+                                    title="Email"
+                                    placeholder="type your Email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                  />
+                                  <Input
+                                    type="password"
+                                    title="password"
+                                    placeholder="Valid password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                  />
+                                </div>
+                              )}
+                              <div className={Styles.hasAccount}>
+                                <div
+                                  className={
+                                    theme === "light"
+                                      ? Styles.text
+                                      : Styles.textDark
+                                  }
+                                >
+                                  Are you want to create account?
+                                </div>
+                                <Link
+                                  href=""
+                                  onClick={() => {
+                                    setIsLogginModal(false);
+                                  }}
+                                  className={Styles.link}
+                                >
+                                  Register
+                                </Link>
+                              </div>
+                              <div className={Styles.resetPass}>
+                                {/* <Link href="#" className={Styles.link}>
+                              Forgot password ?{" "}
+                            </Link> */}
+                              </div>
+                              <div className={Styles.signinBtn}>
+                                <SubmitBtn
+                                  submitType="submit"
+                                  title="Sign In"
+                                  type="primary"
+                                />
+                              </div>
+                            </form>
+                          </div>
+                        </Modal>
+                      </>
                     ))}
               </>
             </isProfileModalContext.Provider>

@@ -28,6 +28,8 @@ export default function Page({ params }) {
   const [pageLoading, setPageLoading] = useState([]);
   const [saveBtnTheme, setSaveBtnTheme] = useState();
   const { value, setValue } = useContext(ToastContext);
+  const [isBookmarkLogin, setIsBookmarkLogin] = useState();
+  console.log(isBookmarkLogin)
 
   const [loading, setLoading] = useState(false);
   const versions = content && content.versions;
@@ -87,6 +89,8 @@ export default function Page({ params }) {
   const relatedPostsList = relatedPosts ? (
     relatedPosts.map((item) => (
       <Card
+        setIsBookmarkLogin={setIsBookmarkLogin}
+        isBookmarkLogin={isBookmarkLogin}
         key={item.index}
         id={item.id}
         route={`/users/content/${item.id}`}

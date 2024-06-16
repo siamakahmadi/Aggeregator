@@ -476,6 +476,40 @@
   }
 }
 
+.backBtnDark {
+  height: 32px;
+  border-radius: 8px;
+  border: solid 1px $stroke-secondary-dark;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 4px 4px;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  .backIcon {
+    svg {
+      path {
+        fill: #fff;
+        stroke: #fff;
+      }
+    }
+    width: 24px;
+    height: 24px;
+    border: solid 1px $always-black-dark;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $always-black-dark;
+  }
+  .backBtnTitle {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "inter";
+    color: $text-primary-dark;
+  }
+}
+
 .errorContainer {
   padding: 10px;
   border: 1.5px solid #ffc2c2;
@@ -500,4 +534,39 @@
   font-size: 12px;
   list-style-type: disc;
   margin-left: 20px;
+}
+
+
+
+
+/* alert.module.scss */
+.alertContainer {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 22%;
+  background-color: #ffffff; /* Light red background */
+  border: 1px solid #7e7e7e; /* Slightly darker border */
+  border-radius: 12px;
+  width: 410px;
+  padding: 15px;
+}
+
+.alertContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1e1e1e; /* Dark red text */
+  font-size: 14px;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: #a94442; /* Dark red text */
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  margin-left: 10px;
 }

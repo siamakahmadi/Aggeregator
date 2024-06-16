@@ -11,7 +11,7 @@ import AddIcon from "../assets/svg/add";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export default function Page({ params }) {
   const router = useRouter();
 
   const [posts, setPosts] = useState([]);
@@ -189,7 +189,7 @@ export default function Page() {
           </div>
         </div>
 
-        {/* <div className={styles.rowLayout}>{postsLists}</div> */}
+        <div className={styles.rowLayout}>{postsLists}</div>
 
         <div>
         {filteredData.length > 0 ? (

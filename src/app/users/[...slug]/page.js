@@ -40,13 +40,13 @@ export default function Page({ params }) {
     <>
       {bookmarks.map((item) => (
         <Card
-          key={item.id}
-          id={item.id}
-          isBookmark={item.liked}
-          title={item.title}
-          versions={item.versions}
-          route={`content/${item.id}`}
-        />
+            key={item.id}
+            id={item.id}
+            isBookmark={item.liked}
+            title={item.title}
+            versions={item.versions}
+            route={`content/${item.id}`}
+          />
       ))}
     </>
   ) : (

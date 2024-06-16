@@ -11,24 +11,28 @@ import Https from "../../Api/Https";
 import ToastContext from "../../Api/context/ToastContext";
 import { motion } from "framer-motion";
 import Cookies from "universal-cookie";
-
-import IsLogginContext from "../../Api/context/IsLogginModal";
+import IsBookmarkModalLogin from "../../Api/context/IsBookmarkModalLogin";
+import SyncLoader from "react-spinners/SyncLoader";
 
 export default function Index(props) {
   const cookie = new Cookies();
-
-  const [isLogginModal, setIsLogginModal] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isBookmark, setIsBookmark] = useState(props.isBookmark);
   const https = new Https();
   const theme = useContext(ThemeContext);
+
   const { value, setValue } = useContext(ToastContext);
-  const [userInfo, setUserInfo] = useState();
-  // userInfo.isLoggin
+
+  const { isBookmarkLoginModal, setIsBookmarkLoginModal } =
+    useContext(IsBookmarkModalLogin);
+
+    console.log(isBookmarkLoginModal)
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isBookmark, setIsBookmark] = useState(props.isBookmark);
+  const [userInfo, setUserInfo] = useState(null); // Ensure initial state is null
 
   useEffect(() => {
     const userData = cookie.get("userLogin");
-    setUserInfo(userData);
+    setUserInfo(userData ? userData.isLoggin : false); // Handle case where userData might be undefined
   }, []);
 
   const version = props.versions && props.versions[0];
@@ -46,11 +50,17 @@ export default function Index(props) {
   }
 
   function bookmarkAction() {
+    if (!userInfo) {
+      setIsBookmarkLoginModal(true); // Show modal if user is not logged in
+      return;
+    }
+
     setIsLoading(true); // Set isLoading to true when the request is initiated
     https
       .post(`bookmark/action/${props.id}`)
       .then(() => {
         handleButtonClick();
+        setIsBookmark((prev) => !prev); // Toggle bookmark state
       })
       .catch((error) => {
         console.log(error);
@@ -61,51 +71,53 @@ export default function Index(props) {
   }
 
   return (
-    <IsLogginContext.Provider
-      value={{ value: isLogginModal, setValue: setIsLogginModal }}
+    <motion.div
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      transition={{ duration: 0.2 }}
+      className={Styles.container}
     >
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.2 }}
-        className={Styles.container}
-      >
-        <div key={props.key} className={Styles.cardImage}>
-          {address ? (
-            <img src={address} alt="Image Alt Text" />
-          ) : (
-            <span>No image available</span>
-          )}
-          <div
-            className={
-              theme === "dark"
-                ? Styles.imageToolbarDark
-                : Styles.imageToolbarLight
-            }
-          >
-            <div className={Styles.add} onClick={bookmarkAction}>
-              <div className={props.isBookmark === 1 ? Styles.isBookmark : ""}>
-                {isLoading ? ( // Show loader if isLoading is true
-                  "Loading..."
-                ) : props.isBookmark === 1 ? (
-                  <TickIcon />
-                ) : (
-                  <Plus />
-                )}
-              </div>
+      <div key={props.key} className={Styles.cardImage}>
+        {address ? (
+          <img src={address} alt="Image Alt Text" />
+        ) : (
+          <span>No image available</span>
+        )}
+        <div
+          className={
+            theme === "dark"
+              ? Styles.imageToolbarDark
+              : Styles.imageToolbarLight
+          }
+        >
+          <div className={Styles.add}>
+            <div
+              className={isBookmark ? Styles.isBookmark : ""}
+              onClick={bookmarkAction}
+            >
+              {isLoading ? (
+                <SyncLoader
+                  color={theme === "dark" ? "#fff" : "#1A2130"}
+                  size={4}
+                />
+              ) : isBookmark ? (
+                <TickIcon />
+              ) : (
+                <Plus />
+              )}
             </div>
-            <Link className={Styles.open} href={`${props.route}`}>
-              <Arrow />
-            </Link>
           </div>
-          <div className={Styles.labels}>
-            {props.activeLabel === true && <Label title={props.labelTitle} />}
-          </div>
+          <Link className={Styles.open} href={`${props.route}`}>
+            <Arrow />
+          </Link>
         </div>
-        <div className={Styles.title}>
-          <p className={Styles.text}>{props.title}</p>
+        <div className={Styles.labels}>
+          {props.activeLabel === true && <Label title={props.labelTitle} />}
         </div>
-      </motion.div>
-    </IsLogginContext.Provider>
+      </div>
+      <div className={Styles.title}>
+        <p className={Styles.text}>{props.title}</p>
+      </div>
+    </motion.div>
   );
 }

@@ -54,6 +54,11 @@
     }
 
     .imageToolbarLight {
+      @media only screen and (max-width: 600px) {
+        transition: all 0.3s;
+        bottom: 8px;
+        display: flex;
+      }
       position: absolute;
       bottom: -50px;
       display: none;
@@ -97,6 +102,11 @@
     }
 
     .imageToolbarDark {
+      @media only screen and (max-width: 600px) {
+        transition: all 0.3s;
+        bottom: 8px;
+        display: flex;
+      }
       position: absolute;
       bottom: -50px;
       display: none;
